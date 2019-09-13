@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Octo.Net.Data
 {
-    class Collection
+    public class Collection
     {
         public int Id { get; set; }
         public string TypeId { get; set; }

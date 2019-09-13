@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Octo.Net.Data
 {
-    class Message
+    public class Message
     {
         public int Id { get; set; }
         public int UserId { get; set; }

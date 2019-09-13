@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Octo.Net.Data
 {
-    class Artwork
+    public class Artwork
     {
         public int Id { get; set; }
         public int GalleryId { get; set; }
