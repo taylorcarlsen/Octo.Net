@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Octo.Net.Data
+namespace Octo.Net.Data1
 {
-    public class Critique
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    public partial class Critique
     {
         public int Id { get; set; }
-        public string Category { get; set; }
+
+        [StringLength(25)]
+        public string CategoryDescription { get; set; }
     }
 }

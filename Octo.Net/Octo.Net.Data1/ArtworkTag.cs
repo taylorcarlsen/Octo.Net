@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Octo.Net.Data
+namespace Octo.Net.Data1
 {
-    public class ArtworkTag
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    public partial class ArtworkTag
     {
         public int Id { get; set; }
-        public int ArtworkId { get; set; }
-        public int TagId { get; set; }
+
+        public int? ArtworkId { get; set; }
+
+        public int? TagId { get; set; }
     }
 }
