@@ -12,7 +12,7 @@ namespace Octo.Net.Data1
         {
         }
 
-        public virtual DbSet<Artwork> Artworks { get; set; }
+        public virtual DbSet<tblArtwork> Artworks { get; set; }
         public virtual DbSet<ArtworkTag> ArtworkTags { get; set; }
         public virtual DbSet<Collection> Collections { get; set; }
         public virtual DbSet<Critique> Critiques { get; set; }
@@ -24,11 +24,11 @@ namespace Octo.Net.Data1
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Artwork>()
+            modelBuilder.Entity<tblArtwork>()
                 .Property(e => e.Title)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Artwork>()
+            modelBuilder.Entity<tblArtwork>()
                 .Property(e => e.Price)
                 .HasPrecision(10, 2);
 

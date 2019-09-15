@@ -6,7 +6,7 @@ namespace Octo.Net.Data1
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Artwork
+    public partial class tblArtwork
     {
         public int Id { get; set; }
 
