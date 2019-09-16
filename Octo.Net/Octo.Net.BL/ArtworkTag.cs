@@ -1,36 +1,30 @@
-﻿using System;
+﻿using Octo.Net.Data1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Octo.Net.Data1;
 
 namespace Octo.Net.BL
 {
-    public class Artwork
+    public class ArtworkTag
     {
         public int Id { get; set; }
-        public int GalleryId { get; set; }
-        public string Title { get; set; }
-        public decimal Price { get; set; }
-        public bool IsCommission { get; set; }
+        public int ArtworkId { get; set; }
         public int TagId { get; set; }
-        public int CollectionMessageId { get; set; }
 
         public int Insert()
         {
             try
             {
-                using(OctoNetDbContext dc = new OctoNetDbContext())
+                using (OctoNetDbContext dc = new OctoNetDbContext())
                 {
-                    tblArtwork artwork = new tblArtwork();
-                    artwork.Id = this.Id;
-                    artwork.GalleryId = this.GalleryId;
-                    artwork.Title = this.Title;
-                    artwork.Price = this.Price;
-                    artwork.IsCommission = this.IsCommission;
+                    tblArtworkTag artworktag = new tblArtworkTag();
+                    artworktag.Id = this.Id;
+                    artworktag.ArtworkId = this.ArtworkId;
+                    artworktag.TagId = this.TagId;
 
-                    dc.Artworks.Add(artwork);
+                    dc.ArtworkTags.Add(artworktag);
                     return dc.SaveChanges();
                 }
             }
@@ -40,7 +34,6 @@ namespace Octo.Net.BL
                 throw ex;
             }
         }
-
         public int Update()
         {
             try
@@ -49,15 +42,12 @@ namespace Octo.Net.BL
                 {
                     if(this.Id != null)
                     {
-                        tblArtwork artwork = dc.Artworks.FirstOrDefault(a => a.Id == this.Id);
-
-                        if(artwork != null)
+                        tblArtworkTag artworkTag = dc.ArtworkTags.FirstOrDefault(a => a.Id == this.Id);
+                        if(artworkTag != null)
                         {
-                            artwork.Id = this.Id;
-                            artwork.GalleryId = this.GalleryId;
-                            artwork.Title = this.Title;
-                            artwork.Price = this.Price;
-                            artwork.IsCommission = this.IsCommission;
+                            artworkTag.Id = this.Id;
+                            artworkTag.TagId = this.TagId;
+                            artworkTag.ArtworkId = this.ArtworkId;
 
                             return dc.SaveChanges();
                         }
@@ -86,11 +76,10 @@ namespace Octo.Net.BL
                 {
                     if(this.Id != null)
                     {
-                        tblArtwork artwork = dc.Artworks.FirstOrDefault(a => a.Id == this.Id);
-
-                        if(artwork != null)
+                        tblArtworkTag artworkTag = dc.ArtworkTags.FirstOrDefault(a => a.Id == this.Id);
+                        if(artworkTag != null)
                         {
-                            dc.Artworks.Remove(artwork);
+                            dc.ArtworkTags.Remove(artworkTag);
                             return dc.SaveChanges();
                         }
                         else

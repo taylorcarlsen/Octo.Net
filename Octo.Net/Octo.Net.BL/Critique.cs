@@ -7,30 +7,22 @@ using Octo.Net.Data1;
 
 namespace Octo.Net.BL
 {
-    public class Artwork
+    public class Critique
     {
         public int Id { get; set; }
-        public int GalleryId { get; set; }
-        public string Title { get; set; }
-        public decimal Price { get; set; }
-        public bool IsCommission { get; set; }
-        public int TagId { get; set; }
-        public int CollectionMessageId { get; set; }
+        public string CategoryDescription { get; set; }
 
         public int Insert()
         {
             try
             {
-                using(OctoNetDbContext dc = new OctoNetDbContext())
+                using (OctoNetDbContext dc = new OctoNetDbContext())
                 {
-                    tblArtwork artwork = new tblArtwork();
-                    artwork.Id = this.Id;
-                    artwork.GalleryId = this.GalleryId;
-                    artwork.Title = this.Title;
-                    artwork.Price = this.Price;
-                    artwork.IsCommission = this.IsCommission;
+                    tblCritique critique = new tblCritique();
+                    critique.Id = this.Id;
+                    critique.CategoryDescription = this.CategoryDescription;
 
-                    dc.Artworks.Add(artwork);
+                    dc.Critiques.Add(critique);
                     return dc.SaveChanges();
                 }
             }
@@ -40,7 +32,6 @@ namespace Octo.Net.BL
                 throw ex;
             }
         }
-
         public int Update()
         {
             try
@@ -49,15 +40,11 @@ namespace Octo.Net.BL
                 {
                     if(this.Id != null)
                     {
-                        tblArtwork artwork = dc.Artworks.FirstOrDefault(a => a.Id == this.Id);
-
-                        if(artwork != null)
+                        tblCritique critique = dc.Critiques.FirstOrDefault(c => c.Id == this.Id);
+                        if(critique != null)
                         {
-                            artwork.Id = this.Id;
-                            artwork.GalleryId = this.GalleryId;
-                            artwork.Title = this.Title;
-                            artwork.Price = this.Price;
-                            artwork.IsCommission = this.IsCommission;
+                            critique.Id = this.Id;
+                            critique.CategoryDescription = this.CategoryDescription;
 
                             return dc.SaveChanges();
                         }
@@ -86,11 +73,10 @@ namespace Octo.Net.BL
                 {
                     if(this.Id != null)
                     {
-                        tblArtwork artwork = dc.Artworks.FirstOrDefault(a => a.Id == this.Id);
-
-                        if(artwork != null)
+                        tblCritique critique = dc.Critiques.FirstOrDefault(c => c.Id == this.Id);
+                        if(critique != null)
                         {
-                            dc.Artworks.Remove(artwork);
+                            dc.Critiques.Remove(critique);
                             return dc.SaveChanges();
                         }
                         else

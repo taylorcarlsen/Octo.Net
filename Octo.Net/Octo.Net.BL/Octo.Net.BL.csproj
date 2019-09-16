@@ -49,6 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Artwork.cs" />
+    <Compile Include="ArtworkTag.cs" />
+    <Compile Include="Collection.cs" />
+    <Compile Include="Critique.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
