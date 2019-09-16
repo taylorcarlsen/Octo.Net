@@ -6,11 +6,16 @@ namespace Octo.Net.Data1
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Tag
+    public partial class tblGallery
     {
         public int Id { get; set; }
 
+        public int? UserId { get; set; }
+
         [StringLength(25)]
-        public string Name { get; set; }
+        public string GalleryName { get; set; }
+
+        [StringLength(120)]
+        public string GalleryDescription { get; set; }
     }
 }

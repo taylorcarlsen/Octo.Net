@@ -13,13 +13,13 @@ namespace Octo.Net.Data1
         }
 
         public virtual DbSet<tblArtwork> Artworks { get; set; }
-        public virtual DbSet<ArtworkTag> ArtworkTags { get; set; }
-        public virtual DbSet<Collection> Collections { get; set; }
-        public virtual DbSet<Critique> Critiques { get; set; }
-        public virtual DbSet<Gallery> Galleries { get; set; }
-        public virtual DbSet<Message> Messages { get; set; }
-        public virtual DbSet<MessageType> MessageTypes { get; set; }
-        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<tblArtworkTag> ArtworkTags { get; set; }
+        public virtual DbSet<tblCollection> Collections { get; set; }
+        public virtual DbSet<tblCritique> Critiques { get; set; }
+        public virtual DbSet<tblGallery> Galleries { get; set; }
+        public virtual DbSet<tblMessage> Messages { get; set; }
+        public virtual DbSet<tblMessageType> MessageTypes { get; set; }
+        public virtual DbSet<tblTag> Tags { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -32,27 +32,27 @@ namespace Octo.Net.Data1
                 .Property(e => e.Price)
                 .HasPrecision(10, 2);
 
-            modelBuilder.Entity<Critique>()
+            modelBuilder.Entity<tblCritique>()
                 .Property(e => e.CategoryDescription)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Gallery>()
+            modelBuilder.Entity<tblGallery>()
                 .Property(e => e.GalleryName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Gallery>()
+            modelBuilder.Entity<tblGallery>()
                 .Property(e => e.GalleryDescription)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Message>()
+            modelBuilder.Entity<tblMessage>()
                 .Property(e => e.Body)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<MessageType>()
+            modelBuilder.Entity<tblMessageType>()
                 .Property(e => e.Description)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Tag>()
+            modelBuilder.Entity<tblTag>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
 

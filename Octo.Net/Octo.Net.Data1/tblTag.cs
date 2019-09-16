@@ -6,10 +6,11 @@ namespace Octo.Net.Data1
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Collection
+    public partial class tblTag
     {
         public int Id { get; set; }
 
-        public int? MessageTypeId { get; set; }
+        [StringLength(25)]
+        public string Name { get; set; }
     }
 }

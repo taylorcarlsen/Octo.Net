@@ -6,11 +6,12 @@ namespace Octo.Net.Data1
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Critique
+    public partial class tblArtworkTag
     {
         public int Id { get; set; }
 
-        [StringLength(25)]
-        public string CategoryDescription { get; set; }
+        public int? ArtworkId { get; set; }
+
+        public int? TagId { get; set; }
     }
 }
