@@ -20,7 +20,7 @@ namespace Octo.Net.Data1
         public virtual DbSet<tblMessage> Messages { get; set; }
         public virtual DbSet<tblMessageType> MessageTypes { get; set; }
         public virtual DbSet<tblTag> Tags { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<tblUser> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -56,23 +56,23 @@ namespace Octo.Net.Data1
                 .Property(e => e.Name)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<tblUser>()
                 .Property(e => e.FirstName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<tblUser>()
                 .Property(e => e.LastName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<tblUser>()
                 .Property(e => e.Email)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<tblUser>()
                 .Property(e => e.Password)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<tblUser>()
                 .Property(e => e.UserName)
                 .IsUnicode(false);
         }

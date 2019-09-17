@@ -7,16 +7,10 @@ using System.Threading.Tasks;
 
 namespace Octo.Net.BL
 {
-    public class Message
+    public class Tag
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public string Body { get; set; }
-        public DateTime DateTime { get; set; }
-        public int CritiqueId { get; set; }
-        public int Rating { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
+        public string Name { get; set; }
 
         public int Insert()
         {
@@ -24,17 +18,11 @@ namespace Octo.Net.BL
             {
                 using (OctoNetDbContext dc = new OctoNetDbContext())
                 {
-                    tblMessage message = new tblMessage();
-                    message.Id = this.Id;
-                    message.UserId = this.UserId;
-                    message.Body = this.Body;
-                    message.DateTime = this.DateTime;
-                    message.CritiqueId = this.CritiqueId;
-                    message.Rating = this.Rating;
-                    message.X = this.X;
-                    message.Y = this.Y;
+                    tblTag tag = new tblTag();
+                    tag.Id = this.Id;
+                    tag.Name = this.Name;
 
-                    dc.Messages.Add(message);
+                    dc.Tags.Add(tag);
                     return dc.SaveChanges();
                 }
             }
@@ -50,25 +38,19 @@ namespace Octo.Net.BL
             {
                 using (OctoNetDbContext dc = new OctoNetDbContext())
                 {
-                    if(this.Id != null)
+                    if (this.Id != null)
                     {
-                        tblMessage message = dc.Messages.FirstOrDefault(m => m.Id == this.Id);
-                        if(message != null)
+                        tblTag tag = dc.Tags.FirstOrDefault(t => t.Id == this.Id);
+                        if(tag != null)
                         {
-                            message.Id = this.Id;
-                            message.UserId = this.UserId;
-                            message.Body = this.Body;
-                            message.DateTime = this.DateTime;
-                            message.CritiqueId = this.CritiqueId;
-                            message.Rating = this.Rating;
-                            message.X = this.X;
-                            message.Y = this.Y;
+                            tag.Id = this.Id;
+                            tag.Name = this.Name;
 
                             return dc.SaveChanges();
                         }
                         else
                         {
-                            throw new Exception("Row was not found.");
+                            throw new Exception("Row was not found");
                         }
                     }
                     else
@@ -91,10 +73,10 @@ namespace Octo.Net.BL
                 {
                     if(this.Id != null)
                     {
-                        tblMessage message = dc.Messages.FirstOrDefault(m => m.Id == this.Id);
-                        if(message != null)
+                        tblTag tag = dc.Tags.FirstOrDefault(t => t.Id == this.Id);
+                        if(tag != null)
                         {
-                            dc.Messages.Remove(message);
+                            dc.Tags.Remove(tag);
                             return dc.SaveChanges();
                         }
                         else

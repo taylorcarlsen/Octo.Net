@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Octo.Net.BL
 {
-    public class Message
+    public class User
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public string Body { get; set; }
-        public DateTime DateTime { get; set; }
-        public int CritiqueId { get; set; }
-        public int Rating { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string UserName { get; set; }
+        public DateTime JoinDate { get; set; }
+        public bool CommissionActive { get; set; }
 
         public int Insert()
         {
@@ -24,17 +24,17 @@ namespace Octo.Net.BL
             {
                 using (OctoNetDbContext dc = new OctoNetDbContext())
                 {
-                    tblMessage message = new tblMessage();
-                    message.Id = this.Id;
-                    message.UserId = this.UserId;
-                    message.Body = this.Body;
-                    message.DateTime = this.DateTime;
-                    message.CritiqueId = this.CritiqueId;
-                    message.Rating = this.Rating;
-                    message.X = this.X;
-                    message.Y = this.Y;
+                    tblUser user = new tblUser();
+                    user.Id = this.Id;
+                    user.FirstName = this.FirstName;
+                    user.LastName = this.LastName;
+                    user.Email = this.Email;
+                    user.Password = this.Password;
+                    user.UserName = this.UserName;
+                    user.JoinDate = this.JoinDate;
+                    user.CommissionActive = this.CommissionActive;
 
-                    dc.Messages.Add(message);
+                    dc.Users.Add(user);
                     return dc.SaveChanges();
                 }
             }
@@ -52,17 +52,17 @@ namespace Octo.Net.BL
                 {
                     if(this.Id != null)
                     {
-                        tblMessage message = dc.Messages.FirstOrDefault(m => m.Id == this.Id);
-                        if(message != null)
+                        tblUser user = dc.Users.FirstOrDefault(u => u.Id == this.Id);
+                        if(user != null)
                         {
-                            message.Id = this.Id;
-                            message.UserId = this.UserId;
-                            message.Body = this.Body;
-                            message.DateTime = this.DateTime;
-                            message.CritiqueId = this.CritiqueId;
-                            message.Rating = this.Rating;
-                            message.X = this.X;
-                            message.Y = this.Y;
+                            user.Id = this.Id;
+                            user.FirstName = this.FirstName;
+                            user.LastName = this.LastName;
+                            user.Email = this.Email;
+                            user.Password = this.Password;
+                            user.UserName = this.UserName;
+                            user.JoinDate = this.JoinDate;
+                            user.CommissionActive = this.CommissionActive;
 
                             return dc.SaveChanges();
                         }
@@ -73,7 +73,7 @@ namespace Octo.Net.BL
                     }
                     else
                     {
-                        throw new Exception("Id was not set.");
+                        throw new Exception ("Id was not set.");
                     }
                 }
             }
@@ -91,10 +91,10 @@ namespace Octo.Net.BL
                 {
                     if(this.Id != null)
                     {
-                        tblMessage message = dc.Messages.FirstOrDefault(m => m.Id == this.Id);
-                        if(message != null)
+                        tblUser user = dc.Users.FirstOrDefault(u => u.Id == this.Id);
+                        if(user != null)
                         {
-                            dc.Messages.Remove(message);
+                            dc.Users.Remove(user);
                             return dc.SaveChanges();
                         }
                         else

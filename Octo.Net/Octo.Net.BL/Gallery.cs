@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Octo.Net.BL
 {
-    class Gallery
+    public class Gallery
     {
         public int Id { get; set; }
         public int UserId { get; set; }
