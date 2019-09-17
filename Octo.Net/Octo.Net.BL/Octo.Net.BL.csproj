@@ -52,6 +52,8 @@
     <Compile Include="ArtworkTag.cs" />
     <Compile Include="Collection.cs" />
     <Compile Include="Critique.cs" />
+    <Compile Include="Gallery.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
