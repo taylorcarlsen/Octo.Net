@@ -9,9 +9,6 @@ namespace Octo.Net.BL
 {
     public class ArtworkTag
     {
-        public int Id { get; set; }
-        public int ArtworkId { get; set; }
-        public int TagId { get; set; }
 
         public int Insert()
         {

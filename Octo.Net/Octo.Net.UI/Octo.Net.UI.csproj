@@ -180,6 +180,16 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Octo.Net.BL\Octo.Net.BL.csproj">
+      <Project>{b2d74ae4-b880-4123-ae91-241aa724ab73}</Project>
+      <Name>Octo.Net.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Octo.Net.Models\Octo.Net.Models.csproj">
+      <Project>{c853d525-304b-4b52-97a7-7c9320ad9cb5}</Project>
+      <Name>Octo.Net.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -9,14 +9,6 @@ namespace Octo.Net.BL
 {
     public class Message
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public string Body { get; set; }
-        public DateTime DateTime { get; set; }
-        public int CritiqueId { get; set; }
-        public int Rating { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
 
         public int Insert()
         {

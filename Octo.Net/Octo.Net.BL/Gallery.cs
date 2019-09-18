@@ -9,10 +9,6 @@ namespace Octo.Net.BL
 {
     public class Gallery
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public string GalleryName { get; set; }
-        public string GalleryDescription { get; set; }
 
         public int Insert()
         {

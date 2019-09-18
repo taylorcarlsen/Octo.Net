@@ -9,8 +9,6 @@ namespace Octo.Net.BL
 {
     public class Collection
     {
-        public int Id { get; set; }
-        public int MessageTypeId { get; set; }
 
         public int Insert()
         {

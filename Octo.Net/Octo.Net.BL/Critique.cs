@@ -9,8 +9,6 @@ namespace Octo.Net.BL
 {
     public class Critique
     {
-        public int Id { get; set; }
-        public string CategoryDescription { get; set; }
 
         public int Insert()
         {
