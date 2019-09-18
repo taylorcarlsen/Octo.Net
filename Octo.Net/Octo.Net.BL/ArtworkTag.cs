@@ -4,97 +4,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Octo.Net.Models;
 
 namespace Octo.Net.BL
 {
     public class ArtworkTag
     {
+        private readonly OctoNetDbContext db;
 
-        public int Insert()
+        public ArtworkTag()
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    tblArtworkTag artworktag = new tblArtworkTag();
-                    artworktag.Id = this.Id;
-                    artworktag.ArtworkId = this.ArtworkId;
-                    artworktag.TagId = this.TagId;
+            db = new OctoNetDbContext();
+        }
+        ~ArtworkTag()
+        {
+            db.Dispose();
+        }
+        public int Insert(Models.ArtworkTag artworkTag)
+        {
+            tblArtworkTag newArtworkTag = new Data1.tblArtworkTag { ArtworkId = artworkTag.ArtworkId, TagId = artworkTag.TagId };
+            db.ArtworkTags.Add(newArtworkTag);
 
-                    dc.ArtworkTags.Add(artworktag);
-                    return dc.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
+            db.SaveChanges();
+            return newArtworkTag.Id;
+        }
+        public void Update(Models.ArtworkTag artworkTag)
+        {
+            var existing = db.ArtworkTags.SingleOrDefault(x => x.Id == artworkTag.Id);
 
-                throw ex;
+            if(existing != null)
+            {
+                existing.TagId = artworkTag.TagId;
+                db.SaveChanges();
             }
         }
-        public int Update()
+        public bool Delete(int id)
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblArtworkTag artworkTag = dc.ArtworkTags.FirstOrDefault(a => a.Id == this.Id);
-                        if(artworkTag != null)
-                        {
-                            artworkTag.Id = this.Id;
-                            artworkTag.TagId = this.TagId;
-                            artworkTag.ArtworkId = this.ArtworkId;
+            var existing = db.ArtworkTags.SingleOrDefault(x => x.Id == id);
 
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
+            if(existing!=null)
             {
-
-                throw ex;
+                db.ArtworkTags.Remove(existing);
+                db.SaveChanges();
+                return true;
             }
-        }
-        public int Delete()
-        {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblArtworkTag artworkTag = dc.ArtworkTags.FirstOrDefault(a => a.Id == this.Id);
-                        if(artworkTag != null)
-                        {
-                            dc.ArtworkTags.Remove(artworkTag);
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            else{ return false; }
         }
     }
 }

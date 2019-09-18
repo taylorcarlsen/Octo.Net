@@ -4,96 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Octo.Net.Data1;
+using Octo.Net.Models;
 
 namespace Octo.Net.BL
 {
     public class Collection
     {
+        private readonly OctoNetDbContext db;
 
-        public int Insert()
+        public Collection()
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    tblCollection collection = new Collection();
-                    collection.Id = this.Id;
-                    collection.MessageTypeId = this.Id;
-
-                    dc.Collections.Add(collection);
-                    return dc.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            db = new OctoNetDbContext();
         }
-        public int Update()
+        ~Collection()
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblCollection collection = dc.Collections.FirstOrDefault(c => c.Id == this.Id);
-                        
-                        if(collection != null)
-                        {
-                            collection.Id = this.Id;
-                            collection.MessageTypeId = this.Id;
-
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            db.Dispose();
         }
-        public int Delete()
-        {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblCollection collection = dc.Collections.FirstOrDefault(c => c.Id == this.Id);
-                        if(collection != null)
-                        {
-                            dc.Collections.Remove(collection);
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
 
-                throw ex;
+        public int Insert(Models.Collection collection)
+        {
+            tblCollection newCollection = new tblCollection { MessageTypeId = collection.Id };
+            db.Collections.Add(newCollection);
+
+            db.SaveChanges();
+            return newCollection.Id;
+        }
+        public bool Delete(int id)
+        {
+            var existing = db.Collections.SingleOrDefault(x => x.Id == id);
+
+            if(existing != null)
+            {
+                db.Collections.Remove(existing);
+                db.SaveChanges();
+                return true;
             }
+            else { return false; }
         }
     }
 }

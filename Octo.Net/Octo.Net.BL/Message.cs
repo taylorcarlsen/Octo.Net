@@ -9,102 +9,53 @@ namespace Octo.Net.BL
 {
     public class Message
     {
+        private readonly OctoNetDbContext db;
 
-        public int Insert()
+        public Message()
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    tblMessage message = new tblMessage();
-                    message.Id = this.Id;
-                    message.UserId = this.UserId;
-                    message.Body = this.Body;
-                    message.DateTime = this.DateTime;
-                    message.CritiqueId = this.CritiqueId;
-                    message.Rating = this.Rating;
-                    message.X = this.X;
-                    message.Y = this.Y;
+            db = new OctoNetDbContext();
+        }
+        ~Message()
+        {
+            db.Dispose();
+        }
 
-                    dc.Messages.Add(message);
-                    return dc.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
+        public int Insert(Models.Message message)
+        {
+            tblMessage newMessage = new tblMessage { Body = message.Body, CritiqueId = message.CritiqueId,
+                DateTime = message.DateTime, Rating = message.Rating, UserId = message.UserId, X = message.X, Y = message.Y };
+            db.Messages.Add(newMessage);
 
-                throw ex;
+            db.SaveChanges();
+            return newMessage.Id;
+        }
+        public void Update(Models.Message message)
+        {
+            var existing = db.Messages.SingleOrDefault(x => x.Id == message.Id);
+
+            if(existing != null)
+            {
+                existing.Body = message.Body;
+                existing.CritiqueId = message.CritiqueId;
+                existing.DateTime = message.DateTime;
+                existing.Rating = message.Rating;
+                existing.X = message.X;
+                existing.Y = message.Y;
+
+                db.SaveChanges();
             }
         }
-        public int Update()
+        public bool Delete(int id)
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblMessage message = dc.Messages.FirstOrDefault(m => m.Id == this.Id);
-                        if(message != null)
-                        {
-                            message.Id = this.Id;
-                            message.UserId = this.UserId;
-                            message.Body = this.Body;
-                            message.DateTime = this.DateTime;
-                            message.CritiqueId = this.CritiqueId;
-                            message.Rating = this.Rating;
-                            message.X = this.X;
-                            message.Y = this.Y;
+            var existing = db.Messages.SingleOrDefault(x => x.Id == id);
 
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
+            if(existing != null)
             {
-
-                throw ex;
+                db.Messages.Remove(existing);
+                db.SaveChanges();
+                return true;
             }
-        }
-        public int Delete()
-        {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblMessage message = dc.Messages.FirstOrDefault(m => m.Id == this.Id);
-                        if(message != null)
-                        {
-                            dc.Messages.Remove(message);
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            else { return false; }
         }
     }
 }

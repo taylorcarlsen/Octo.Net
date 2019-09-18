@@ -9,96 +9,48 @@ namespace Octo.Net.BL
 {
     public class Gallery
     {
+        private readonly OctoNetDbContext db;
 
-        public int Insert()
+        public Gallery()
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    tblGallery gallery = new tblGallery();
-                    gallery.Id = this.Id;
-                    gallery.UserId = this.Id;
-                    gallery.GalleryName = this.GalleryName;
-                    gallery.GalleryDescription = this.GalleryDescription;
-
-                    dc.Galleries.Add(gallery);
-                    return dc.SaveChanges();
-                    
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            db = new OctoNetDbContext();
         }
-        public int Update()
+        ~Gallery()
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblGallery gallery = dc.Galleries.FirstOrDefault(g => g.Id == this.Id);
-                        if(gallery != null)
-                        {
-                            gallery.Id = this.Id;
-                            gallery.UserId = this.Id;
-                            gallery.GalleryName = this.GalleryName;
-                            gallery.GalleryDescription = this.GalleryDescription;
+            db.Dispose();
+        }
 
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
+        public int Insert(Models.Gallery gallery)
+        {
+            tblGallery newGallery = new tblGallery { GalleryName = gallery.GalleryName, GalleryDescription = gallery.GalleryDescription, UserId = gallery.UserId };
+            db.Galleries.Add(newGallery);
 
-                throw ex;
+            db.SaveChanges();
+            return newGallery.Id;
+        }
+        public void Update(Models.Gallery gallery)
+        {
+            var existing = db.Galleries.SingleOrDefault(x => x.Id == gallery.Id);
+
+            if(existing != null)
+            {
+                existing.GalleryName = gallery.GalleryName;
+                existing.GalleryDescription = gallery.GalleryDescription;
+                db.SaveChanges();
             }
         }
 
-        public int Delete()
+        public bool Delete(int id)
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblGallery gallery = dc.Galleries.FirstOrDefault(g => g.Id == this.Id);
-                        if(gallery != null)
-                        {
-                            dc.Galleries.Remove(gallery);
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
+            var existing = db.Galleries.SingleOrDefault(x => x.Id == id);
 
-                throw ex;
+            if(existing != null)
+            {
+                db.Galleries.Remove(existing);
+                db.SaveChanges();
+                return true;
             }
+            else { return false; }
         }
     }
 }

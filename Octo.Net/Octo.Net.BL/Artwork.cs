@@ -4,104 +4,66 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Octo.Net.Data1;
+using Octo.Net.Models;
 
 namespace Octo.Net.BL
 {
     public class Artwork
     {
+        private readonly OctoNetDbContext db;
 
-        public int Insert()
+        public Artwork()
         {
-            try
-            {
-                using(OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    tblArtwork artwork = new tblArtwork();
-                    artwork.Id = this.Id;
-                    artwork.GalleryId = this.GalleryId;
-                    artwork.Title = this.Title;
-                    artwork.Price = this.Price;
-                    artwork.IsCommission = this.IsCommission;
-
-                    dc.Artworks.Add(artwork);
-                    return dc.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            db = new OctoNetDbContext();
+        }
+        ~Artwork()
+        {
+            db.Dispose();
         }
 
-        public int Update()
+        public int Insert(Models.Artwork artwork)
         {
-            try
+            Data1.tblArtwork tblArtwork = new Data1.tblArtwork {
+                GalleryId = artwork.GalleryId, Title = artwork.Title, Price = artwork.Price, IsCommission = artwork.IsCommission,
+                TagId = artwork.TagId, CollectionMessageId = artwork.CollectionMessageId };
+
+            db.Artworks.Add(tblArtwork);
+            db.SaveChanges();
+            return tblArtwork.Id;
+
+        }
+
+        public void Update(Models.Artwork artwork)
+        {
+            var existing = db.Artworks.SingleOrDefault(x => x.Id == artwork.Id);
+
+            if(existing != null)
             {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblArtwork artwork = dc.Artworks.FirstOrDefault(a => a.Id == this.Id);
-
-                        if(artwork != null)
-                        {
-                            artwork.Id = this.Id;
-                            artwork.GalleryId = this.GalleryId;
-                            artwork.Title = this.Title;
-                            artwork.Price = this.Price;
-                            artwork.IsCommission = this.IsCommission;
-
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
+                existing.GalleryId = artwork.GalleryId;
+                existing.Title = artwork.Title;
+                existing.Price = artwork.Price;
+                existing.IsCommission = artwork.IsCommission;
+                existing.TagId = artwork.TagId;
+                existing.CollectionMessageId = artwork.CollectionMessageId;
+                db.SaveChanges();
             }
         }
-        public int Delete()
+        /// <summary>
+        /// Delete artwork given the ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>true if successful - false if it cannot find the ID</returns>
+        public bool Delete(int id)
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblArtwork artwork = dc.Artworks.FirstOrDefault(a => a.Id == this.Id);
+            var existing = db.Artworks.SingleOrDefault(x => x.Id == id);
 
-                        if(artwork != null)
-                        {
-                            dc.Artworks.Remove(artwork);
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
+            if(existing != null)
             {
-
-                throw ex;
+                db.Artworks.Remove(existing);
+                db.SaveChanges();
+                return true;
             }
+            else { return false; }
         }
     }
 }

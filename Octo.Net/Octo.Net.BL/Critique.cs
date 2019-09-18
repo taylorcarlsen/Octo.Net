@@ -9,90 +9,35 @@ namespace Octo.Net.BL
 {
     public class Critique
     {
+        private readonly OctoNetDbContext db;
 
-        public int Insert()
+        public Critique()
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    tblCritique critique = new tblCritique();
-                    critique.Id = this.Id;
-                    critique.CategoryDescription = this.CategoryDescription;
-
-                    dc.Critiques.Add(critique);
-                    return dc.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            db = new OctoNetDbContext();
         }
-        public int Update()
+        ~Critique()
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblCritique critique = dc.Critiques.FirstOrDefault(c => c.Id == this.Id);
-                        if(critique != null)
-                        {
-                            critique.Id = this.Id;
-                            critique.CategoryDescription = this.CategoryDescription;
-
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            db.Dispose();
         }
-        public int Delete()
-        {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblCritique critique = dc.Critiques.FirstOrDefault(c => c.Id == this.Id);
-                        if(critique != null)
-                        {
-                            dc.Critiques.Remove(critique);
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
 
-                throw ex;
+        public int Insert(Models.Critique critique)
+        {
+            tblCritique newCritique = new tblCritique { CategoryDescription = critique.CategoryDescription };
+            db.Critiques.Add(newCritique);
+
+            db.SaveChanges();
+            return newCritique.Id;
+        }
+        public bool Delete(int id)
+        {
+            var existing = db.Critiques.SingleOrDefault(x => x.Id == id);
+
+            if (existing != null)
+            {
+                db.Critiques.Remove(existing);
+                return true;
             }
+            else { return false; }
         }
     }
 }
