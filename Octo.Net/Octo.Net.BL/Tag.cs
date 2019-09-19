@@ -9,90 +9,45 @@ namespace Octo.Net.BL
 {
     public class Tag
     {
+        private readonly OctoNetDbContext db;
 
-        public int Insert()
+        public Tag()
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    tblTag tag = new tblTag();
-                    tag.Id = this.Id;
-                    tag.Name = this.Name;
+            db = new OctoNetDbContext();
+        }
+        ~Tag()
+        {
+            db.Dispose();
+        }
+        public int Insert(Models.Tag tag)
+        {
+            tblTag newTag = new tblTag { Name = tag.Name };
+            db.Tags.Add(newTag);
 
-                    dc.Tags.Add(tag);
-                    return dc.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
+            db.SaveChanges();
+            return newTag.Id;
+        }
+        public void Update(Models.Tag tag)
+        {
+            var existing = db.Tags.SingleOrDefault(x => x.Id == tag.Id);
 
-                throw ex;
+            if(existing != null)
+            {
+                existing.Name = tag.Name;
+                db.SaveChanges();
             }
         }
-        public int Update()
+        public bool Delete(int Id)
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if (this.Id != null)
-                    {
-                        tblTag tag = dc.Tags.FirstOrDefault(t => t.Id == this.Id);
-                        if(tag != null)
-                        {
-                            tag.Id = this.Id;
-                            tag.Name = this.Name;
+            var existing = db.Tags.SingleOrDefault(x => x.Id == Id);
 
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
+            if(existing != null)
             {
-
-                throw ex;
+                db.Tags.Remove(existing);
+                db.SaveChanges();
+                return true;
             }
-        }
-        public int Delete()
-        {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblTag tag = dc.Tags.FirstOrDefault(t => t.Id == this.Id);
-                        if(tag != null)
-                        {
-                            dc.Tags.Remove(tag);
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            else { return false; }
         }
     }
 }

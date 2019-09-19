@@ -10,90 +10,47 @@ namespace Octo.Net.BL
     public class MessageType
     {
 
-        public int Insert()
+        private readonly OctoNetDbContext db;
+
+        public MessageType()
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    tblMessageType messageType = new tblMessageType();
-                    messageType.Id = this.Id;
-                    messageType.Description = this.Description;
-
-                    dc.MessageTypes.Add(messageType);
-                    return dc.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            db = new OctoNetDbContext();
+        }
+        ~MessageType()
+        {
+            db.Dispose();
         }
 
-        public int Update()
+        public int Insert(Models.MessageType messageType)
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if (this.Id != null)
-                    {
-                        tblMessageType messageType = dc.MessageTypes.FirstOrDefault(m => m.Id == this.Id);
-                        if(messageType != null)
-                        {
-                            messageType.Id = this.Id;
-                            messageType.Description = this.Description;
+            tblMessageType newMessageType = new tblMessageType { Description = messageType.Description };
+            db.MessageTypes.Add(newMessageType);
 
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
+            db.SaveChanges();
+            return newMessageType.Id;
+        }
 
-                throw ex;
+        public void Update(Models.MessageType messageType)
+        {
+            var existing = db.MessageTypes.SingleOrDefault(x => x.Id == messageType.Id);
+
+            if(existing != null)
+            {
+                existing.Description = messageType.Description;
+                db.SaveChanges();
             }
         }
-        public int Delete()
+        public bool Delete(int id)
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblMessageType messageType = dc.MessageTypes.FirstOrDefault(m => m.Id == this.Id);
-                        if(messageType != null)
-                        {
-                            dc.MessageTypes.Remove(messageType);
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
+            var existing = db.MessageTypes.SingleOrDefault(x => x.Id == id);
 
-                throw ex;
+            if(existing != null)
+            {
+                db.MessageTypes.Remove(existing);
+                db.SaveChanges();
+                return true;
             }
+            else { return false; }
         }
     }
 }

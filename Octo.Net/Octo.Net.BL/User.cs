@@ -9,102 +9,52 @@ namespace Octo.Net.BL
 {
     public class User
     {
+        private readonly OctoNetDbContext db;
 
-        public int Insert()
+        public User()
         {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    tblUser user = new tblUser();
-                    user.Id = this.Id;
-                    user.FirstName = this.FirstName;
-                    user.LastName = this.LastName;
-                    user.Email = this.Email;
-                    user.Password = this.Password;
-                    user.UserName = this.UserName;
-                    user.JoinDate = this.JoinDate;
-                    user.CommissionActive = this.CommissionActive;
+            db = new OctoNetDbContext();
+        }
+        ~User()
+        {
+            db.Dispose();
+        }
+        public int Insert(Models.User user)
+        {
+            tblUser newUser = new tblUser { FirstName = user.FirstName, LastName = user.LastName, Email = user.Email,
+                JoinDate = user.JoinDate, UserName = user.UserName, CommissionActive = user.CommissionActive, Password = user.Password };
+            db.Users.Add(newUser);
 
-                    dc.Users.Add(user);
-                    return dc.SaveChanges();
-                }
-            }
-            catch (Exception ex)
+            db.SaveChanges();
+            return newUser.Id;
+        }
+        public void Update(Models.User user)
+        {
+            var existing = db.Users.SingleOrDefault(x => x.Id == user.Id);
+            
+            if(existing != null)
             {
+                existing.FirstName = user.FirstName;
+                existing.LastName = user.LastName;
+                existing.Email = user.Email;
+                existing.JoinDate = user.JoinDate;
+                existing.UserName = user.UserName;
+                existing.CommissionActive = user.CommissionActive;
+                existing.Password = user.Password;
 
-                throw ex;
+                db.SaveChanges();
             }
         }
-        public int Update()
+        public bool Delete(int id)
         {
-            try
+            var existing = db.Users.SingleOrDefault(x => x.Id == id);
+            if(existing != null)
             {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblUser user = dc.Users.FirstOrDefault(u => u.Id == this.Id);
-                        if(user != null)
-                        {
-                            user.Id = this.Id;
-                            user.FirstName = this.FirstName;
-                            user.LastName = this.LastName;
-                            user.Email = this.Email;
-                            user.Password = this.Password;
-                            user.UserName = this.UserName;
-                            user.JoinDate = this.JoinDate;
-                            user.CommissionActive = this.CommissionActive;
-
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception ("Id was not set.");
-                    }
-                }
+                db.Users.Remove(existing);
+                db.SaveChanges();
+                return true;
             }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-        public int Delete()
-        {
-            try
-            {
-                using (OctoNetDbContext dc = new OctoNetDbContext())
-                {
-                    if(this.Id != null)
-                    {
-                        tblUser user = dc.Users.FirstOrDefault(u => u.Id == this.Id);
-                        if(user != null)
-                        {
-                            dc.Users.Remove(user);
-                            return dc.SaveChanges();
-                        }
-                        else
-                        {
-                            throw new Exception("Row was not found.");
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Id was not set.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
+            else { return false; }
         }
     }
 }
