@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octo.Net.BL", "Octo.Net.BL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octo.Net.Models", "Octo.Net.Models\Octo.Net.Models.csproj", "{C853D525-304B-4B52-97A7-7C9320AD9CB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octo.Net.BL.Test", "Octo.Net.BL.Test2\Octo.Net.BL.Test.csproj", "{D75F30BB-A261-4024-A811-CA3319403506}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C853D525-304B-4B52-97A7-7C9320AD9CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C853D525-304B-4B52-97A7-7C9320AD9CB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C853D525-304B-4B52-97A7-7C9320AD9CB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D75F30BB-A261-4024-A811-CA3319403506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D75F30BB-A261-4024-A811-CA3319403506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D75F30BB-A261-4024-A811-CA3319403506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D75F30BB-A261-4024-A811-CA3319403506}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
