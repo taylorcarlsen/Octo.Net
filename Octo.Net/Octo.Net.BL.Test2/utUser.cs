@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Octo.Net.BL;
 using Octo.Net.Models;
@@ -31,6 +33,34 @@ namespace Octo.Net.BL.Test2
         [TestMethod]
         public void UpdateTest()
         {
+            User user = new User();
+            List<Models.User> users = new List<Models.User>();
+            users = user.Load();
+            Models.User row = users.Where(u => u.FirstName == "AnotherTest").FirstOrDefault();
+
+            row.UserName = "UpdatedUserName";
+            user.Update(row);
+
+            List<Models.User> updated = new List<Models.User>();
+            updated = user.Load();
+            Models.User updateRow = updated.Where(a => a.FirstName == "AnotherTest").FirstOrDefault();
+
+            Assert.AreNotEqual(updateRow, row);
+        }
+
+        [TestMethod]
+        public void DeleteTest()
+        {
+            User user = new User();
+            List<Models.User> users = new List<Models.User>();
+            users = user.Load();
+            Models.User row = users.Where(u => u.UserName == "UpdatedUserName").FirstOrDefault();
+            if (row != null)
+            {
+                bool actual = user.Delete(row.Id);
+                Assert.IsTrue(actual == true);
+            }
+
 
         }
     }
