@@ -19,6 +19,26 @@ namespace Octo.Net.BL
         {
             db.Dispose();
         }
+        public List<Models.User> Load()
+        {
+            List<Models.User> users = new List<Models.User>();
+            db.Users.ToList().ForEach(u => users
+            .Add(new Models.User
+            {
+                Id = u.Id,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Email = u.Email,
+                UserName = u.UserName,
+                JoinDate = u.JoinDate ?? DateTime.Now,
+                CommissionActive = u.CommissionActive ?? true,
+                Password = u.Password
+            }));
+
+            return users;
+
+        }
+
         public int Insert(Models.User user)
         {
             tblUser newUser = new tblUser { FirstName = user.FirstName, LastName = user.LastName, Email = user.Email,

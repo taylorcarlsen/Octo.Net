@@ -57,6 +57,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="utUser.cs" />
     <Compile Include="utCritique.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
