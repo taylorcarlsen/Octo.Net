@@ -54,7 +54,7 @@ namespace Octo.Net.BL.Test2
         {
             Message message = new Message();
             List<Models.Message> messages = new List<Models.Message>();
-            messages = messages.Load();
+            //messages = messages.Load();
             Models.Message row = messages.Where(m => m.Body == "This is a test body of a private message.").FirstOrDefault();
 
             row.Body = "UPDATED: This is a test body of a private message.";
