@@ -72,7 +72,7 @@ namespace Octo.Net.BL.Test2
         {
             Message message = new Message();
             List<Models.Message> messages = new List<Models.Message>();
-            messages = message.Load();
+            //messages = message.Load();
             Models.Message row = messages.Where(x => x.CollectionId == 2).FirstOrDefault();
             if(row != null)
             {

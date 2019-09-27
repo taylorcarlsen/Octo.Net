@@ -20,10 +20,12 @@ namespace Octo.Net.BL
             db.Dispose();
         }
 
-        public List<Models.Message> Load()
+        public List<Models.Message> LoadByCollection(int collectionId)
         {
             List<Models.Message> messages = new List<Models.Message>();
-            db.Messages.ToList().ForEach(x => messages
+            db.Messages.Where(x => x.Id == collectionId)
+                .ToList()
+                .ForEach(x => messages
             .Add(new Models.Message
             {
                 Id = x.Id,
