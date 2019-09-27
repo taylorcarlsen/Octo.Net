@@ -9,8 +9,10 @@ namespace Octo.Net.Models
     public class Message
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public int FromUserId { get; set; }
+        public int ToUserId { get; set; }
         public string Body { get; set; }
+        public int CollectionId { get; set; }
         public DateTime DateTime { get; set; }
         public int CritiqueId { get; set; }
         public int Rating { get; set; }

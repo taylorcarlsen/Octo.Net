@@ -20,10 +20,32 @@ namespace Octo.Net.BL
             db.Dispose();
         }
 
+        public List<Models.Message> Load()
+        {
+            List<Models.Message> messages = new List<Models.Message>();
+            db.Messages.ToList().ForEach(x => messages
+            .Add(new Models.Message
+            {
+                Id = x.Id,
+                FromUserId = x.FromUserId,
+                ToUserId = x.ToUserId,
+                Body = x.Body,
+                CollectionId = x.CollectionId,
+                DateTime = x.DateTime,
+                CritiqueId = x.CritiqueId,
+                Rating = x.Rating,
+                X = x.X,
+                Y = x.Y
+            }));
+
+            return messages;
+        }
+
         public int Insert(Models.Message message)
         {
             tblMessage newMessage = new tblMessage { Body = message.Body, CritiqueId = message.CritiqueId,
-                DateTime = message.DateTime, Rating = message.Rating, UserId = message.UserId, X = message.X, Y = message.Y };
+                DateTime = message.DateTime, Rating = message.Rating,
+                FromUserId = message.FromUserId,ToUserId = message.ToUserId, CollectionId = message.CollectionId, X = message.X, Y = message.Y };
             db.Messages.Add(newMessage);
 
             db.SaveChanges();
