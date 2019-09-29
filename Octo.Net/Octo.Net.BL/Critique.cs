@@ -20,6 +20,19 @@ namespace Octo.Net.BL
             db.Dispose();
         }
 
+        public List<Models.Critique> Load()
+        {
+            List<Models.Critique> critiques = new List<Models.Critique>();
+            db.Critiques.ToList().ForEach(x => critiques
+            .Add(new Models.Critique
+            {
+                Id = x.Id,
+                CategoryDescription = x.CategoryDescription,
+            }));
+
+            return critiques;
+        }
+
         public int Insert(Models.Critique critique)
         {
             tblCritique newCritique = new tblCritique { CategoryDescription = critique.CategoryDescription };
@@ -28,6 +41,19 @@ namespace Octo.Net.BL
             db.SaveChanges();
             return newCritique.Id;
         }
+
+        public void Update(Models.Critique critique)
+        {
+            var existing = db.Critiques.SingleOrDefault(x => x.Id == critique.Id);
+
+            if (existing != null)
+            {
+                existing.CategoryDescription = critique.CategoryDescription;
+
+                db.SaveChanges();
+            }
+        }
+
         public bool Delete(int id)
         {
             var existing = db.Critiques.SingleOrDefault(x => x.Id == id);

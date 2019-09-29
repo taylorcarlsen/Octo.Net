@@ -23,7 +23,7 @@ namespace Octo.Net.BL
 
         public int Insert(Models.Collection collection)
         {
-            tblCollection newCollection = new tblCollection { MessageTypeId = collection.Id };
+            tblCollection newCollection = new tblCollection { MessageTypeId = collection.MessageTypeId, MessageId = collection.MessageId };
             db.Collections.Add(newCollection);
 
             db.SaveChanges();

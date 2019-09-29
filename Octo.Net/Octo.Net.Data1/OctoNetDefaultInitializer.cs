@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace Octo.Net.Data1
 {
-    public class OctoNetDefaultInitializer : CreateDatabaseIfNotExists<OctoNetDbContext>
+    public class OctoNetDefaultInitializer : DropCreateDatabaseIfModelChanges<OctoNetDbContext>
     {
         protected override void Seed(OctoNetDbContext context)
         {
@@ -35,8 +35,8 @@ namespace Octo.Net.Data1
             context.Galleries.AddRange(defaultGallery);
 
             List<tblMessage> defaultMessage = new List<tblMessage>();
-            defaultMessage.Add(new tblMessage { Body = "Testing the message body", DateTime = DateTime.Now, UserId = 1 }); //this is the regular private message
-            defaultMessage.Add(new tblMessage { Body = "Testing the comment body", CritiqueId = 1, UserId = 1, DateTime = DateTime.Now, Rating = 3 });
+            defaultMessage.Add(new tblMessage { Body = "Testing the message body", DateTime = DateTime.Now, ToUserId = 1, FromUserId = 2 }); //this is the regular private message
+            defaultMessage.Add(new tblMessage { Body = "Testing the comment body", CritiqueId = 1, ToUserId = 1, FromUserId = 2, DateTime = DateTime.Now, Rating = 3 });
             context.Messages.AddRange(defaultMessage);
 
             List<tblMessageType> defaultMessageType = new List<tblMessageType>();
