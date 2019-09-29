@@ -1,5 +1,44 @@
-﻿.jumbo_main {
+﻿/*.jumbo_main {
     min-height: 25rem;
+}*/
+
+.carousel1 {
+    background-image: url(./img/jumbo1.jpg);
+    background-size: 100%;
+    min-height: 45rem;
+    background-repeat: no-repeat;
+    width: 100%;
+    background-position: center;
+}
+
+.carousel2 {
+    background-image: url(img/jumbo2.jpg);
+    background-size: 100%;
+    min-height: 45rem;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.carousel3 {
+    background-image: url(img/jumbo3.jpg);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 45rem;
+}
+
+.carousel-content {
+    padding-top: 15rem;
+}
+
+.carousel-content h1{
+    color: white;
+}
+
+
+
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    width: 100%;
 }
 
 .user-image {
