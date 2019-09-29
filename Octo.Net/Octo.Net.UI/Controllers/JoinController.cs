@@ -11,7 +11,7 @@ namespace Octo.Net.UI.Controllers
         // GET: Join
         public ActionResult Index()
         {
-            BL.User user = new BL.User();
+            Net.Models.User user = new Net.Models.User();
             return View(user);
         }
 
