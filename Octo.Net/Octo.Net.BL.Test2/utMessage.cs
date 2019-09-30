@@ -54,15 +54,15 @@ namespace Octo.Net.BL.Test2
         {
             Message message = new Message();
             List<Models.Message> messages = new List<Models.Message>();
-            //messages = messages.LoadByCollection(1);
-            Models.Message row = messages.Where(m => m.Body == "This is a test body of a private message.").FirstOrDefault();
+            messages = message.LoadByCollection(1);
+            Models.Message row = messages.Where(m => m.Id == 1).FirstOrDefault();
 
             row.Body = "UPDATED: This is a test body of a private message.";
             message.Update(row);
 
             List<Models.Message> updated = new List<Models.Message>();
-            //updated = message.Load();
-            Models.Message updatedMessage = updated.Where(x => x.Body == "This is a test body of a private message.").FirstOrDefault();
+            updated = message.LoadByCollection(1);
+            Models.Message updatedMessage = updated.Where(x => x.Id == 1).FirstOrDefault();
 
             Assert.AreNotEqual(updatedMessage, row);
         }

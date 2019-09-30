@@ -15,7 +15,7 @@ namespace Octo.Net.Models
         public int CollectionId { get; set; }
         public DateTime DateTime { get; set; }
         public int CritiqueId { get; set; }
-        public int Rating { get; set; }
+        public decimal Rating { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
     }

@@ -22,7 +22,7 @@ namespace Octo.Net.Data1
 
         public int CritiqueId { get; set; }
 
-        public int Rating { get; set; }
+        public decimal Rating { get; set; }
 
         public int X { get; set; }
 
