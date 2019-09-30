@@ -42,7 +42,7 @@ namespace Octo.Net.BL
         public int Insert(Models.User user)
         {
             tblUser newUser = new tblUser { FirstName = user.FirstName, LastName = user.LastName, Email = user.Email,
-                JoinDate = user.JoinDate, UserName = user.UserName, CommissionActive = user.CommissionActive, Password = user.Password };
+                JoinDate = DateTime.Now, UserName = user.UserName, CommissionActive = user.CommissionActive, Password = user.Password };
             db.Users.Add(newUser);
 
             db.SaveChanges();
