@@ -19,6 +19,20 @@ namespace Octo.Net.BL
         {
             db.Dispose();
         }
+
+        public List<Models.Tag> Load()
+        {
+            List<Models.Tag> tags = new List<Models.Tag>();
+            db.Tags.ToList().ForEach(x => tags
+            .Add(new Models.Tag
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }));
+
+            return tags;
+        }
+
         public int Insert(Models.Tag tag)
         {
             tblTag newTag = new tblTag { Name = tag.Name };

@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="utMessage.cs" />
+    <Compile Include="utTag.cs" />
     <Compile Include="utUser.cs" />
     <Compile Include="utCritique.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
