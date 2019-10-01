@@ -42,6 +42,29 @@ namespace Octo.Net.BL
 
             return messages;
         }
+        public List<Models.Message> Load()
+        {
+            List<Models.Message> messages = new List<Models.Message>();
+            db.Messages
+                .ToList()
+                .ForEach(m => messages
+                .Add(
+                new Models.Message
+                {
+                    Id = m.Id,
+                    FromUserId = m.FromUserId,
+                    ToUserId = m.ToUserId,
+                    Body = m.Body,
+                    CollectionId = m.CollectionId,
+                    DateTime = m.DateTime,
+                    CritiqueId = m.CritiqueId,
+                    Rating = m.Rating,
+                    X = m.X,
+                    Y = m.Y
+                }));
+
+            return messages;
+        }
 
         public int Insert(Models.Message message)
         {
