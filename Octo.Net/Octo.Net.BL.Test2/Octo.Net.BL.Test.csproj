@@ -57,6 +57,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="utArtwork.cs" />
     <Compile Include="utArtworkTag.cs" />
     <Compile Include="utCollection.cs" />
     <Compile Include="utMessage.cs" />
