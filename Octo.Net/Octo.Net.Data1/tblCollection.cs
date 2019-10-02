@@ -10,8 +10,6 @@ namespace Octo.Net.Data1
     {
         public int Id { get; set; }
 
-        public int MessageId { get; set; }
-
-        public int? MessageTypeId { get; set; }
+        public int MessageTypeId { get; set; }
     }
 }

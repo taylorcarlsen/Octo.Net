@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Octo.Net.BL.Test2
@@ -8,11 +9,20 @@ namespace Octo.Net.BL.Test2
     public class utCollection
     {
         [TestMethod]
+        public void LoadTest()
+        {
+            Collection collection = new Collection();
+            List<Models.Collection> collections = new List<Models.Collection>();
+            collections = collection.Load();
+
+            Assert.IsNotNull(collection);
+        }
+
+        [TestMethod]
         public void InsertTest()
         {
             Models.Collection collection = new Models.Collection();
-            collection.MessageId = 9999;
-            collection.MessageTypeId = 9998;
+            collection.MessageTypeId = 9999;
 
             Collection blCollection = new Collection();
             int result = blCollection.Insert(collection);
@@ -23,9 +33,15 @@ namespace Octo.Net.BL.Test2
         [TestMethod]
         public void DeleteTest()
         {
-            Models.Collection collection = new Models.Collection();
+            Collection dCollection = new Collection();
             List<Models.Collection> collections = new List<Models.Collection>();
-            //collections = collection.Load();
+            collections = dCollection.Load();
+            Models.Collection row = collections.Where(x => x.MessageTypeId == 9999).FirstOrDefault();
+            if(row != null)
+            {
+                bool actual = dCollection.Delete(row.Id);
+                Assert.IsTrue(actual);
+            }
         }
     }
 }

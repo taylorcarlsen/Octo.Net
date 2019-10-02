@@ -21,9 +21,22 @@ namespace Octo.Net.BL
             db.Dispose();
         }
 
+        public List<Models.Collection> Load()
+        {
+            List<Models.Collection> collections = new List<Models.Collection>();
+            db.Collections.ToList().ForEach(x => collections.Add(
+                new Models.Collection
+                {
+                    Id = x.Id,
+                    MessageTypeId = x.MessageTypeId
+                }
+                ));
+            return collections;
+        }
+
         public int Insert(Models.Collection collection)
         {
-            tblCollection newCollection = new tblCollection { MessageTypeId = collection.MessageTypeId, MessageId = collection.MessageId };
+            tblCollection newCollection = new tblCollection { MessageTypeId = collection.MessageTypeId};
             db.Collections.Add(newCollection);
 
             db.SaveChanges();
