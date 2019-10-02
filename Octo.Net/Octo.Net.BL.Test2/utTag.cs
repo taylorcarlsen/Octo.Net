@@ -23,19 +23,20 @@ namespace Octo.Net.BL.Test2
             Assert.IsTrue(result > 0);
         }
 
+        [TestMethod]
         public void UpdateTest()
         {
             Tag tag = new Tag();
             List<Models.Tag> tags = new List<Models.Tag>();
-            //tags = tags.Load();
-            Models.Tag row = tags.Where(m => m.Name == "This is a test body of a private tag.").FirstOrDefault();
+            tags = tag.Load();
+            Models.Tag row = tags.Where(m => m.Id == 1).FirstOrDefault();
 
-            row.Name = "UPDATED: This is a test body of a private tag.";
+            row.Name = "UPDATED: Update Test tag.";
             tag.Update(row);
 
             List<Models.Tag> updated = new List<Models.Tag>();
-            //updated = tag.Load();
-            Models.Tag updatedTag = updated.Where(x => x.Name == "This is a test body of a private tag.").FirstOrDefault();
+            updated = tag.Load();
+            Models.Tag updatedTag = updated.Where(x => x.Id == 1).FirstOrDefault();
 
             Assert.AreNotEqual(updatedTag, row);
         }

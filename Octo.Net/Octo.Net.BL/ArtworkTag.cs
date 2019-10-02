@@ -20,6 +20,24 @@ namespace Octo.Net.BL
         {
             db.Dispose();
         }
+
+        public List<Models.ArtworkTag> Load()
+        {
+            List<Models.ArtworkTag> artworkTags = new List<Models.ArtworkTag>();
+            db.ArtworkTags
+                .ToList()
+                .ForEach(a => artworkTags
+                .Add(
+                new Models.ArtworkTag
+                {
+                    Id = a.Id,
+                    ArtworkId = a.ArtworkId.GetValueOrDefault(),
+                    TagId = a.TagId.GetValueOrDefault()
+        }));
+
+            return artworkTags;
+        }
+
         public int Insert(Models.ArtworkTag artworkTag)
         {
             tblArtworkTag newArtworkTag = new Data1.tblArtworkTag { ArtworkId = artworkTag.ArtworkId, TagId = artworkTag.TagId };
