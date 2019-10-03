@@ -20,6 +20,24 @@ namespace Octo.Net.BL
             db.Dispose();
         }
 
+        public List<Models.Gallery> Load()
+        {
+            List<Models.Gallery> galleries = new List<Models.Gallery>();
+            db.Galleries
+                .ToList()
+                .ForEach(a => galleries
+                .Add(
+                new Models.Gallery
+                {
+                    Id = a.Id,
+                    UserId = a.UserId.GetValueOrDefault(),
+                    GalleryName = a.GalleryName,
+                    GalleryDescription = a.GalleryDescription,
+                }));
+
+            return galleries;
+        }
+
         public int Insert(Models.Gallery gallery)
         {
             tblGallery newGallery = new tblGallery { GalleryName = gallery.GalleryName, GalleryDescription = gallery.GalleryDescription, UserId = gallery.UserId };
