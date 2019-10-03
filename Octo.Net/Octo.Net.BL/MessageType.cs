@@ -21,6 +21,22 @@ namespace Octo.Net.BL
             db.Dispose();
         }
 
+        public List<Models.MessageType> Load()
+        {
+            List<Models.MessageType> messageTypes = new List<Models.MessageType>();
+            db.MessageTypes
+                .ToList()
+                .ForEach(a => messageTypes
+                .Add(
+                new Models.MessageType
+                {
+                    Id = a.Id,
+                    Description = a.Description
+                }));
+
+            return messageTypes;
+        }
+
         public int Insert(Models.MessageType messageType)
         {
             tblMessageType newMessageType = new tblMessageType { Description = messageType.Description };
