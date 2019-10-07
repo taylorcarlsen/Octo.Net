@@ -8,7 +8,7 @@ using Octo.Net.Models;
 
 namespace Octo.Net.BL
 {
-    public class ArtworkTag
+    public class ArtworkTag : IDisposable
     {
         private readonly OctoNetDbContext db;
 
@@ -16,7 +16,7 @@ namespace Octo.Net.BL
         {
             db = new OctoNetDbContext();
         }
-        ~ArtworkTag()
+        public void Dispose()
         {
             db.Dispose();
         }

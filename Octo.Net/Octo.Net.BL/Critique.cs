@@ -7,7 +7,7 @@ using Octo.Net.Data1;
 
 namespace Octo.Net.BL
 {
-    public class Critique
+    public class Critique : IDisposable
     {
         private readonly OctoNetDbContext db;
 
@@ -15,7 +15,7 @@ namespace Octo.Net.BL
         {
             db = new OctoNetDbContext();
         }
-        ~Critique()
+        public void Dispose()
         {
             db.Dispose();
         }

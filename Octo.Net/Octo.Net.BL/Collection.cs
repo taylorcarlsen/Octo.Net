@@ -8,7 +8,7 @@ using Octo.Net.Models;
 
 namespace Octo.Net.BL
 {
-    public class Collection
+    public class Collection : IDisposable
     {
         private readonly OctoNetDbContext db;
 
@@ -16,7 +16,7 @@ namespace Octo.Net.BL
         {
             db = new OctoNetDbContext();
         }
-        ~Collection()
+        public void Dispose()
         {
             db.Dispose();
         }

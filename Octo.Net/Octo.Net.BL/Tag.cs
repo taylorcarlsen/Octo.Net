@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Octo.Net.BL
 {
-    public class Tag
+    public class Tag : IDisposable
     {
         private readonly OctoNetDbContext db;
 
@@ -15,7 +15,7 @@ namespace Octo.Net.BL
         {
             db = new OctoNetDbContext();
         }
-        ~Tag()
+        public void Dispose()
         {
             db.Dispose();
         }

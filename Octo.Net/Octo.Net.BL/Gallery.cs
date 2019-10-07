@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Octo.Net.BL
 {
-    public class Gallery
+    public class Gallery : IDisposable
     {
         private readonly OctoNetDbContext db;
 
@@ -15,7 +15,7 @@ namespace Octo.Net.BL
         {
             db = new OctoNetDbContext();
         }
-        ~Gallery()
+        public void Dispose()
         {
             db.Dispose();
         }
