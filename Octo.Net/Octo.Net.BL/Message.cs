@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Octo.Net.BL
 {
-    public class Message
+    public class Message : IDisposable
     {
         private readonly OctoNetDbContext db;
 
@@ -15,7 +15,7 @@ namespace Octo.Net.BL
         {
             db = new OctoNetDbContext();
         }
-        ~Message()
+        public void Dispose()
         {
             db.Dispose();
         }
@@ -39,7 +39,6 @@ namespace Octo.Net.BL
                 X = x.X,
                 Y = x.Y
             }));
-
             return messages;
         }
         public List<Models.Message> Load()

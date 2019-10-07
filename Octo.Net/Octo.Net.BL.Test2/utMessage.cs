@@ -12,6 +12,21 @@ namespace Octo.Net.BL.Test2
     [TestClass]
     public class utMessage
     {
+        private Message manager;
+
+        [TestInitialize()]
+        public void InitializeBeforeEachTest()
+        {
+            manager = new Message();
+        }
+
+        [TestCleanup()]
+        public void CleanUpAfterEachTest()
+        {
+            manager.Dispose();
+        }
+
+
         [TestMethod]
         public void PrivateMessageInsertTest()
         {
@@ -79,6 +94,25 @@ namespace Octo.Net.BL.Test2
                 bool actual = message.Delete(row.Id);
                 Assert.IsTrue(actual == true);
             }
+        }
+
+        [TestMethod]
+        public void LoadByCollectionTest()
+        {
+            Models.Message message = new Models.Message();
+            message.Body = "Testing Collection Get";
+            message.CollectionId = 2;
+            message.CritiqueId = 1;
+            message.DateTime = DateTime.Now;
+            message.FromUserId = 1;
+            message.ToUserId = 2;
+            message.X = 1;
+            message.Y = 2;
+            int id = manager.Insert(message);
+
+            var actual = manager.LoadByCollection(id);
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(1, actual.Count);
         }
     }
 
