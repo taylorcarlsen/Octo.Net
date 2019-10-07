@@ -11,6 +11,20 @@ namespace Octo.Net.BL.Test2
     [TestClass]
     public class utMessageType
     {
+        private MessageType manager;
+
+        [TestInitialize()]
+        public void InitializeBeforeEachTest()
+        {
+            manager = new MessageType();
+        }
+
+        [TestCleanup()]
+        public void CleanUpAfterEachTest()
+        {
+            manager.Dispose();
+        }
+
         [TestMethod]
         public void InsertTest()
         {

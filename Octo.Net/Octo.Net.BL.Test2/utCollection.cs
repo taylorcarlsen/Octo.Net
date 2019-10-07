@@ -8,6 +8,20 @@ namespace Octo.Net.BL.Test2
     [TestClass]
     public class utCollection
     {
+        private Collection manager;
+
+        [TestInitialize()]
+        public void InitializeBeforeEachTest()
+        {
+            manager = new Collection();
+        }
+
+        [TestCleanup()]
+        public void CleanUpAfterEachTest()
+        {
+            manager.Dispose();
+        }
+
         [TestMethod]
         public void LoadTest()
         {

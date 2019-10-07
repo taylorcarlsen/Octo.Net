@@ -11,6 +11,20 @@ namespace Octo.Net.BL.Test2
     [TestClass]
     public class utArtwork
     {
+        private Artwork manager;
+
+        [TestInitialize()]
+        public void InitializeBeforeEachTest()
+        {
+            manager = new Artwork();
+        }
+
+        [TestCleanup()]
+        public void CleanUpAfterEachTest()
+        {
+            manager.Dispose();
+        }
+
         [TestMethod]
         public void InsertTest()
         {

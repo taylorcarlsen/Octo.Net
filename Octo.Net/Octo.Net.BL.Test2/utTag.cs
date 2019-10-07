@@ -11,6 +11,20 @@ namespace Octo.Net.BL.Test2
     [TestClass]
     public class utTag
     {
+        private Tag manager;
+
+        [TestInitialize()]
+        public void InitializeBeforeEachTest()
+        {
+            manager = new Tag();
+        }
+
+        [TestCleanup()]
+        public void CleanUpAfterEachTest()
+        {
+            manager.Dispose();
+        }
+
         [TestMethod]
         public void InsertTest()
         {

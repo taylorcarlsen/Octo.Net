@@ -11,6 +11,20 @@ namespace Octo.Net.BL.Test
     [TestClass]
     public class utCritique
     {
+        private Critique manager;
+
+        [TestInitialize()]
+        public void InitializeBeforeEachTest()
+        {
+            manager = new Critique();
+        }
+
+        [TestCleanup()]
+        public void CleanUpAfterEachTest()
+        {
+            manager.Dispose();
+        }
+
 
         [TestMethod]
         public void InsertTest()

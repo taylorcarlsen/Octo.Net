@@ -11,6 +11,21 @@ namespace Octo.Net.BL.Test2
     [TestClass]
     public class utGallery
     {
+        private Gallery manager;
+
+        [TestInitialize()]
+        public void InitializeBeforeEachTest()
+        {
+            manager = new Gallery();
+        }
+
+        [TestCleanup()]
+        public void CleanUpAfterEachTest()
+        {
+            manager.Dispose();
+        }
+
+
         [TestMethod]
         public void InsertTest()
         {

@@ -10,6 +10,20 @@ namespace Octo.Net.BL.Test2
     [TestClass]
     public class utUser
     {
+        private User manager;
+
+        [TestInitialize()]
+        public void InitializeBeforeEachTest()
+        {
+            manager = new User();
+        }
+
+        [TestCleanup()]
+        public void CleanUpAfterEachTest()
+        {
+            manager.Dispose();
+        }
+
         [TestMethod]
         public void InsertTest()
         {
