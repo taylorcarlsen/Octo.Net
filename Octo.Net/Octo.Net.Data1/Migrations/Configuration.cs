@@ -77,8 +77,6 @@ namespace Octo.Net.Data1.Migrations
                 FollowerId = 2
             });
             context.Follows.AddRange(defaultFollow);
-
-            //base.Seed(context);
         }
     }
 }

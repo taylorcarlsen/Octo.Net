@@ -11,7 +11,9 @@ namespace Octo.Net.Data1
     {
         protected override void Seed(OctoNetDbContext context)
         {
-            List <tblArtwork> defaultArtwork = new List<tblArtwork>();
+            //This actually gets seeded within the Config under Migrations
+
+            /*List <tblArtwork> defaultArtwork = new List<tblArtwork>();
 
             defaultArtwork.Add(new tblArtwork { CollectionMessageId = 1, GalleryId = 1, IsCommission = true, Price = 5, TagId = 1, Title="Testing title"});
             context.Artworks.AddRange(defaultArtwork);
@@ -52,7 +54,7 @@ namespace Octo.Net.Data1
             defaultUser.Add(new tblUser { CommissionActive = true, Email = "test@test.net", FirstName = "FirstNameTest", LastName = "LastNameTest",
                 JoinDate = DateTime.Now.Date, Password = "12345678", UserName = "Test User Name" });
 
-            base.Seed(context);
+            base.Seed(context);*/
         }
     }
 }
