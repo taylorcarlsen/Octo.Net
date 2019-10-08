@@ -58,6 +58,7 @@
     <Compile Include="tblArtworkTag.cs" />
     <Compile Include="tblCollection.cs" />
     <Compile Include="tblCritique.cs" />
+    <Compile Include="tblFollow.cs" />
     <Compile Include="tblGallery.cs" />
     <Compile Include="tblMessage.cs" />
     <Compile Include="tblMessageType.cs" />

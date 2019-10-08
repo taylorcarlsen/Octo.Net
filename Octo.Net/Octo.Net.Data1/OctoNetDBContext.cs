@@ -22,6 +22,8 @@ namespace Octo.Net.Data1
         public virtual DbSet<tblTag> Tags { get; set; }
         public virtual DbSet<tblUser> Users { get; set; }
 
+        public virtual DbSet<tblFollow> Follows { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<tblArtwork>()
@@ -75,6 +77,9 @@ namespace Octo.Net.Data1
             modelBuilder.Entity<tblUser>()
                 .Property(e => e.UserName)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<tblFollow>()
+                .Property(e => e.ArtistId);
         }
     }
 }
