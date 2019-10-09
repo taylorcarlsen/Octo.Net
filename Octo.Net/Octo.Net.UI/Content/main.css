@@ -3,21 +3,22 @@
 }*/
 
 .carousel1 {
-    background-image: url(./img/jumbo1.jpg);
+    background-image: url(img/jumbo1.jpg);
     background-size: 100%;
     min-height: 45rem;
     background-repeat: no-repeat;
     width: 100%;
-    background-position: center;
+    background-position: center;    
 }
 
-.carousel2 {
-    background-image: url(img/jumbo2.jpg);
-    background-size: 100%;
-    min-height: 45rem;
-    background-position: center;
-    background-repeat: no-repeat;
-}
+
+    .carousel2 {
+        background-image: url(img/jumbo2.jpg);
+        background-size: 100%;
+        min-height: 45rem;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 
 .carousel3 {
     background-image: url(img/jumbo3.jpg);
@@ -28,12 +29,26 @@
 }
 
 .carousel-content {
-    padding-top: 15rem;
+    padding-top: 25rem;    
 }
 
 .carousel-content h1{
     color: white;
 }
+
+    .carousel-content p {        
+        color: white;
+    }
+
+    .carousel-content .card {
+        text-align: center;
+        padding: 5px 10px;
+        background-color: unset;
+    }
+
+        .carousel-content button {
+           align-items:center;
+        }
 
 
 
@@ -45,5 +60,8 @@
     border-radius: 50%;
     min-width: 75px;
     min-height: 75px;
-    background-color: dimgrey;
-}
+    background-color: white;}
+
+
+
+
