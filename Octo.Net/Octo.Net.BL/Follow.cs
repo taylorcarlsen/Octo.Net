@@ -29,6 +29,7 @@ namespace Octo.Net.BL
                 .Add(
                     new Models.Follow
                     {
+                        Id = f.Id,
                         FollowerId = f.FollowerId,
                         ArtistId = f.ArtistId
                     }
@@ -78,7 +79,7 @@ namespace Octo.Net.BL
 
         public bool Delete(int id)
         {
-            var existing = db.Follows.SingleOrDefault(f => f.Id == id);
+            var existing = db.Follows.SingleOrDefault(x => x.Id == id);
 
             if(existing != null)
             {
@@ -86,7 +87,7 @@ namespace Octo.Net.BL
                 db.SaveChanges();
                 return true;
             }
-            return false;
+            else { return false; }
         }
     }
 }
