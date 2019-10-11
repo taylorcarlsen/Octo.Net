@@ -35,6 +35,7 @@ namespace Octo.Net.BL.Test2
             user.Email = "Testemail@gmail.com";
             user.CommissionActive = true;
             user.JoinDate = DateTime.Now;
+            user.UserProfileImagePath = "testuserimage.png";
 
             User blUser = new User();
             int result = blUser.Insert(user);

@@ -36,7 +36,8 @@ namespace Octo.Net.BL
                     Price = a.Price.GetValueOrDefault(),
                     IsCommission = a.IsCommission.GetValueOrDefault(),
                     TagId = a.TagId.GetValueOrDefault(),
-                    CollectionMessageId = a.CollectionMessageId.GetValueOrDefault()
+                    CollectionMessageId = a.CollectionMessageId.GetValueOrDefault(),
+                    ArtworkImagePath = a.ArtworkImagePath
                 }));
 
             return artworks;
@@ -46,7 +47,7 @@ namespace Octo.Net.BL
         {
             Data1.tblArtwork tblArtwork = new Data1.tblArtwork {
                 GalleryId = artwork.GalleryId, Title = artwork.Title, Price = artwork.Price, IsCommission = artwork.IsCommission,
-                TagId = artwork.TagId, CollectionMessageId = artwork.CollectionMessageId };
+                TagId = artwork.TagId, CollectionMessageId = artwork.CollectionMessageId, ArtworkImagePath = artwork.ArtworkImagePath };
 
             db.Artworks.Add(tblArtwork);
             db.SaveChanges();
@@ -66,6 +67,7 @@ namespace Octo.Net.BL
                 existing.IsCommission = artwork.IsCommission;
                 existing.TagId = artwork.TagId;
                 existing.CollectionMessageId = artwork.CollectionMessageId;
+                existing.ArtworkImagePath = artwork.ArtworkImagePath;
                 db.SaveChanges();
             }
         }

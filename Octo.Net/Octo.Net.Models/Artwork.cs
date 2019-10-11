@@ -15,5 +15,6 @@ namespace Octo.Net.Models
         public bool IsCommission { get; set; }
         public int TagId { get; set; }
         public int CollectionMessageId { get; set; }
+        public string ArtworkImagePath { get; set; }
     }
 }

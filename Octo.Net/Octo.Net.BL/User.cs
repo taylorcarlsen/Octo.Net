@@ -32,7 +32,8 @@ namespace Octo.Net.BL
                 UserName = u.UserName,
                 JoinDate = u.JoinDate ?? DateTime.Now,
                 CommissionActive = u.CommissionActive ?? true,
-                Password = u.Password
+                Password = u.Password,
+                UserProfileImagePath = u.UserProfileImagePath
             }));
 
             return users;
@@ -42,7 +43,7 @@ namespace Octo.Net.BL
         public int Insert(Models.User user)
         {
             tblUser newUser = new tblUser { FirstName = user.FirstName, LastName = user.LastName, Email = user.Email,
-                JoinDate = DateTime.Now, UserName = user.UserName, CommissionActive = user.CommissionActive, Password = user.Password };
+                JoinDate = DateTime.Now, UserName = user.UserName, CommissionActive = user.CommissionActive, Password = user.Password, UserProfileImagePath = user.UserProfileImagePath };
             db.Users.Add(newUser);
 
             db.SaveChanges();
@@ -61,6 +62,7 @@ namespace Octo.Net.BL
                 existing.UserName = user.UserName;
                 existing.CommissionActive = user.CommissionActive;
                 existing.Password = user.Password;
+                existing.UserProfileImagePath = user.UserProfileImagePath;
 
                 db.SaveChanges();
             }

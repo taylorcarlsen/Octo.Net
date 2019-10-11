@@ -22,7 +22,7 @@ namespace Octo.Net.Data1.Migrations
 
             List<tblArtwork> defaultArtwork = new List<tblArtwork>();
 
-            defaultArtwork.Add(new tblArtwork { CollectionMessageId = 1, GalleryId = 1, IsCommission = true, Price = 5, TagId = 1, Title = "Testing title" });
+            defaultArtwork.Add(new tblArtwork { CollectionMessageId = 1, GalleryId = 1, IsCommission = true, Price = 5, TagId = 1, Title = "Testing title", ArtworkImagePath="testartworkimage.png" });
             context.Artworks.AddRange(defaultArtwork);
 
             List<tblArtworkTag> defaultArtworkTag = new List<tblArtworkTag>();
@@ -66,7 +66,8 @@ namespace Octo.Net.Data1.Migrations
                 LastName = "LastNameTest",
                 JoinDate = DateTime.Now.Date,
                 Password = "12345678",
-                UserName = "Test User Name"
+                UserName = "Test User Name",
+                UserProfileImagePath = "testuserimage.png"
             });
             context.Users.AddRange(defaultUser);
 

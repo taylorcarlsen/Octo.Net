@@ -35,6 +35,7 @@ namespace Octo.Net.BL.Test2
             artwork.IsCommission = true;
             artwork.TagId = 1;
             artwork.CollectionMessageId = 1;
+            artwork.ArtworkImagePath = "testartworkimage.png";
 
         Artwork blArtwork = new Artwork();
             int result = blArtwork.Insert(artwork);

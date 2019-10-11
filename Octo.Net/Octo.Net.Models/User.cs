@@ -16,5 +16,6 @@ namespace Octo.Net.Models
         public string UserName { get; set; }
         public DateTime JoinDate { get; set; }
         public bool CommissionActive { get; set; }
+        public string UserProfileImagePath { get; set;  }
     }
 }
