@@ -48,7 +48,8 @@ namespace Octo.Net.BL
                 JoinDate = DateTime.Now, 
                 UserName = user.UserName, 
                 CommissionActive = user.CommissionActive, 
-                Password = GetHash(user.Password) 
+                Password = GetHash(user.Password), 
+               UserProfileImagePath = user.UserProfileImagePath
             };
 
             db.Users.Add(newUser);
