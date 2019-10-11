@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Octo.Net.BL;
 
 namespace Octo.Net.UI.Controllers
 {
@@ -27,6 +28,30 @@ namespace Octo.Net.UI.Controllers
             catch 
             {
                 return View(user);   
+            }
+        }
+
+        // GET: User/Create
+        public ActionResult Create()
+        {
+            Octo.Net.Models.User user = new Octo.Net.Models.User();
+            return View(user);
+        }
+
+        // POST: BL.User/Create
+        [HttpPost]
+        public ActionResult Create(Octo.Net.Models.User user)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+                User blUser = new User();
+                blUser.Insert(user);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(user);
             }
         }
 
