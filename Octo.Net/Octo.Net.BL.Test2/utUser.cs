@@ -78,6 +78,15 @@ namespace Octo.Net.BL.Test2
         }
 
         [TestMethod]
+        public void LoadByUserNameTest()
+        {
+            User user = new User();
+            var actual = user.LoadByUsername("TestUser");
+
+            Assert.IsTrue(actual.UserName == "TestUser");
+        }
+
+        [TestMethod]
         public void LoginTest()
         {
             Models.User user = new Models.User();
