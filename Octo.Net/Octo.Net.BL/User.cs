@@ -94,5 +94,50 @@ namespace Octo.Net.BL
                 return Convert.ToBase64String(hash.ComputeHash(hashbytes));
             }
         }
+
+        public Models.User LoadByUsername(string userName)
+        {
+            var user = db.Users.FirstOrDefault(u => u.UserName == userName);
+            if(user != null)
+            {
+                Models.User u = new Models.User
+                {
+                    Id = user.Id,
+                    CommissionActive = user.CommissionActive ?? true,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    JoinDate = user.JoinDate ?? DateTime.Now,
+                    LastName = user.LastName,
+                    Password = user.Password,
+                    UserName = user.UserName,
+                    UserProfileImagePath = user.UserProfileImagePath
+                };
+                return u;
+            }
+            else { return null; }
+        }
+
+        public bool Login(string userName, string password)
+        {
+            if (!string.IsNullOrEmpty(userName))
+            {
+                if (!string.IsNullOrEmpty(password))
+                {
+                    tblUser user = db.Users.FirstOrDefault(u => u.UserName == userName);
+                    if (user != null)
+                    {
+                        if (user.Password == this.GetHash(password))
+                        {
+                            userName = user.UserName;
+                            return true;
+                        }
+                        else {return false; }
+                    }
+                    else { return false; }
+                }
+                else { return false; }
+            }
+            else { return false; }
+        }
     }
 }

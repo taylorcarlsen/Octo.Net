@@ -75,8 +75,25 @@ namespace Octo.Net.BL.Test2
                 bool actual = user.Delete(row.Id);
                 Assert.IsTrue(actual == true);
             }
+        }
 
+        [TestMethod]
+        public void LoginTest()
+        {
+            Models.User user = new Models.User();
+            user.FirstName = "LoginF";
+            user.LastName = "LoginL";
+            user.UserName = "LoginUser";
+            user.Password = "pass";
+            user.Email = "Testemail@gmail.com";
+            user.CommissionActive = true;
+            user.JoinDate = DateTime.Now;
+            user.UserProfileImagePath = "testuserimage.png";
+            int id = manager.Insert(user);
 
+            var actual = manager.Login("LoginUser", "pass");
+
+            Assert.IsTrue(actual == true);
         }
     }
 }
