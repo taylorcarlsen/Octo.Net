@@ -1,6 +1,7 @@
 ﻿body {
+    margin: 0;
     padding-top: 0px;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -8,6 +9,7 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -48,3 +50,23 @@ nav {
         line-height: 1.3em;
         color: #fff;
     }
+
+.container body-content {
+    margin: 0;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+footer p {
+    text-align: center;
+}
+
