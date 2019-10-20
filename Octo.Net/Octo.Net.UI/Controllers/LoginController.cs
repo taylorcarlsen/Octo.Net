@@ -24,18 +24,18 @@ namespace Octo.Net.UI.Controllers
 
 
         [HttpPost]
-        public ActionResult Login(Net.Models.User user, string returnUrl)
+        public ActionResult Login(Net.Models.User user)
         {
             ViewResult result = View(user);
             try
             {
                 BL.User blUser = new BL.User();
 
-                ViewBag.ReturnUrl = returnUrl;
+                //ViewBag.ReturnUrl = returnUrl;
                 if (blUser.Login(user.UserName, user.Password))
                 {
                     HttpContext.Session["user"] = user;
-                    return Redirect(returnUrl);
+                    return result;
                 }
                 ViewBag.Message = "Login Failed";
 
