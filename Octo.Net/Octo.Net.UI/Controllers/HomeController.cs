@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Octo.Net.BL;
+using Octo.Net.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -28,10 +30,7 @@ namespace Octo.Net.UI.Controllers
             return View();
         }
 
-        public ActionResult Login()
-        {
-            ViewBag.Message = "Login";
-            return View();
-        }
+
+
     }
 }

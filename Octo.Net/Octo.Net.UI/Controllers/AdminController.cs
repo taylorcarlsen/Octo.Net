@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Octo.Net.UI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,15 +15,37 @@ namespace Octo.Net.UI.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            if (Authenticate.IsAuthenticated())
+            {
+                if (ViewBag.Message == null)
+                {
+                    ViewBag.Message = "Admin";
+                }
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
+            }
         }
 
         public ActionResult Users()
         {
-            _user = new BL.User();
-            _users = new List<Net.Models.User>();
-            _users = _user.Load();
-            return View(_users);
+            if (Authenticate.IsAuthenticated())
+            {
+                _user = new BL.User();
+                _users = new List<Net.Models.User>();
+                _users = _user.Load();
+                if (ViewBag.Message == null)
+                {
+                    ViewBag.Message = "Users";
+                }
+                return View(_users);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
+            }
         }
     }
 }
