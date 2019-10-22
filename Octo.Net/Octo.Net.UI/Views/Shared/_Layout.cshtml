@@ -11,6 +11,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        @*@Html.ActionLink("Home", "Index", "Home", null, new { @class = "navbar-brand" })*@
         <a class="navbar-brand" href="#"><img src="~/Content/img/L1.png" title="logo" alt="logo" height="45" width="55" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,10 +28,6 @@
 
                 <li class="nav-item">
                     @Html.ActionLink(" Admin ", "Index", "Admin")
-                </li> 
-
-                <li class="nav-item">
-                    @Html.ActionLink(" Users ", "Index", "Users")
                 </li>
 
                 <li class="nav-item">
