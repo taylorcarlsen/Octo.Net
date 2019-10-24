@@ -20,7 +20,7 @@ namespace Octo.Net.BL
             db.Dispose();
         }
 
-        public List<Models.Gallery> Load()
+        public List<Models.Gallery> Load(int id)
         {
             List<Models.Gallery> galleries = new List<Models.Gallery>();
             db.Galleries

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Octo.Net.BL;
+using Octo.Net.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,14 +13,15 @@ namespace Octo.Net.UI.Controllers
         // GET: Profile
         public ActionResult Index()
         {
-            if (Models.Authenticate.IsAuthenticated())
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index", "Login", new { returnurl = HttpContext.Request.Url });
-            }
+            return View();
+        }
+
+        // GET: Gallery
+        public ActionResult Galleries(int id)
+        {
+            BL.Gallery _gallery = new BL.Gallery();
+            _gallery.Load(id);
+            return PartialView(_gallery);
         }
     }
 }

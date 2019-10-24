@@ -30,7 +30,5 @@ namespace Octo.Net.UI.Controllers
             return View();
         }
 
-
-
     }
 }
