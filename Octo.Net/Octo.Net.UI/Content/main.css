@@ -63,5 +63,19 @@
     background-color: white;}
 
 
+/*****************************************Navbar Area****************************************************/
+/*.navbar-brand {
+    background-image: url(img/L1.png);
+    background-size: 45px;
+    background-repeat: no-repeat;
+}*/
 
 
+
+/***********************************General Formating Area***************************************************/
+/*This are is for universal formating standards*/
+
+.indented-text {
+    text-indent:  1vw;
+    
+}
