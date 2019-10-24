@@ -1,0 +1,41 @@
+﻿@model  IEnumerable<Octo.Net.Models.Gallery>
+
+@{
+    ViewBag.Title = "Galleries";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+<div class="row">
+    <h2>Galleries</h2>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">
+                    </th>
+                    <th scope="col">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td scope="row">
+                            @Html.DisplayFor(i => item.GalleryName)
+                        </td>
+
+
+                        <td scope="row">
+                            @Html.DisplayFor(i => item.GalleryDescription)
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!--Table to display gallerys-->
+    </div>
+</div>
+

@@ -48,5 +48,13 @@ namespace Octo.Net.UI.Controllers
                 return View(user);
             }
         }
+
+        public ActionResult Logout()
+        {
+            //Logged out
+            HttpContext.Session["user"] = null;
+            return RedirectToAction("Login", "Login");
+        }
+
     }
 }
