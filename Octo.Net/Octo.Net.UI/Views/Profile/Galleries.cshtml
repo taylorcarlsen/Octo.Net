@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<Octo.Net.Models.Gallery>
+﻿@model  Octo.Net.UI.ViewModels.GalleryArtwork
 
 @{
     ViewBag.Title = "Galleries";
@@ -19,19 +19,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Gallery)
                 {
-                    <tr>
-                        <td scope="row">
-                            @Html.DisplayFor(i => item.GalleryName)
-                        </td>
+                <tr>
+                    <td scope="row">
+                        @Html.DisplayFor(i => item.GalleryName)
+                    </td>
 
+                    <td scope="row">
+                        @Html.DisplayFor(i => item.GalleryDescription)
+                    </td>
 
-                        <td scope="row">
-                            @Html.DisplayFor(i => item.GalleryDescription)
-                        </td>
-
-                    </tr>
+                </tr>
                 }
             </tbody>
         </table>

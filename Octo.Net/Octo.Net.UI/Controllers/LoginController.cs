@@ -9,12 +9,6 @@ namespace Octo.Net.UI.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
-
         public ActionResult Login(string returnUrl)
         {
             ViewBag.Message = "Login";
@@ -22,20 +16,31 @@ namespace Octo.Net.UI.Controllers
             return View();
         }
 
-
         [HttpPost]
-        public ActionResult Login(Net.Models.User user)
+        public ActionResult Login(Net.Models.User user, string returnurl)
         {
             ViewResult result = View(user);
             try
             {
+                ViewBag.ReturnUrl = returnurl;
                 BL.User blUser = new BL.User();
 
                 //ViewBag.ReturnUrl = returnUrl;
                 if (blUser.Login(user.UserName, user.Password))
                 {
+                    BL.User useree = new BL.User();
+                    user = useree.LoadByUsername(user.UserName);
+
                     HttpContext.Session["user"] = user;
-                    return result;
+                    //return result;
+                    if (returnurl != null)
+                    {
+                        return Redirect(returnurl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Profile");
+                    }
                 }
                 ViewBag.Message = "Login Failed";
 

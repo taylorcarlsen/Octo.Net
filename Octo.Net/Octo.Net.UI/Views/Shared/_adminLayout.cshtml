@@ -31,6 +31,10 @@
                     @Html.ActionLink(" Users ", "Users", "Admin")
                 </li>
 
+                <li class="nav-item">
+                    @Html.ActionLink(" Profile ", "Index", "Profile")
+                </li>
+
                 <li>
                     @{
                         if (Session["user"] == null)

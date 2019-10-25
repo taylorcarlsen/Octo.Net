@@ -19,8 +19,7 @@ namespace Octo.Net.BL
         {
             db.Dispose();
         }
-
-        public List<Models.Gallery> Load(int id)
+        public List<Models.Gallery> Load()
         {
             List<Models.Gallery> galleries = new List<Models.Gallery>();
             db.Galleries
@@ -35,6 +34,22 @@ namespace Octo.Net.BL
                     GalleryDescription = a.GalleryDescription,
                 }));
 
+            return galleries;
+        }
+
+        public List<Models.Gallery> LoadById(int id)
+        {
+            List<Models.Gallery> galleries = new List<Models.Gallery>();
+            db.Galleries.Where(a => a.UserId == id)
+                .ToList()
+                .ForEach(a => galleries
+            .Add(new Models.Gallery
+            {
+                Id = a.Id,
+                UserId = a.UserId.GetValueOrDefault(),
+                GalleryName = a.GalleryName,
+                GalleryDescription = a.GalleryDescription
+            }));
             return galleries;
         }
 

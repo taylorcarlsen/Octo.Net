@@ -18,11 +18,6 @@ namespace Octo.Net.UI.Controllers
 
         public ActionResult Load(int id)
         {
-            //Net.Models.Gallery galleries = new List<Models.Gallery>;
-            //galleries.Load();
-
-
-
             return View();
         }
     }

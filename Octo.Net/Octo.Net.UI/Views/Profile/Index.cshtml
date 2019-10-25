@@ -1,39 +1,41 @@
-﻿@model  IEnumerable<Octo.Net.Models.User>
-
+﻿
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
+
+@{Octo.Net.Models.User user = (Octo.Net.Models.User)HttpContext.Current.Session["user"];}
 
 <h2>Profile Page</h2>
 
 <button class="btn btn-lg btn-link">
-    @Html.ActionLink("Galleries", "Galleries", "Profile")
+    @Html.ActionLink("Galleries", "Galleries", new { id = user.Id })
 </button>
 
+<p>USER: @user.Id</p>
 
 @*
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.G)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        }
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th></th>
+        </tr>
 
-    </table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.G)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
 *@
