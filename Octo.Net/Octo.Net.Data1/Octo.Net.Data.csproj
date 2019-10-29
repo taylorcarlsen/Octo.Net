@@ -62,6 +62,10 @@
     <Compile Include="Migrations\201910111915505_Test.Designer.cs">
       <DependentUpon>201910111915505_Test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910291804332_Revert.cs" />
+    <Compile Include="Migrations\201910291804332_Revert.designer.cs">
+      <DependentUpon>201910291804332_Revert.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OctoNetDefaultInitializer.cs" />
     <Compile Include="tblArtwork.cs" />
@@ -87,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910111915505_Test.resx">
       <DependentUpon>201910111915505_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910291804332_Revert.resx">
+      <DependentUpon>201910291804332_Revert.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
