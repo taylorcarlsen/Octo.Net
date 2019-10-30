@@ -52,9 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Artwork.cs" />
+    <Compile Include="ArtworkFlag.cs" />
     <Compile Include="ArtworkTag.cs" />
     <Compile Include="Collection.cs" />
     <Compile Include="Critique.cs" />
+    <Compile Include="FlagOption.cs" />
     <Compile Include="Follow.cs" />
     <Compile Include="Gallery.cs" />
     <Compile Include="Message.cs" />
