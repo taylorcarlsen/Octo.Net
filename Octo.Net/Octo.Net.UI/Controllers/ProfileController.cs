@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Octo.Net.UI.ViewModels;
 
 namespace Octo.Net.UI.Controllers
 {
@@ -11,6 +12,7 @@ namespace Octo.Net.UI.Controllers
     {
         private List<Net.Models.Gallery> _galleries;
         private BL.Gallery _gallery;
+        private BL.Artwork _artwork;
 
         // GET: Profile
         public ActionResult Index()
@@ -34,14 +36,18 @@ namespace Octo.Net.UI.Controllers
         {
             if (Authenticate.IsAuthenticated())
             {
-                    _gallery = new BL.Gallery();
-                _galleries = new List<Net.Models.Gallery>();
-                _galleries = _gallery.LoadById(id);
+                GalleryArtwork ga = new GalleryArtwork();
+
+                _gallery = new BL.Gallery();
+                ga.Galleries = _gallery.LoadById(id);
+
+                _artwork = new BL.Artwork();
+                //ga.Artworks.ToList().ForEach(a => _artwork.LoadByGalleryId(a.Id));
                 if (ViewBag.Message == null)
                 {
                     ViewBag.Message = "Galleries";
                 }
-                return View(_galleries);
+                return View(ga);
             }
             else
             {

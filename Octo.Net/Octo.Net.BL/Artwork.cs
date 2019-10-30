@@ -43,6 +43,26 @@ namespace Octo.Net.BL
             return artworks;
         }
 
+        public List<Models.Artwork> LoadByGalleryId(int id)
+        {
+            List<Models.Artwork> artworks = new List<Models.Artwork>();
+            db.Artworks.Where(a => a.GalleryId == id)
+                .ToList()
+                .ForEach(a => artworks
+            .Add(new Models.Artwork
+            {
+                Id = a.Id,
+                GalleryId = a.GalleryId.GetValueOrDefault(),
+                Title = a.Title,
+                Price = a.Price.GetValueOrDefault(),
+                IsCommission = a.IsCommission.GetValueOrDefault(),
+                TagId = a.TagId.GetValueOrDefault(),
+                CollectionMessageId = a.CollectionMessageId.GetValueOrDefault(),
+                ArtworkImagePath = a.ArtworkImagePath
+        }));
+            return artworks;
+        }
+
         public int Insert(Models.Artwork artwork)
         {
             Data1.tblArtwork tblArtwork = new Data1.tblArtwork {

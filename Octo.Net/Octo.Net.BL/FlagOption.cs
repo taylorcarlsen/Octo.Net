@@ -23,7 +23,7 @@ namespace Octo.Net.BL
 
         public List<Models.FlagOption> Load()
         {
-            List<Models.FlagOption> flagOptions = new List<Models.FlagOption() >;
+            List<Models.FlagOption> flagOptions = new List<Models.FlagOption>();
             db.FlagOptions
                 .ToList()
                 .ForEach(f => flagOptions

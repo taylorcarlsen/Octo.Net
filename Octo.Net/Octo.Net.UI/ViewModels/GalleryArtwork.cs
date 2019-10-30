@@ -11,7 +11,7 @@ namespace Octo.Net.UI.ViewModels
 {
     public class GalleryArtwork
     {
-        public List<Net.Models.Gallery> Gallery { get; set; }
-        public List<Net.Models.Artwork> Artwork { get; set; }
+        public List<Net.Models.Gallery> Galleries { get; set; }
+        public List<Net.Models.Artwork> Artworks { get; set; }
     }
 }
