@@ -11,6 +11,7 @@ namespace Octo.Net.UI.Controllers
     public class ProfileController : Controller
     {
         private List<Net.Models.Gallery> _galleries;
+        private List<Net.Models.Artwork> _artworks;
         private BL.Gallery _gallery;
         private BL.Artwork _artwork;
 
@@ -42,7 +43,21 @@ namespace Octo.Net.UI.Controllers
                 ga.Galleries = _gallery.LoadById(id);
 
                 _artwork = new BL.Artwork();
-                //ga.Artworks.ToList().ForEach(a => _artwork.LoadByGalleryId(a.Id));
+                _artworks = new List<Net.Models.Artwork>();
+
+                List<int> galleryIDs = new List<int>();
+                foreach (Net.Models.Gallery gallery in ga.Galleries)
+                {
+                    galleryIDs.Add(gallery.Id);
+                }
+
+                foreach (int i in galleryIDs)
+                {
+                    _artworks.AddRange(_artwork.LoadByGalleryId(i));
+                }
+
+                ga.Artworks = _artworks;
+
                 if (ViewBag.Message == null)
                 {
                     ViewBag.Message = "Galleries";

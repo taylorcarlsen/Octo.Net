@@ -21,19 +21,30 @@
             <tbody>
                 @foreach (var item in Model.Galleries)
                 {
-                <tr>
-                    <td scope="row">
-                        @Html.DisplayFor(i => item.GalleryName)
-                    </td>
+                    <tr>
+                        <td scope="row">
+                            @Html.DisplayFor(i => item.GalleryName)
+                        </td>
 
-                    <td scope="row">
-                        @Html.DisplayFor(i => item.GalleryDescription)
-                    </td>
+                        <td scope="row">
+                            @Html.DisplayFor(i => item.GalleryDescription)
+                        </td>
 
-                </tr>
+                    </tr>
+                    foreach (var item1 in Model.Artworks)
+                    {
+                        if (item1.GalleryId == item.Id) {
+                            <tr>
 
-                }
-            </tbody>
+                                <td scope="row">
+                                    @Html.DisplayFor(i => item1.Title)
+                                </td>
+                            
+                            </tr>
+                        }
+                    }
+                 }
+                </tbody>
         </table>
         <!--Table to display gallerys-->
     </div>
