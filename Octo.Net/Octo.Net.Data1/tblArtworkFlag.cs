@@ -9,12 +9,14 @@ using System.Data.Entity.Spatial;
 
 namespace Octo.Net.Data1
 {
-    public class tblFollow
+    public class tblArtworkFlag
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public int ArtistId { get; set; }
-        public int FollowerId { get; set; }
+        public int ArtworkId { get; set; }
+        public int FlagId { get; set; }
+        [StringLength(500)]
+        public string Comment { get; set; }
     }
 }
