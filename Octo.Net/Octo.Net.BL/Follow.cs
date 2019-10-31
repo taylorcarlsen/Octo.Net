@@ -41,7 +41,7 @@ namespace Octo.Net.BL
         {
             List<Models.Follow> follows = new List<Models.Follow>();
             db.Follows
-                .Where(f => f.Id == artistId)
+                .Where(f => f.ArtistId == artistId)
                 .ToList()
                 .ForEach(f => follows
                 .Add(new Models.Follow

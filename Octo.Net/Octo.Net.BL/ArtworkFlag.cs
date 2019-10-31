@@ -42,12 +42,30 @@ namespace Octo.Net.BL
             tblArtworkFlag newArtworkFlag = new tblArtworkFlag
             {
                 ArtworkId = artworkFlag.ArtworkId,
+                UserId = artworkFlag.UserId,
                 FlagId = artworkFlag.FlagId,
                 Comment = artworkFlag.Comment
             };
             db.ArtworkFlags.Add(newArtworkFlag);
             db.SaveChanges();
             return newArtworkFlag.Id;
+        }
+
+        public List<Models.ArtworkFlag> LoadByUserId(int userId, int artworkId)
+        {
+            List<Models.ArtworkFlag> userFlags = new List<Models.ArtworkFlag>();
+            db.ArtworkFlags
+                .Where(f => (f.UserId == userId) && (f.ArtworkId == artworkId))
+                .ToList()
+                .ForEach(f => userFlags
+                .Add(new Models.ArtworkFlag
+                {
+                    ArtworkId = f.ArtworkId,
+                    UserId = f.UserId,
+                    Comment = f.Comment,
+                    FlagId = f.FlagId
+                }));
+            return userFlags;
         }
 
         public void Update(Models.ArtworkFlag artworkFlag)
