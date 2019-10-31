@@ -109,6 +109,7 @@ namespace Octo.Net.Data1.Migrations
                 defaultArtworkFlags.Add(new tblArtworkFlag
                 {
                     ArtworkId = 1,
+                    UserId = 1,
                     FlagId = 1,
                     Comment = "Default Flag for seed"
                 });

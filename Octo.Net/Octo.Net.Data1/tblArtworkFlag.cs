@@ -15,6 +15,7 @@ namespace Octo.Net.Data1
         [Key]
         public int Id { get; set; }
         public int ArtworkId { get; set; }
+        public int UserId { get; set; }
         public int FlagId { get; set; }
         [StringLength(500)]
         public string Comment { get; set; }
