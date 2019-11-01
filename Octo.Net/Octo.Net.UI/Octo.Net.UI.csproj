@@ -239,6 +239,7 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\Logout.cshtml" />
     <Content Include="Views\Profile\Galleries.cshtml" />
+    <Content Include="Views\Profile\Artwork.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

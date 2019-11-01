@@ -96,5 +96,13 @@ namespace Octo.Net.UI.Controllers
                 return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
             }
         }
+
+        public ActionResult Artwork(int id)
+        {
+            Net.Models.Artwork artwork = new Net.Models.Artwork();
+            artwork = _artwork.LoadById(id);
+
+            return View();
+        }
     }
 }

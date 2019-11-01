@@ -62,6 +62,27 @@ namespace Octo.Net.BL
         }));
             return artworks;
         }
+        public Models.Artwork LoadById(int id)
+        {
+            var artwork = db.Artworks.FirstOrDefault(a => a.Id == id);
+            if (artwork != null)
+            {
+                Models.Artwork a = new Models.Artwork
+                {
+                    Id = artwork.Id,
+                    GalleryId = artwork.GalleryId.GetValueOrDefault(),
+                    Title = artwork.Title,
+                    Price = artwork.Price.GetValueOrDefault(),
+                    IsCommission = artwork.IsCommission.GetValueOrDefault(),
+                    TagId = artwork.TagId.GetValueOrDefault(),
+                    CollectionMessageId = artwork.CollectionMessageId.GetValueOrDefault(),
+                    ArtworkImagePath = artwork.ArtworkImagePath
+                };
+                return a;
+            }
+            else { return null; }
+        }
+
 
         public int Insert(Models.Artwork artwork)
         {

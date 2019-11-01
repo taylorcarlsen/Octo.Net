@@ -39,7 +39,11 @@
                                 <td scope="row">
                                     @Html.DisplayFor(i => item1.Title)
                                 </td>
-                            
+
+                                <td scope="row">
+                                    @Html.ActionLink("View", "Artwork", item1.Id)
+                                </td>
+
                             </tr>
                         }
                     }
