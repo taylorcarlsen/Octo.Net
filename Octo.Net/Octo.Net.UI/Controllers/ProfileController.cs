@@ -10,7 +10,6 @@ namespace Octo.Net.UI.Controllers
 {
     public class ProfileController : Controller
     {
-        private List<Net.Models.Gallery> _galleries;
         private List<Net.Models.Artwork> _artworks;
         private BL.Gallery _gallery;
         private BL.Artwork _artwork;
@@ -24,7 +23,35 @@ namespace Octo.Net.UI.Controllers
                 {
                     ViewBag.Message = "Profile";
                 }
-                return View();
+
+                UserGalleryArtwork uga = new UserGalleryArtwork();
+
+                uga.User = (Octo.Net.Models.User)Session["user"];
+
+                _gallery = new BL.Gallery();
+                uga.Galleries = _gallery.LoadById(uga.User.Id);
+
+                _artwork = new BL.Artwork();
+                _artworks = new List<Net.Models.Artwork>();
+
+                List<int> galleryIDs = new List<int>();
+                foreach (Net.Models.Gallery gallery in uga.Galleries)
+                {
+                    galleryIDs.Add(gallery.Id);
+                }
+
+                foreach (int i in galleryIDs)
+                {
+                    _artworks.AddRange(_artwork.LoadByGalleryId(i));
+                }
+
+                uga.Artworks = _artworks;
+
+                if (ViewBag.Message == null)
+                {
+                    ViewBag.Message = "Galleries";
+                }
+                return View(uga);
             }
             else
             {
@@ -37,16 +64,16 @@ namespace Octo.Net.UI.Controllers
         {
             if (Authenticate.IsAuthenticated())
             {
-                GalleryArtwork ga = new GalleryArtwork();
+                UserGalleryArtwork uga = new UserGalleryArtwork();
 
                 _gallery = new BL.Gallery();
-                ga.Galleries = _gallery.LoadById(id);
+                uga.Galleries = _gallery.LoadById(id);
 
                 _artwork = new BL.Artwork();
                 _artworks = new List<Net.Models.Artwork>();
 
                 List<int> galleryIDs = new List<int>();
-                foreach (Net.Models.Gallery gallery in ga.Galleries)
+                foreach (Net.Models.Gallery gallery in uga.Galleries)
                 {
                     galleryIDs.Add(gallery.Id);
                 }
@@ -56,13 +83,13 @@ namespace Octo.Net.UI.Controllers
                     _artworks.AddRange(_artwork.LoadByGalleryId(i));
                 }
 
-                ga.Artworks = _artworks;
+                uga.Artworks = _artworks;
 
                 if (ViewBag.Message == null)
                 {
                     ViewBag.Message = "Galleries";
                 }
-                return View(ga);
+                return View(uga);
             }
             else
             {

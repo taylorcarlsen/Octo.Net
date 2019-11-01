@@ -1,18 +1,45 @@
-﻿
+﻿@model  Octo.Net.UI.ViewModels.UserGalleryArtwork
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
 
-@{Octo.Net.Models.User user = (Octo.Net.Models.User)HttpContext.Current.Session["user"];}
+<h2>@Html.DisplayFor(i => Model.User.UserName)</h2>
 
-<h2>Profile Page</h2>
+<table>
+    <tbody>
+        @foreach (var item in Model.Galleries)
+        {
+            <tr>
+                <td scope="row">
+                    @Html.ActionLink("Galleries", "Galleries", new { id = item.Id })
+                </td>
 
-<button class="btn btn-lg btn-link">
-    @Html.ActionLink("Galleries", "Galleries", new { id = user.Id })
-</button>
+                <td scope="row">
+                    @Html.DisplayFor(i => item.GalleryDescription)
+                </td>
 
-<p>USER: @user.Id</p>
+            </tr>
+            foreach (var item1 in Model.Artworks)
+            {
+                if (item1.GalleryId == item.Id)
+                {
+                    <tr>
+
+                        <td scope="row">
+                            @Html.DisplayFor(i => item1.Title)
+                        </td>
+
+                        <td scope="row">
+                            @Html.DisplayFor(i => item1.ArtworkImagePath)
+                        </td>
+
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
 
 @*
     <table class="table">
