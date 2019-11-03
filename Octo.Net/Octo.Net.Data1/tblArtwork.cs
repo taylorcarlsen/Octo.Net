@@ -22,6 +22,6 @@ namespace Octo.Net.Data1
         public int? TagId { get; set; }
 
         public int? CollectionMessageId { get; set; }
-        public string ArtworkImagePath { get; set;  }
+        public virtual ICollection<tblFiles> Files { get; set; }
     }
 }

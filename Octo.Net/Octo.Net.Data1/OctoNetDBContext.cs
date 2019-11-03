@@ -24,6 +24,7 @@ namespace Octo.Net.Data1
         public virtual DbSet<tblFollow> Follows { get; set; }
         public virtual DbSet<tblFlagOption> FlagOptions { get; set; }
         public virtual DbSet<tblArtworkFlag> ArtworkFlags { get; set; }
+        public virtual DbSet<tblFiles> Files { get; set; }
 
         /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

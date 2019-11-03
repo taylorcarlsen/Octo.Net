@@ -25,7 +25,7 @@ namespace Octo.Net.BL.Test2
             manager.Dispose();
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void InsertTest()
         {
             Models.Artwork artwork = new Octo.Net.Models.Artwork();
@@ -35,13 +35,12 @@ namespace Octo.Net.BL.Test2
             artwork.IsCommission = true;
             artwork.TagId = 1;
             artwork.CollectionMessageId = 1;
-            artwork.ArtworkImagePath = "testartworkimage.png";
 
         Artwork blArtwork = new Artwork();
             int result = blArtwork.Insert(artwork);
 
             Assert.IsTrue(result > 0);
-        }
+        }*/
 
         [TestMethod]
         public void UpdateTest()

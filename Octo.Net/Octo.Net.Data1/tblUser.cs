@@ -28,6 +28,6 @@ namespace Octo.Net.Data1
         public DateTime? JoinDate { get; set; }
 
         public bool? CommissionActive { get; set; }
-        public string UserProfileImagePath { get; set; }
+        public virtual ICollection<tblFiles> Files { get; set; }
     }
 }
