@@ -79,3 +79,33 @@
     text-indent:  1vw;
     
 }
+
+.card-spacing{
+    margin: 1vw 1vw 1vw 1vw;
+}
+
+
+/********************************** User Profile Page ****************************************************/
+.profile-image {
+    max-height: 175px;
+    max-width: 175px;
+}
+
+.profile-image-area {
+    padding-top: 3vw;
+    padding-left: 3vw;
+}
+
+.profile-banner {
+    min-height: 350px;
+    min-width: 100%;
+    background-color:lightgray;
+}
+
+.profile-recent-works {
+    margin-top: 1vw;
+}
+
+.profile-lower {
+    margin-top: 1vw;
+}

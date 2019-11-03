@@ -33,7 +33,7 @@ namespace Octo.Net.UI.Controllers
 
                     HttpContext.Session["user"] = user;
                     //return result;
-                    if (returnurl != null)
+                    if (!string.IsNullOrEmpty(returnurl))
                     {
                         return Redirect(returnurl);
                     }

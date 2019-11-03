@@ -156,6 +156,7 @@
     <Content Include="Content\img\jumbo3.jpg" />
     <Content Include="Content\img\L1.png" />
     <Content Include="Content\img\user.jpg" />
+    <Content Include="Content\img\usersDefault.png" />
     <Content Include="Content\img\usersmall.jpg" />
     <Content Include="Content\main.css" />
     <Content Include="favicon.ico" />
