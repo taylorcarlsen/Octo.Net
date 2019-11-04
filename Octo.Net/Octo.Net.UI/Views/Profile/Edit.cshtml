@@ -1,0 +1,25 @@
+﻿@model Octo.Net.Models.User
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="row profile-jumbo">
+                <div class="col-md-4 profile-image-area">
+                    <img src="~/Content/img/usersDefault.png" class="rounded-circle profile-image" alt="@Html.DisplayFor(i=> Model.UserName)'s profile picture" />
+                </div>
+                <div class="col-md-8">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>@Html.DisplayFor(u=>Model.UserName)</h2>
+                </div>
+            </div>
+
+        </div>
+    </div>

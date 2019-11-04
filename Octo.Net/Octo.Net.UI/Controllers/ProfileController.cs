@@ -104,5 +104,19 @@ namespace Octo.Net.UI.Controllers
 
             return View();
         }
+
+
+        #region Profile Edit
+        public ActionResult Edit(int id)
+        {
+            if (Authenticate.IsAuthenticated())
+            {
+                BL.User user = new BL.User();
+                var loadedUser = user.Load().Where(u => u.Id == id).FirstOrDefault();
+                return View(loadedUser);
+            }
+            return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
+        }
+        #endregion
     }
 }
