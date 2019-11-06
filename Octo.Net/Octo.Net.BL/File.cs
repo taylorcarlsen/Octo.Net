@@ -38,6 +38,31 @@ namespace Octo.Net.BL
             return files;
         }
 
+        public Models.File LoadByArtworkId(int id)
+        {
+            if (id != null)
+            {
+                List<Models.File> files = new List<Models.File>();
+
+                var file = db.Files.FirstOrDefault(f => f.ArtworkId == id);
+                if (file != null)
+                {
+                    Models.File f = new Models.File
+                    {
+                        Id = file.Id,
+                        ArtworkId = file.ArtworkId,
+                        UserId = file.UserId,
+                        Content = file.Content,
+                        ContentType = file.ContentType,
+                        FileName = file.FileName
+                    };
+                    return f;
+                }
+                else { return null; }
+            }
+            else { return null; }
+        }
+
         public int Insert(Models.File file)
         {
             tblFiles newFile = new tblFiles
