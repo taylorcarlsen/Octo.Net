@@ -159,6 +159,7 @@
     <Content Include="Content\img\usersDefault.png" />
     <Content Include="Content\img\usersmall.jpg" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\scripts\UserCall.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
