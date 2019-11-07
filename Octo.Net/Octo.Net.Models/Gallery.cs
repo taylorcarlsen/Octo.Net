@@ -12,5 +12,6 @@ namespace Octo.Net.Models
         public int UserId { get; set; }
         public string GalleryName { get; set; }
         public string GalleryDescription { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

@@ -30,20 +30,23 @@
             <div class="col-md-12">
                 <div class="row">
                     @* TODO: Get the users gallery and programatically create and fill cards *@
-                    <div class="col-md-4 card-spacing">
-                        <div class="card" style="width: 18rem;">
-                            <img src="~/Content/img/art29.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-7">
-                                        <h5 class="card-title font-weight-bold">@Html.DisplayFor(i => Model.User.UserName)</h5>
+                    @foreach (var item in Model.Artworks.OrderByDescending(o=>o.DateCreated).Take(5))
+                    {
+                        <div class="col-md-4 card-spacing">
+                            <div class="card" style="width: 18rem;">
+                                <img src="~/Content/img/art29.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h5 class="card-title font-weight-bold">@Html.DisplayFor(i => item.Title)</h5>
+                                        </div>
                                     </div>
+                                    <p class="card-text">Artist who enjoys creating mythical creatures and believes the secrets are kept hidden.</p>
+                                    <a href="#" class="btn btn-primary">See More</a>
                                 </div>
-                                <p class="card-text">Artist who enjoys creating mythical creatures and believes the secrets are kept hidden.</p>
-                                <a href="#" class="btn btn-primary">See More</a>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -63,21 +66,23 @@
                 <div class="row">
                     @* TODO: Get the users gallery and programatically create and fill cards *@
                     @* TODO: Redesing this card, it should be smaller just show gallery thumbnail and a link to see more *@
-                    <div class="col-md-4 card-spacing">
-                        <div class="card" style="width: 18rem;">
-                            <img src="~/Content/img/art29.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-7">
-                                        <h5 class="card-title font-weight-bold">@Html.DisplayFor(i => Model.User.UserName)</h5>
+                    @foreach (var item in Model.Galleries)
+                    {
+                        <div class="col-md-4 card-spacing">
+                            <div class="card" style="width: 18rem;">
+                                <img src="~/Content/img/art29.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <h5 class="card-title font-weight-bold">@Html.DisplayFor(i => item.GalleryName)</h5>
+                                        </div>
                                     </div>
-
+                                    <p class="card-text">@Html.DisplayFor(i => item.GalleryDescription)</p>
+                                    <a href="#" class="btn btn-primary">See More</a>
                                 </div>
-                                <p class="card-text">Artist who enjoys creating mythical creatures and believes the secrets are kept hidden.</p>
-                                <a href="#" class="btn btn-primary">See More</a>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

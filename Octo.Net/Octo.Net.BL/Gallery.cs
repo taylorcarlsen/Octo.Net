@@ -32,6 +32,7 @@ namespace Octo.Net.BL
                     UserId = a.UserId.GetValueOrDefault(),
                     GalleryName = a.GalleryName,
                     GalleryDescription = a.GalleryDescription,
+                    DateCreated = a.DateCreated
                 }));
 
             return galleries;
@@ -48,14 +49,15 @@ namespace Octo.Net.BL
                 Id = a.Id,
                 UserId = a.UserId.GetValueOrDefault(),
                 GalleryName = a.GalleryName,
-                GalleryDescription = a.GalleryDescription
+                GalleryDescription = a.GalleryDescription,
+                DateCreated = a.DateCreated
             }));
             return galleries;
         }
 
         public int Insert(Models.Gallery gallery)
         {
-            tblGallery newGallery = new tblGallery { GalleryName = gallery.GalleryName, GalleryDescription = gallery.GalleryDescription, UserId = gallery.UserId };
+            tblGallery newGallery = new tblGallery { GalleryName = gallery.GalleryName, GalleryDescription = gallery.GalleryDescription, UserId = gallery.UserId, DateCreated = gallery.DateCreated};
             db.Galleries.Add(newGallery);
 
             db.SaveChanges();
@@ -69,6 +71,7 @@ namespace Octo.Net.BL
             {
                 existing.GalleryName = gallery.GalleryName;
                 existing.GalleryDescription = gallery.GalleryDescription;
+                existing.DateCreated = gallery.DateCreated;
                 db.SaveChanges();
             }
         }

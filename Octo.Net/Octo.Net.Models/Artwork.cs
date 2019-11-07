@@ -16,5 +16,6 @@ namespace Octo.Net.Models
         public int TagId { get; set; }
         public int CollectionMessageId { get; set; }
         public virtual ICollection<File> Files { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

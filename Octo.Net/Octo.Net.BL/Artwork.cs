@@ -36,7 +36,8 @@ namespace Octo.Net.BL
                     Price = a.Price.GetValueOrDefault(),
                     IsCommission = a.IsCommission.GetValueOrDefault(),
                     TagId = a.TagId.GetValueOrDefault(),
-                    CollectionMessageId = a.CollectionMessageId.GetValueOrDefault()
+                    CollectionMessageId = a.CollectionMessageId.GetValueOrDefault(),
+                    DateCreated = a.DateCreated
                 }));
 
             return artworks;
@@ -56,8 +57,9 @@ namespace Octo.Net.BL
                 Price = a.Price.GetValueOrDefault(),
                 IsCommission = a.IsCommission.GetValueOrDefault(),
                 TagId = a.TagId.GetValueOrDefault(),
-                CollectionMessageId = a.CollectionMessageId.GetValueOrDefault()
-        }));
+                CollectionMessageId = a.CollectionMessageId.GetValueOrDefault(),
+                DateCreated = a.DateCreated
+            }));
             return artworks;
         }
         public Models.Artwork LoadById(int id)
@@ -73,7 +75,8 @@ namespace Octo.Net.BL
                     Price = artwork.Price.GetValueOrDefault(),
                     IsCommission = artwork.IsCommission.GetValueOrDefault(),
                     TagId = artwork.TagId.GetValueOrDefault(),
-                    CollectionMessageId = artwork.CollectionMessageId.GetValueOrDefault()
+                    CollectionMessageId = artwork.CollectionMessageId.GetValueOrDefault(),
+                    DateCreated = artwork.DateCreated
                 };
                 return a;
             }
@@ -90,7 +93,9 @@ namespace Octo.Net.BL
                 Price = artwork.Price,
                 IsCommission = artwork.IsCommission,
                 TagId = artwork.TagId,
-                CollectionMessageId = artwork.CollectionMessageId };
+                CollectionMessageId = artwork.CollectionMessageId,
+                DateCreated = artwork.DateCreated
+            };
 
             db.Artworks.Add(tblArtwork);
 
@@ -122,6 +127,7 @@ namespace Octo.Net.BL
                 existing.IsCommission = artwork.IsCommission;
                 existing.TagId = artwork.TagId;
                 existing.CollectionMessageId = artwork.CollectionMessageId;
+                existing.DateCreated = artwork.DateCreated;
                 db.SaveChanges();
             }
         }

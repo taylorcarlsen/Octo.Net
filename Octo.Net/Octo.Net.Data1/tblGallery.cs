@@ -17,5 +17,6 @@ namespace Octo.Net.Data1
 
         [StringLength(120)]
         public string GalleryDescription { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

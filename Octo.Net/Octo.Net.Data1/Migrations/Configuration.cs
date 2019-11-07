@@ -26,7 +26,7 @@ namespace Octo.Net.Data1.Migrations
 
                 List<tblArtwork> defaultArtwork = new List<tblArtwork>();
 
-                defaultArtwork.Add(new tblArtwork { CollectionMessageId = 1, GalleryId = 1, IsCommission = true, Price = 5, TagId = 1, Title = "Testing title" });
+                defaultArtwork.Add(new tblArtwork { CollectionMessageId = 1, GalleryId = 1, IsCommission = true, Price = 5, TagId = 1, Title = "Testing title", DateCreated = DateTime.Now });
                 context.Artworks.AddRange(defaultArtwork);
 
                 List<tblArtworkTag> defaultArtworkTag = new List<tblArtworkTag>();
@@ -44,7 +44,7 @@ namespace Octo.Net.Data1.Migrations
                 context.Critiques.AddRange(defaultCritique);
 
                 List<tblGallery> defaultGallery = new List<tblGallery>();
-                defaultGallery.Add(new tblGallery { GalleryDescription = "Test gallery description", GalleryName = "Test gallery name", UserId = 1 });
+                defaultGallery.Add(new tblGallery { GalleryDescription = "Test gallery description", GalleryName = "Test gallery name", UserId = 1, DateCreated = DateTime.Now }) ;
                 context.Galleries.AddRange(defaultGallery);
 
                 List<tblMessage> defaultMessage = new List<tblMessage>();
