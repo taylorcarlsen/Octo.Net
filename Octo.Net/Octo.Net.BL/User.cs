@@ -39,7 +39,9 @@ namespace Octo.Net.BL
 
         }
 
-        public int Insert(Models.User user)
+
+
+        public int Insert(Models.User user, Models.File file)
         {
             tblUser newUser = new tblUser { 
                 FirstName = user.FirstName, 
@@ -52,6 +54,16 @@ namespace Octo.Net.BL
             };
 
             db.Users.Add(newUser);
+
+            tblFiles newFile = new tblFiles()
+            {
+                FileName = file.FileName,
+                ContentType = file.ContentType,
+                Content = file.Content,
+                UserId = newUser.Id
+            };
+
+            db.Files.Add(newFile);
 
             db.SaveChanges();
             return newUser.Id;
