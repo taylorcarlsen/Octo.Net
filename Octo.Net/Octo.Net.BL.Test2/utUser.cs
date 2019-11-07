@@ -24,7 +24,7 @@ namespace Octo.Net.BL.Test2
             manager.Dispose();
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void InsertTest()
         {
             Models.User user = new Models.User();
@@ -42,7 +42,7 @@ namespace Octo.Net.BL.Test2
             //Assert count is count + 1
 
             Assert.IsTrue(result > 0);
-        }
+        }*/
 
         [TestMethod]
         public void UpdateTest()
@@ -85,7 +85,7 @@ namespace Octo.Net.BL.Test2
             Assert.IsTrue(actual.UserName == "TestUser");
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void LoginTest()
         {
             Models.User user = new Models.User();
@@ -101,6 +101,6 @@ namespace Octo.Net.BL.Test2
             var actual = manager.Login("LoginUser", "pass");
 
             Assert.IsTrue(actual == true);
-        }
+        }*/
     }
 }

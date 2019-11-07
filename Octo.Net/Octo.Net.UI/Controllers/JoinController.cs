@@ -17,12 +17,12 @@ namespace Octo.Net.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(Net.Models.User user)
+        public ActionResult Index(Net.Models.User user, Net.Models.File file)
         {
             try
             {
                 BL.User bluser = new BL.User();
-                bluser.Insert(user);
+                bluser.Insert(user, file);
                 return RedirectToAction("Index");
             }
             catch 
@@ -40,13 +40,13 @@ namespace Octo.Net.UI.Controllers
 
         // POST: BL.User/Create
         [HttpPost]
-        public ActionResult Create(Octo.Net.Models.User user)
+        public ActionResult Create(Octo.Net.Models.User user, Net.Models.File file)
         {
             try
             {
                 // TODO: Add insert logic here
                 User blUser = new User();
-                blUser.Insert(user);
+                blUser.Insert(user, file);
                 return RedirectToAction("Index");
             }
             catch

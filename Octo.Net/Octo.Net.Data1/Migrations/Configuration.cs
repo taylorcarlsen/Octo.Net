@@ -6,6 +6,7 @@ namespace Octo.Net.Data1.Migrations
     using System.Data.Entity.Migrations;
     using System.Data.Entity.Validation;
     using System.Linq;
+    using System.Text;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Octo.Net.Data1.OctoNetDbContext>
     {
@@ -113,6 +114,19 @@ namespace Octo.Net.Data1.Migrations
                     Comment = "Default Flag for seed"
                 });
                 context.ArtworkFlags.AddRange(defaultArtworkFlags);
+
+                List<tblFiles> defaultFiles = new List<tblFiles>();
+                defaultFiles.Add(new tblFiles
+                {
+                    FileName = "Seed",
+                    ContentType = ".txt",
+                    Content = Encoding.UTF8.GetBytes("testFileUpload"),
+                    UserId = 1,
+                    ArtworkId = 1
+
+                });
+                context.Files.AddRange(defaultFiles);
+                
 
                 context.SaveChanges();
             }

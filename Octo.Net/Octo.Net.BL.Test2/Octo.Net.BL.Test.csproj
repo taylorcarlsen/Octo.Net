@@ -58,6 +58,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="utFile.cs" />
     <Compile Include="utFollow.cs" />
     <Compile Include="utMessageType.cs" />
     <Compile Include="utGallery.cs" />

@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201911032124388_AddFileUploadTables.Designer.cs">
       <DependentUpon>201911032124388_AddFileUploadTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911071145582_AdditionalSeed.cs" />
+    <Compile Include="Migrations\201911071145582_AdditionalSeed.Designer.cs">
+      <DependentUpon>201911071145582_AdditionalSeed.cs</DependentUpon>
+    </Compile>
     <Compile Include="tblFiles.cs" />
     <Compile Include="Migrations\201910291011386_AddedFlagOptions.cs" />
     <Compile Include="Migrations\201910291011386_AddedFlagOptions.Designer.cs">
@@ -132,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911032124388_AddFileUploadTables.resx">
       <DependentUpon>201911032124388_AddFileUploadTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911071145582_AdditionalSeed.resx">
+      <DependentUpon>201911071145582_AdditionalSeed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
