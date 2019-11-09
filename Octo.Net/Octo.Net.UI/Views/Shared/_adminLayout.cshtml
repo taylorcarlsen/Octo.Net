@@ -31,9 +31,34 @@
                     @Html.ActionLink(" Users ", "Users", "Admin")
                 </li>
 
-                <li class="nav-item">
-                    @Html.ActionLink(" Profile ", "Index", "Profile")
-                </li>
+                @*<li class="nav-item">
+                        @Html.ActionLink(" Profile ", "Index", "Profile")
+                    </li>*@
+
+
+                @{
+                    if (Session["user"] == null)
+                    {
+                        <li class="nav-item">
+                            <!--TODO: This should become a browse page link perhaps?-->
+                            @Html.ActionLink("Profile", "Index", "Profile")
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarProfileDropDownLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Profile
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarProfileDropDownLink">
+                                @Html.ActionLink(" Edit Profile ", "Edit", "Profile")
+                                <a class="dropdown-item" href="#">Add Gallery</a>
+                                <a class="dropdown-item" href="#">Upload Image</a>
+                            </div>
+                        </li>
+                    }
+                }
+
 
                 <li>
                     @{
@@ -51,10 +76,10 @@
         </div>
     </nav>
 
-    <div >
+    <div>
         @RenderBody()
         <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-        <br /> <br /> 
+        <br /> <br />
         <hr />
         <footer>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

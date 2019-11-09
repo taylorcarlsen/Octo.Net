@@ -107,16 +107,135 @@ namespace Octo.Net.UI.Controllers
 
 
         #region Profile Edit
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
             if (Authenticate.IsAuthenticated())
             {
-                BL.User user = new BL.User();
-                var loadedUser = user.Load().Where(u => u.Id == id).FirstOrDefault();
-                return View(loadedUser);
+                if (ViewBag.Message == null)
+                {
+                    ViewBag.Message = "Profile";
+                }
+
+                UserGalleryArtwork uga = new UserGalleryArtwork();
+
+                uga.User = (Net.Models.User)Session["user"];
+
+                _gallery = new BL.Gallery();
+                uga.Galleries = _gallery.LoadById(uga.User.Id);
+
+                _artwork = new BL.Artwork();
+                _artworks = new List<Net.Models.Artwork>();
+
+                List<int> galleryIDs = new List<int>();
+                foreach (Net.Models.Gallery gallery in uga.Galleries)
+                {
+                    galleryIDs.Add(gallery.Id);
+                }
+
+                foreach (int i in galleryIDs)
+                {
+                    _artworks.AddRange(_artwork.LoadByGalleryId(i));
+                }
+
+                uga.Artworks = _artworks;
+
+                if (ViewBag.Message == null)
+                {
+                    ViewBag.Message = "Galleries";
+                }
+                return View(uga);
             }
-            return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
+            else
+            {
+                return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit(int id, UserGalleryArtwork uga)
+        {
+            try
+            {
+                uga.User = (Net.Models.User)Session["user"];
+                uga.User.Id = id;
+                Net.Models.User user = uga.User;
+                Net.BL.User userHelper = new BL.User();
+                userHelper.Update(user);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(uga);
+            }
         }
         #endregion
+
+        #region Upload Image Area
+
+        public ActionResult ImageUpload()
+        {
+            if (Authenticate.IsAuthenticated())
+            {
+                if (ViewBag.Message == null)
+                {
+                    ViewBag.Message = "Profile";
+                }
+
+                UserGalleryArtwork uga = new UserGalleryArtwork();
+
+                uga.User = (Net.Models.User)Session["user"];
+
+                _gallery = new BL.Gallery();
+                uga.Galleries = _gallery.LoadById(uga.User.Id);
+
+                _artwork = new BL.Artwork();
+                _artworks = new List<Net.Models.Artwork>();
+
+                List<int> galleryIDs = new List<int>();
+                foreach (Net.Models.Gallery gallery in uga.Galleries)
+                {
+                    galleryIDs.Add(gallery.Id);
+                }
+
+                foreach (int i in galleryIDs)
+                {
+                    _artworks.AddRange(_artwork.LoadByGalleryId(i));
+                }
+
+                uga.Artworks = _artworks;
+
+                if (ViewBag.Message == null)
+                {
+                    ViewBag.Message = "Galleries";
+                }
+                return View(uga);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ImageUpload(Net.Models.File file,Net.Models.User user, UserGalleryArtwork uga)
+        {
+            try
+            {
+                uga.User = (Net.Models.User)Session["user"];
+                user = uga.User;
+                user.Files.Add(file);
+                BL.File fileHelper = new BL.File();
+                fileHelper.Insert(file);
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View(uga);
+            }
+        }
+
+        #endregion
+
     }
 }
