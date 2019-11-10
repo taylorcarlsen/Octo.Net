@@ -43,30 +43,64 @@ namespace Octo.Net.BL
 
         public int Insert(Models.User user, Models.File file)
         {
-            tblUser newUser = new tblUser { 
-                FirstName = user.FirstName, 
-                LastName = user.LastName, 
-                Email = user.Email,
-                JoinDate = DateTime.Now, 
-                UserName = user.UserName, 
-                CommissionActive = user.CommissionActive, 
-                Password = GetHash(user.Password)
-            };
-
-            db.Users.Add(newUser);
-
-            tblFiles newFile = new tblFiles()
+            try
             {
-                FileName = file.FileName,
-                ContentType = file.ContentType,
-                Content = file.Content,
-                UserId = newUser.Id
-            };
+                using (var transactionContext = db.Database.BeginTransaction())
+                {
+                    tblUser newUser = new tblUser
+                    {
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = user.Email,
+                        JoinDate = DateTime.Now,
+                        UserName = user.UserName,
+                        CommissionActive = user.CommissionActive,
+                        Password = GetHash(user.Password)
+                    };
 
-            db.Files.Add(newFile);
+                    db.Users.Add(newUser);
+                    db.SaveChanges();
 
-            db.SaveChanges();
-            return newUser.Id;
+                    tblArtwork newArtwork = new tblArtwork
+                    {
+                        //GalleryId = newArtwork.GalleryId,
+                        Title = file.FileName,
+                        Price = 0,
+                        IsCommission = false,
+                        DateCreated = DateTime.Now
+                    };
+
+                    db.Artworks.Add(newArtwork);
+                    db.SaveChanges();
+
+
+                    tblFiles newFile = new tblFiles()
+                    {
+                        FileName = file.FileName,
+                        ContentType = file.ContentType,
+                        Content = file.Content,
+                        UserId = newUser.Id,
+                        User = newUser,
+                        FileType = (Net.Data1.tblFileType)file.FileType,
+                        ArtworkId = newArtwork.Id,
+                        Artwork = newArtwork
+                    };
+
+                    db.Files.Add(newFile);
+
+                    db.SaveChanges();
+
+                    transactionContext.Commit();
+                    return newUser.Id;
+                }
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException;
+                throw;
+            }
+
+
         }
         public void Update(Models.User user)
         {
