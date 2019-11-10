@@ -10,7 +10,10 @@
 
             <div class="row profile-jumbo">
                 <div class="col-md-4 profile-image-area">
-                    <img src="~/Content/img/usersDefault.png" class="rounded-circle profile-image" alt="@Html.DisplayFor(i => Model.User.UserName)'s profile picture" />
+                    @if (Model.User.Files.Any(f => f.FileType == Octo.Net.Models.FileType.Avatar))
+                    {
+                        <img src="~/File?id=@Model.User.Files.First(f=>f.FileType == Octo.Net.Models.FileType.Avatar).Id" class="rounded-circle profile-image" alt="@Html.DisplayFor(i => Model.User.UserName)'s profile picture" />
+                    }
                 </div>
                 <div class="col-md-8">
                 </div>
