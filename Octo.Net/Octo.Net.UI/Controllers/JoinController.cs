@@ -40,19 +40,36 @@ namespace Octo.Net.UI.Controllers
 
         // POST: BL.User/Create
         [HttpPost]
-        public ActionResult Create(Octo.Net.Models.User user, Net.Models.File file)
+        public ActionResult Create(Octo.Net.Models.User user, Net.Models.File file, HttpPostedFileBase upload)
         {
             try
             {
-                // TODO: Add insert logic here
-                User blUser = new User();
-                blUser.Insert(user, file);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    if (upload != null && upload.ContentLength > 0)
+                    {
+                        file = new Net.Models.File
+                        {
+                            FileName = System.IO.Path.GetFileName(upload.FileName),
+                            FileType = Net.Models.FileType.Avatar,
+                            ContentType = upload.ContentType
+                        };
+                        using(var reader = new System.IO.BinaryReader(upload.InputStream))
+                        {
+                            file.Content = reader.ReadBytes(upload.ContentLength);
+                        }
+                        user.Files = new List<Net.Models.File> { file };
+                    }
+                    User blUser = new User();
+                    blUser.Insert(user, file);
+                    return RedirectToAction("Index");
+                }
             }
             catch
             {
-                return View(user);
+                return View();
             }
+            return View();
         }
 
     }

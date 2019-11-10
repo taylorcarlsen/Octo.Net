@@ -226,6 +226,8 @@ namespace Octo.Net.UI.Controllers
                 user = uga.User;
                 user.Files.Add(file);
                 BL.File fileHelper = new BL.File();
+                file.UserId = user.Id;
+                file.FileName = user.UserName + "-Avatar";
                 fileHelper.Insert(file);
                 return RedirectToAction("Index");
             }
