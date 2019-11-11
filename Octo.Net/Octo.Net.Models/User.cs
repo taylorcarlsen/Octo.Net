@@ -21,7 +21,7 @@ namespace Octo.Net.Models
         public DateTime JoinDate { get; set; }
         [DisplayName("Commission Active")]
         public bool CommissionActive { get; set; }
-        public virtual ICollection<File> Files { get; set; }
+        //public virtual ICollection<File> Files { get; set; }
 
     }
 }

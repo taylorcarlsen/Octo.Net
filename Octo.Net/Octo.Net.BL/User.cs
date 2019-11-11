@@ -145,6 +145,7 @@ namespace Octo.Net.BL
             var user = db.Users.FirstOrDefault(u => u.UserName == userName);
             if(user != null)
             {
+                
                 Models.User u = new Models.User
                 {
                     Id = user.Id,
@@ -156,6 +157,7 @@ namespace Octo.Net.BL
                     Password = user.Password,
                     UserName = user.UserName
                 };
+
                 return u;
             }
             else { return null; }

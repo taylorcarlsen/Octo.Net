@@ -63,26 +63,25 @@ namespace Octo.Net.BL
             else { return null; }
         }
 
-        public Models.File LoadByUserId(int id)
+        public List<Models.File> LoadByUserId(int id)
         {
             if(id != null)
             {
                 List<Models.File> files = new List<Models.File>();
-
-                var file = db.Files.FirstOrDefault(f => f.UserId == id);
-                if (file != null)
-                {
-                    Models.File f = new Models.File
+                db.Files.Where(f => f.UserId == id)
+                    .ToList()
+                    .ForEach(f => files
+                    .Add(new Models.File
                     {
-                        Id = file.Id,
-                        ArtworkId = file.ArtworkId,
-                        UserId = file.UserId,
-                        Content = file.Content,
-                        ContentType = file.ContentType,
-                        FileName = file.FileName
-                    };
-                    return f;
-                }else { return null; }
+                        Id = f.Id,
+                        ArtworkId = f.ArtworkId,
+                        UserId = f.UserId,
+                        FileName = f.FileName,
+                        ContentType = f.ContentType,
+                        Content = f.Content
+                    }));
+                return files;
+                
             }
             else { return null; }
         }
