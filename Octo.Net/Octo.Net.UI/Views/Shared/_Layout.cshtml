@@ -10,6 +10,8 @@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+
 
 </head>
 <body>
@@ -99,62 +101,62 @@
         </div>
     </nav>
 
-        <!--Jumbotron-->
+    <!--Jumbotron-->
 
-        <div id="carouselExampleIndicators" class="carousel slide jumbotron-fluid jumbo_main" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="carousel1">
-                        <div class="row justify-content-between">
-                            <div class="col-md-2">
+    <div id="carouselExampleIndicators" class="carousel slide jumbotron-fluid jumbo_main" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="carousel1">
+                    <div class="row justify-content-between">
+                        <div class="col-md-2">
 
+                        </div>
+                        <div class="col-md-8 carousel-content">
+                            <div class="card">
+                                <h1 class="px-2">Join our Community...</h1>
+                                <p class="pt-1">
+                                    Meet other artists, find inspiration, and help promote and encourage creativity.
+                                    Create and share your portfolio, collaborate with fellow artists hone your skills together.
+                                </p>
+
+                                <button class="btn btn-lg btn-link">
+                                    @Html.ActionLink(" Join Us! ", "Index", "Join")
+                                </button>
                             </div>
-                            <div class="col-md-8 carousel-content">
-                                <div class="card">
-                                    <h1 class="px-2">Join our Community...</h1>
-                                    <p class="pt-1">
-                                        Meet other artists, find inspiration, and help promote and encourage creativity.
-                                        Create and share your portfolio, collaborate with fellow artists hone your skills together.
-                                    </p>
+                        </div>
+                        <div class="col-md-2">
 
-                                    <button class="btn btn-lg btn-link">
-                                        @Html.ActionLink(" Join Us! ", "Index", "Join")
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="carousel2"></div>
-                </div>
-                <div class="carousel-item">
-                    <div class="carousel3"></div>
-
-                </div>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
+            <div class="carousel-item">
+                <div class="carousel2"></div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel3"></div>
 
-   
-    <div class="container body-content">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+
+    <div class="body-content">
         @RenderBody()
-      
+
         <hr />
         <footer>
 
@@ -196,10 +198,9 @@
                     </ul>
                 </div>
                 <p class="pt-2">&copy; @DateTime.Now.Year - Octo.Net</p>
-            </nav>                     
+            </nav>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

@@ -109,3 +109,40 @@
 .profile-lower {
     margin-top: 1vw;
 }
+
+
+/***************************************************Swiper Specific************************************/
+
+.swiper-container {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.swiper-slide {
+    height: auto;
+    max-width: 300px;
+    
+}
+
+.swiper-slide-active{
+    height:auto;
+    width:auto;
+}
+
+
+/******************************************************Card Styles**********************************/
+.card-image-resize{
+    max-height:300px;
+    max-width:300px;
+}
+
+.card{
+    margin:0;
+}
+
+.card-cf {
+    margin: 0;
+    max-height: 800px;
+    max-width: 300px;
+}
