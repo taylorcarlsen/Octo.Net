@@ -145,7 +145,7 @@ namespace Octo.Net.BL
             var user = db.Users.FirstOrDefault(u => u.UserName == userName);
             if(user != null)
             {
-                
+                BL.File file = new BL.File();
                 Models.User u = new Models.User
                 {
                     Id = user.Id,
@@ -155,7 +155,8 @@ namespace Octo.Net.BL
                     JoinDate = user.JoinDate ?? DateTime.Now,
                     LastName = user.LastName,
                     Password = user.Password,
-                    UserName = user.UserName
+                    UserName = user.UserName,
+                    Files = file.LoadByUserId(user.Id)
                 };
 
                 return u;
