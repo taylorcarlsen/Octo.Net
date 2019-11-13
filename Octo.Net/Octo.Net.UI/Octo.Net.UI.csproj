@@ -147,9 +147,15 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\art13c.jpg" />
+    <Content Include="Content\img\art15c.jpg" />
+    <Content Include="Content\img\art18c.jpg" />
     <Content Include="Content\img\art29.jpg" />
     <Content Include="Content\img\art31.jpg" />
+    <Content Include="Content\img\art34c.jpg" />
     <Content Include="Content\img\art35.jpg" />
+    <Content Include="Content\img\art6c.jpg" />
+    <Content Include="Content\img\art9c.jpg" />
     <Content Include="Content\img\artsmall.jpg" />
     <Content Include="Content\img\facebooklogo.png" />
     <Content Include="Content\img\jumbo1.jpg" />
