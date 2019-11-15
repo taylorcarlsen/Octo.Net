@@ -11,8 +11,10 @@ namespace Octo.Net.UI.Controllers
     public class ProfileController : Controller
     {
         private List<Net.Models.Artwork> _artworks;
+        private List<Net.Models.File> _files;
         private BL.Gallery _gallery;
         private BL.Artwork _artwork;
+        private BL.File _file;
 
         // GET: Profile
         public ActionResult Index()
@@ -24,34 +26,44 @@ namespace Octo.Net.UI.Controllers
                     ViewBag.Message = "Profile";
                 }
 
-                UserGalleryArtwork uga = new UserGalleryArtwork();
+                UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
 
-                uga.User = (Octo.Net.Models.User)Session["user"];
+                ugaf.User = (Octo.Net.Models.User)Session["user"];
 
                 _gallery = new BL.Gallery();
-                uga.Galleries = _gallery.LoadById(uga.User.Id);
+                ugaf.Galleries = _gallery.LoadById(ugaf.User.Id);
 
                 _artwork = new BL.Artwork();
                 _artworks = new List<Net.Models.Artwork>();
 
+                _file = new BL.File();
+                _files = new List<Net.Models.File>();
+
                 List<int> galleryIDs = new List<int>();
-                foreach (Net.Models.Gallery gallery in uga.Galleries)
+                foreach (Net.Models.Gallery gallery in ugaf.Galleries)
                 {
                     galleryIDs.Add(gallery.Id);
                 }
 
-                foreach (int i in galleryIDs)
+                foreach (int id in galleryIDs)
                 {
-                    _artworks.AddRange(_artwork.LoadByGalleryId(i));
+                    _files.AddRange(_file.LoadByUserGalleryId(ugaf.User.Id, id));
                 }
 
-                uga.Artworks = _artworks;
+                ugaf.Files = _files;
+
+                foreach (Net.Models.File file in _files)
+                {
+                    _artworks.Add(file.Artwork);
+                }
+
+                ugaf.Artworks = _artworks;
 
                 if (ViewBag.Message == null)
                 {
                     ViewBag.Message = "Galleries";
                 }
-                return View(uga);
+                return View(ugaf);
             }
             else
             {
@@ -64,32 +76,42 @@ namespace Octo.Net.UI.Controllers
         {
             if (Authenticate.IsAuthenticated())
             {
-                UserGalleryArtwork uga = new UserGalleryArtwork();
+                UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
 
                 _gallery = new BL.Gallery();
-                uga.Galleries = _gallery.LoadById(id);
+                ugaf.Galleries = _gallery.LoadById(id);
 
                 _artwork = new BL.Artwork();
                 _artworks = new List<Net.Models.Artwork>();
 
+                _file = new BL.File();
+                _files = new List<Net.Models.File>();
+
                 List<int> galleryIDs = new List<int>();
-                foreach (Net.Models.Gallery gallery in uga.Galleries)
+                foreach (Net.Models.Gallery gallery in ugaf.Galleries)
                 {
                     galleryIDs.Add(gallery.Id);
                 }
 
-                foreach (int i in galleryIDs)
+                foreach (int galleryId in galleryIDs)
                 {
-                    _artworks.AddRange(_artwork.LoadByGalleryId(i));
+                    _files.AddRange(_file.LoadByUserGalleryId(id, galleryId));
                 }
 
-                uga.Artworks = _artworks;
+                ugaf.Files = _files;
+
+                foreach (Net.Models.File file in _files)
+                {
+                    _artworks.Add(file.Artwork);
+                }
+
+                ugaf.Artworks = _artworks;
 
                 if (ViewBag.Message == null)
                 {
                     ViewBag.Message = "Galleries";
                 }
-                return View(uga);
+                return View(ugaf);
             }
             else
             {
@@ -116,18 +138,18 @@ namespace Octo.Net.UI.Controllers
                     ViewBag.Message = "Profile";
                 }
 
-                UserGalleryArtwork uga = new UserGalleryArtwork();
+                UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
 
-                uga.User = (Net.Models.User)Session["user"];
+                ugaf.User = (Net.Models.User)Session["user"];
 
                 _gallery = new BL.Gallery();
-                uga.Galleries = _gallery.LoadById(uga.User.Id);
+                ugaf.Galleries = _gallery.LoadById(ugaf.User.Id);
 
                 _artwork = new BL.Artwork();
                 _artworks = new List<Net.Models.Artwork>();
 
                 List<int> galleryIDs = new List<int>();
-                foreach (Net.Models.Gallery gallery in uga.Galleries)
+                foreach (Net.Models.Gallery gallery in ugaf.Galleries)
                 {
                     galleryIDs.Add(gallery.Id);
                 }
@@ -137,13 +159,13 @@ namespace Octo.Net.UI.Controllers
                     _artworks.AddRange(_artwork.LoadByGalleryId(i));
                 }
 
-                uga.Artworks = _artworks;
+                ugaf.Artworks = _artworks;
 
                 if (ViewBag.Message == null)
                 {
                     ViewBag.Message = "Galleries";
                 }
-                return View(uga);
+                return View(ugaf);
             }
             else
             {
@@ -153,20 +175,20 @@ namespace Octo.Net.UI.Controllers
 
 
         [HttpPost]
-        public ActionResult Edit(int id, UserGalleryArtwork uga)
+        public ActionResult Edit(int id, UserGalleryArtworkFile ugaf)
         {
             try
             {
-                uga.User = (Net.Models.User)Session["user"];
-                uga.User.Id = id;
-                Net.Models.User user = uga.User;
+                ugaf.User = (Net.Models.User)Session["user"];
+                ugaf.User.Id = id;
+                Net.Models.User user = ugaf.User;
                 Net.BL.User userHelper = new BL.User();
                 userHelper.Update(user);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View(uga);
+                return View(ugaf);
             }
         }
         #endregion
@@ -182,18 +204,18 @@ namespace Octo.Net.UI.Controllers
                     ViewBag.Message = "Profile";
                 }
 
-                UserGalleryArtwork uga = new UserGalleryArtwork();
+                UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
 
-                uga.User = (Net.Models.User)Session["user"];
+                ugaf.User = (Net.Models.User)Session["user"];
 
                 _gallery = new BL.Gallery();
-                uga.Galleries = _gallery.LoadById(uga.User.Id);
+                ugaf.Galleries = _gallery.LoadById(ugaf.User.Id);
 
                 _artwork = new BL.Artwork();
                 _artworks = new List<Net.Models.Artwork>();
 
                 List<int> galleryIDs = new List<int>();
-                foreach (Net.Models.Gallery gallery in uga.Galleries)
+                foreach (Net.Models.Gallery gallery in ugaf.Galleries)
                 {
                     galleryIDs.Add(gallery.Id);
                 }
@@ -203,13 +225,13 @@ namespace Octo.Net.UI.Controllers
                     _artworks.AddRange(_artwork.LoadByGalleryId(i));
                 }
 
-                uga.Artworks = _artworks;
+                ugaf.Artworks = _artworks;
 
                 if (ViewBag.Message == null)
                 {
                     ViewBag.Message = "Galleries";
                 }
-                return View(uga);
+                return View(ugaf);
             }
             else
             {
@@ -218,12 +240,12 @@ namespace Octo.Net.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult ImageUpload(Net.Models.File file,Net.Models.User user, UserGalleryArtwork uga)
+        public ActionResult ImageUpload(Net.Models.File file,Net.Models.User user, UserGalleryArtworkFile ugaf)
         {
             try
             {
-                uga.User = (Net.Models.User)Session["user"];
-                user = uga.User;
+                ugaf.User = (Net.Models.User)Session["user"];
+                user = ugaf.User;
                 user.Files.Add(file);
                 BL.File fileHelper = new BL.File();
                 file.UserId = user.Id;
@@ -233,7 +255,7 @@ namespace Octo.Net.UI.Controllers
             }
             catch (Exception)
             {
-                return View(uga);
+                return View(ugaf);
             }
         }
 

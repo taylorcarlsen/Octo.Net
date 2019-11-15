@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Octo.Net.BL
 {
+
     public class File : IDisposable
     {
+
         private readonly OctoNetDbContext db;
 
         public File()
@@ -24,6 +26,7 @@ namespace Octo.Net.BL
         public List<Models.File> Load()
         {
             List<Models.File> files = new List<Models.File>();
+            BL.Artwork artwork = new BL.Artwork();
             db.Files.ToList().ForEach(f => files
             .Add(new Models.File
             {
@@ -32,7 +35,8 @@ namespace Octo.Net.BL
                 ContentType = f.ContentType,
                 Content = f.Content,
                 UserId = f.UserId,
-                ArtworkId = f.ArtworkId
+                ArtworkId = f.ArtworkId,
+                Artwork = artwork.LoadById(f.ArtworkId)
             }));
 
             return files;
@@ -68,6 +72,7 @@ namespace Octo.Net.BL
             if(id != null)
             {
                 List<Models.File> files = new List<Models.File>();
+                BL.Artwork artwork = new BL.Artwork();
                 db.Files.Where(f => f.UserId == id)
                     .ToList()
                     .ForEach(f => files
@@ -78,13 +83,93 @@ namespace Octo.Net.BL
                         UserId = f.UserId,
                         FileName = f.FileName,
                         ContentType = f.ContentType,
-                        Content = f.Content
+                        Content = f.Content,
+                        Artwork = artwork.LoadById(f.ArtworkId)
                     }));
                 return files;
                 
             }
             else { return null; }
         }
+
+        public List<Models.File> LoadByUserGalleryId(int userId, int galleryId)
+        {
+            if (userId != null && galleryId != null)
+            {
+                List<Models.File> files = new List<Models.File>();
+                BL.Artwork artwork = new BL.Artwork();
+
+                var results = (from f in db.Files
+                               join a in db.Artworks on f.ArtworkId equals a.Id
+                               where (a.GalleryId == galleryId && f.UserId == userId)
+                               select new
+                               { 
+                                   f.Id,
+                                   f.ArtworkId,
+                                   f.UserId,
+                                   f.FileName,
+                                   f.ContentType,
+                                   f.Content
+                               }).ToList();
+
+                foreach (var r in results)
+                {
+                    files.Add(new Models.File
+                     {
+                         Id = r.Id,
+                         ArtworkId = r.ArtworkId,
+                         UserId = r.UserId,
+                         FileName = r.FileName,
+                         ContentType = r.ContentType,
+                         Content = r.Content,
+                         Artwork = artwork.LoadById(r.ArtworkId) 
+                     });;
+                }
+                return files;
+
+            }
+            else { return null; }
+        }
+
+        /*
+        public List<Models.File> LoadByFileTypeId(int fileType)
+        {
+            if (fileType != null)
+            {
+                List<Models.File> files = new List<Models.File>();
+
+                var results = (from f in db.Files
+                               join ft in db.FileTypes on f.FileType equals ft.Id
+                               where (ft.Id == fileType)
+                               select new
+                               {
+                                   f.Id,
+                                   f.ArtworkId,
+                                   f.UserId,
+                                   f.FileName,
+                                   f.ContentType,
+                                   f.Content
+                               }).ToList();
+
+                foreach (var r in results)
+                {
+                    files.Add(new Models.File
+                    {
+                        Id = r.Id,
+                        ArtworkId = r.ArtworkId,
+                        UserId = r.UserId,
+                        FileName = r.FileName,
+                        ContentType = r.ContentType,
+                        Content = r.Content,
+                        Artwork = _artwork.LoadById(r.ArtworkId) 
+                    });
+                }
+                return files;
+
+            }
+            else { return null; }
+        }
+        */
 
         public int Insert(Models.File file)
         {

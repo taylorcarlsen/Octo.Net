@@ -9,10 +9,11 @@ using Octo.Net.Models;
 
 namespace Octo.Net.UI.ViewModels
 {
-    public class UserGalleryArtwork
+    public class UserGalleryArtworkFile
     {
         public Net.Models.User User { get; set; }
         public List<Net.Models.Gallery> Galleries { get; set; }
         public List<Net.Models.Artwork> Artworks { get; set; }
+        public List<Net.Models.File> Files { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model  Octo.Net.UI.ViewModels.UserGalleryArtwork
+﻿@model  Octo.Net.UI.ViewModels.UserGalleryArtworkFile
 
 @{
     ViewBag.Title = "Galleries";
@@ -31,23 +31,24 @@
                         </td>
 
                     </tr>
-                    foreach (var item1 in Model.Artworks)
+                    foreach (var item1 in Model.Files)
                     {
-                        if (item1.GalleryId == item.Id) {
-                            <tr>
+                        if (item.Id == item1.Artwork.GalleryId)
+                        {
 
-                                <td scope="row">
-                                    @Html.DisplayFor(i => item1.Title)
-                                </td>
+                        <tr>
+                            <td scope="row">
+                                @Html.DisplayFor(i => item1.Artwork.Title)
+                            </td>
 
-                                <td scope="row">
-                                    @Html.ActionLink("View", "Artwork", item1.Id)
-                                </td>
+                            <td scope="row">
+                                @Html.ActionLink("View", "Artwork", item1.Id)
+                            </td>
 
-                            </tr>
+                        </tr>
                         }
                     }
-                 }
+                }
                 </tbody>
         </table>
         <!--Table to display gallerys-->
