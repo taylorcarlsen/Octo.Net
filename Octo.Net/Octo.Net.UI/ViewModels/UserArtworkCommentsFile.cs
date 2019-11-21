@@ -15,6 +15,5 @@ namespace Octo.Net.UI.ViewModels
         public List<Net.Models.Artwork> Artworks { get; set; }
         public List<Net.Models.Collection> Collections { get; set; }
         public List<Net.Models.File> Files { get; set; }
-
     }
 }

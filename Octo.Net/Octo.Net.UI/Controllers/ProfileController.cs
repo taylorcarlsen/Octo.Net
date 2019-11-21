@@ -121,8 +121,21 @@ namespace Octo.Net.UI.Controllers
 
         public ActionResult Artwork(int id)
         {
-            Net.Models.Artwork artwork = new Net.Models.Artwork();
-            artwork = _artwork.LoadById(id);
+            //Net.Models.Artwork artwork = new Net.Models.Artwork();
+            //artwork = _artwork.LoadById(id);
+
+            if (Authenticate.IsAuthenticated())
+            {
+                UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
+
+
+
+                return View(ugaf);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
+            }
 
             return View();
         }
