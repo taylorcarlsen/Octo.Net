@@ -131,16 +131,15 @@ namespace Octo.Net.BL
             else { return null; }
         }
 
-        /*
-        public List<Models.File> LoadByFileTypeId(int fileType)
+        public List<Models.File> LoadByUserFileTypeId(int userId, int fileType)
         {
             if (fileType != null)
             {
                 List<Models.File> files = new List<Models.File>();
+                BL.Artwork artwork = new BL.Artwork();
 
                 var results = (from f in db.Files
-                               join ft in db.FileTypes on f.FileType equals ft.Id
-                               where (ft.Id == fileType)
+                               where (f.FileType == (tblFileType) fileType && f.UserId == userId)
                                select new
                                {
                                    f.Id,
@@ -161,7 +160,7 @@ namespace Octo.Net.BL
                         FileName = r.FileName,
                         ContentType = r.ContentType,
                         Content = r.Content,
-                        Artwork = _artwork.LoadById(r.ArtworkId) 
+                        Artwork = artwork.LoadById(r.ArtworkId)
                     });
                 }
                 return files;
@@ -169,7 +168,6 @@ namespace Octo.Net.BL
             }
             else { return null; }
         }
-        */
 
         public int Insert(Models.File file)
         {

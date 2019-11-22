@@ -8,6 +8,7 @@ namespace Octo.Net.Data1
 {
     public enum tblFileType
     {
-        Avatar = 1, Photo
+        Avatar = 1,
+        Artwork = 2
     }
 }

@@ -50,6 +50,9 @@ namespace Octo.Net.UI.Controllers
                     _files.AddRange(_file.LoadByUserGalleryId(ugaf.User.Id, id));
                 }
 
+                // Add avatar
+                _files.AddRange(_file.LoadByUserFileTypeId(ugaf.User.Id, 1));
+
                 ugaf.Files = _files;
 
                 foreach (Net.Models.File file in _files)
@@ -137,7 +140,6 @@ namespace Octo.Net.UI.Controllers
                 return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
             }
 
-            return View();
         }
 
 

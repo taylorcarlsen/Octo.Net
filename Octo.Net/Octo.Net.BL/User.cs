@@ -39,8 +39,6 @@ namespace Octo.Net.BL
 
         }
 
-
-
         public int Insert(Models.User user, Models.File file)
         {
             try
