@@ -109,7 +109,8 @@ namespace Octo.Net.BL
                                    f.UserId,
                                    f.FileName,
                                    f.ContentType,
-                                   f.Content
+                                   f.Content,
+                                   f.FileType
                                }).ToList();
 
                 foreach (var r in results)
@@ -122,6 +123,7 @@ namespace Octo.Net.BL
                          FileName = r.FileName,
                          ContentType = r.ContentType,
                          Content = r.Content,
+                         FileType = (Models.FileType)r.FileType,
                          Artwork = artwork.LoadById(r.ArtworkId) 
                      });;
                 }
@@ -131,7 +133,7 @@ namespace Octo.Net.BL
             else { return null; }
         }
 
-        public List<Models.File> LoadByUserFileTypeId(int userId, int fileType)
+        public List<Models.File> LoadByUserFileTypeId(int userId, Net.Models.FileType fileType)
         {
             if (fileType != null)
             {
@@ -147,7 +149,8 @@ namespace Octo.Net.BL
                                    f.UserId,
                                    f.FileName,
                                    f.ContentType,
-                                   f.Content
+                                   f.Content,
+                                   f.FileType
                                }).ToList();
 
                 foreach (var r in results)
@@ -160,6 +163,7 @@ namespace Octo.Net.BL
                         FileName = r.FileName,
                         ContentType = r.ContentType,
                         Content = r.Content,
+                        FileType = (Models.FileType)r.FileType,
                         Artwork = artwork.LoadById(r.ArtworkId)
                     });
                 }
@@ -178,7 +182,6 @@ namespace Octo.Net.BL
                 ContentType = file.ContentType,
                 UserId = file.UserId,
                 ArtworkId = file.ArtworkId
-
             };
 
             db.Files.Add(newFile);
