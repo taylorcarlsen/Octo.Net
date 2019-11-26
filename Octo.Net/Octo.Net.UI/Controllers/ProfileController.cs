@@ -15,6 +15,7 @@ namespace Octo.Net.UI.Controllers
         private BL.Gallery _gallery;
         private BL.Artwork _artwork;
         private BL.File _file;
+        BL.User _user;
 
         // GET: Profile
         public ActionResult Index()
@@ -144,7 +145,26 @@ namespace Octo.Net.UI.Controllers
 
 
         #region Profile Edit
-        public ActionResult Edit()
+
+        /*public ActionResult Edit(User user)
+        {
+            if(Authenticate.IsAuthenticated())
+            {
+                UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
+                ugaf.User = (Net.Models.User)Session["user"];
+
+                using (_user = new BL.User())
+                {
+                    _user.Update()
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url})
+            }
+        }*/
+
+        /*public ActionResult Edit()
         {
             if (Authenticate.IsAuthenticated())
             {
@@ -186,7 +206,7 @@ namespace Octo.Net.UI.Controllers
             {
                 return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
             }
-        }
+        }*/
 
 
         [HttpPost]
