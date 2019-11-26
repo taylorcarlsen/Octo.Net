@@ -51,7 +51,7 @@ namespace Octo.Net.UI.Controllers
                 }
 
                 // Add avatar
-                _files.AddRange(_file.LoadByUserFileTypeId(ugaf.User.Id, Net.Models.FileType.Avatar ));
+                _files.AddRange(_file.LoadByUserFileTypeId(ugaf.User.Id, Net.Models.FileType.Avatar));
 
                 ugaf.Files = _files;
 

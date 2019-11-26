@@ -16,9 +16,10 @@
             {
                 if (item.FileType == Octo.Net.Models.FileType.Avatar)
                 {
-                    //<img src="~/File?id=@Model.User.Files.First(f => f.FileType == Octo.Net.Models.FileType.Avatar).Id" class="rounded-circle profile-image" alt="@Html.DisplayFor(i => Model.User.UserName)'s profile picture" />
-                    //<img src="~/File?id=@Html.DisplayFor(i => item.Id)" class="rounded-circle profile-image" alt="@Html.DisplayFor(i => Model.User.UserName)'s profile picture" />
-                    <img src="" class="rounded-circle profile-image" alt="@Html.DisplayFor(i => Model.User.UserName)'s profile picture" />
+                    var base64 = Convert.ToBase64String(item.Content);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    
+                    <img src="@imgSrc" class="rounded-circle profile-image" alt="@Html.DisplayFor(i => Model.User.UserName)'s profile picture" />
                 }
                 else
                 {

@@ -1,9 +1,11 @@
 ﻿using Octo.Net.Data1;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Octo.Net.BL
 {
@@ -188,5 +190,6 @@ namespace Octo.Net.BL
             db.SaveChanges();
             return newFile.Id;
         }
+
     }
 }
