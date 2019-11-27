@@ -49,6 +49,7 @@ namespace Octo.Net.BL
             if (id != null)
             {
                 List<Models.File> files = new List<Models.File>();
+                BL.Artwork artwork = new BL.Artwork();
 
                 var file = db.Files.FirstOrDefault(f => f.ArtworkId == id);
                 if (file != null)
@@ -60,7 +61,8 @@ namespace Octo.Net.BL
                         UserId = file.UserId,
                         Content = file.Content,
                         ContentType = file.ContentType,
-                        FileName = file.FileName
+                        FileName = file.FileName,
+                        Artwork = artwork.LoadById(file.ArtworkId)
                     };
                     return f;
                 }

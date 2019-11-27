@@ -12,9 +12,11 @@ namespace Octo.Net.UI.Controllers
     {
         private List<Net.Models.Artwork> _artworks;
         private List<Net.Models.File> _files;
+        private List<Net.Models.Message> _messages;
         private BL.Gallery _gallery;
         private BL.Artwork _artwork;
         private BL.File _file;
+        private BL.Message _message;
         BL.User _user;
 
         // GET: Profile
@@ -125,16 +127,20 @@ namespace Octo.Net.UI.Controllers
 
         public ActionResult Artwork(int id)
         {
-            //Net.Models.Artwork artwork = new Net.Models.Artwork();
-            //artwork = _artwork.LoadById(id);
 
             if (Authenticate.IsAuthenticated())
             {
-                UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
+                UserCommentsFile uacf = new UserCommentsFile();
 
+                uacf.User = (Octo.Net.Models.User)Session["user"];
 
+                _file = new BL.File();
+                uacf.File = _file.LoadByArtworkId(id);
 
-                return View(ugaf);
+                _message = new BL.Message();
+                uacf.Messages = _message.LoadByCollection(uacf.File.Artwork.CollectionMessageId);
+
+                return View(uacf);
             }
             else
             {
