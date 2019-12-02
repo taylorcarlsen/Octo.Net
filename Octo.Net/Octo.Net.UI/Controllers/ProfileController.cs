@@ -19,8 +19,10 @@ namespace Octo.Net.UI.Controllers
         private BL.Artwork _artwork;
         private BL.File _file;
         private BL.Message _message;
+        private BL.Message _comment;
         BL.User _user;
 
+        #region Index
         // GET: Profile
         public ActionResult Index()
         {
@@ -78,7 +80,9 @@ namespace Octo.Net.UI.Controllers
                 return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
             }
         }
+        #endregion
 
+        #region Galleries
         // GET: Gallery
         public ActionResult Galleries(int id)
         {
@@ -126,23 +130,25 @@ namespace Octo.Net.UI.Controllers
                 return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
             }
         }
+        #endregion
 
+        #region Artwork
         public ActionResult Artwork(int id)
         {
 
             if (Authenticate.IsAuthenticated())
             {
-                UserCommentsFile uacf = new UserCommentsFile();
+                UserMessageCommentFile ucf = new UserMessageCommentFile();
 
-                uacf.User = (Octo.Net.Models.User)Session["user"];
+                ucf.User = (Octo.Net.Models.User)Session["user"];
 
                 _file = new BL.File();
-                uacf.File = _file.LoadByArtworkId(id);
+                ucf.File = _file.LoadByArtworkId(id);
 
                 _message = new BL.Message();
-                uacf.Messages = _message.LoadByCollection(uacf.File.Artwork.CollectionMessageId);
+                ucf.Messages = _message.LoadByCollection(ucf.File.Artwork.CollectionMessageId);
 
-                return View(uacf);
+                return View(ucf);
             }
             else
             {
@@ -151,6 +157,24 @@ namespace Octo.Net.UI.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult Artwork(UserMessageCommentFile ucf)
+        {
+            try
+            {
+
+                BL.Message blMessage = new BL.Message();
+                int result = blMessage.Insert(ucf.Comment);
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View(ucf);
+            }
+        }
+
+        #endregion
 
         #region Profile Edit
 
