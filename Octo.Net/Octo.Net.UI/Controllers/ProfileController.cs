@@ -355,7 +355,7 @@ namespace Octo.Net.UI.Controllers
         {
             if (Authenticate.IsAuthenticated())
             {
-                Gallery galleryHelper = new Gallery();
+                BL.Gallery galleryHelper = new BL.Gallery();
 
 
                 ugfa.User = (Net.Models.User)Session["user"];
@@ -374,8 +374,8 @@ namespace Octo.Net.UI.Controllers
         {
             if (Authenticate.IsAuthenticated())
             {
-                Gallery galleryHelper = new Gallery();
-                Artwork artworkHeloper = new Artwork();
+                BL.Gallery galleryHelper = new BL.Gallery();
+                BL.Artwork artworkHeloper = new BL.Artwork();
                 ugfa.User = (Net.Models.User)Session["user"];
                 Net.Models.User user = ugfa.User;
                 Net.Models.Gallery gallery = new Net.Models.Gallery();
@@ -420,7 +420,7 @@ namespace Octo.Net.UI.Controllers
                     newArt.GalleryId = gallery.Id;
                     newArt.Price = artwork.Price;
                     newArt.IsCommission = artwork.IsCommission;
-                    Artwork artworkHelper = new Artwork();
+                    BL.Artwork artworkHelper = new BL.Artwork();
                     artworkHelper.Insert(newArt, file);
                     return RedirectToAction("Profile", "Profile", new { returnurl = HttpContext.Request.Url });
                 }
