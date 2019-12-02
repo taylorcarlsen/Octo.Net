@@ -17,7 +17,7 @@
                 if (item.FileType == Octo.Net.Models.FileType.Avatar)
                 {
                     var base64 = Convert.ToBase64String(item.Content);
-                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
                     
                     <img src="@imgSrc" class="rounded-circle profile-image" alt="@Html.DisplayFor(i => Model.User.UserName)'s profile picture" />
                 }
@@ -103,7 +103,7 @@
                                                 </td>
 
                                                 <td scope="row">
-                                                    @Html.ActionLink("View", "Artwork", item1.Id)
+                                                    @Html.ActionLink("View", "Artwork", new { id = item1.Artwork.Id })
                                                 </td>
 
                                             </tr>

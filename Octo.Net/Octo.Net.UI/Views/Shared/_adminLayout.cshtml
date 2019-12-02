@@ -59,8 +59,9 @@
                                 Profile
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarProfileDropDownLink">
-                                @Html.ActionLink(" Edit Profile ", "Edit", "Profile")
-                                <a class="dropdown-item" href="#">Add Gallery</a>
+                                @Html.ActionLink(" Edit Profile ", "Edit", "Profile",null, new { @class ="myactionlink dropdown-item"})
+                                @Html.ActionLink(" Add Gallery ", "GalleryAdd", "Profile",null, new { @class="myactionlink dropdown-item"})
+                                @Html.ActionLink(" Upload Artwork ", "AddArtwork", "Profile",null,new { @class="myactionlink dropdown-item"})
                                 <a class="dropdown-item" href="#">Upload Image</a>
                             </div>
                         </li>

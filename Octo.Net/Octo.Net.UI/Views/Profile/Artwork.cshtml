@@ -1,5 +1,24 @@
-﻿@model  Octo.Net.Models.Artwork
+﻿@model  Octo.Net.UI.ViewModels.UserCommentsFile
+
 @{
     ViewBag.Title = "Artwork";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
-    <h2>@Html.DisplayFor(i => Model)</h2>
+
+<h2>@Html.DisplayFor(i => Model.User.UserName)</h2>
+
+<h2>@Html.DisplayFor(i => Model.File.Artwork.Title)</h2>
+
+@{ 
+    var base64 = Convert.ToBase64String(Model.File.Content);
+    var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+
+<img src="@imgSrc" class="rounded-circle profile-image" alt="@Html.DisplayFor(i => Model.File.Artwork.Title)" />
+}
+
+<h3>Messages</h3>
+
+@foreach (var item in Model.Messages)
+{
+    @Html.DisplayFor(i => item.Body);
+}
