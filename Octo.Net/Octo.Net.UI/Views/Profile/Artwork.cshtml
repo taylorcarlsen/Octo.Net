@@ -3,14 +3,11 @@
 @{
     ViewBag.Title = "Artwork";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
-}
 
 <h1>@Html.DisplayFor(i => Model.User.UserName)</h1>
 
 <h2>@Html.DisplayFor(i => Model.File.Artwork.Title)</h2>
 
-@using (Html.BeginForm())
-{
     if (Model.File != null)
     {
         var base64 = Convert.ToBase64String(Model.File.Content);
@@ -29,18 +26,48 @@
     {
         foreach (var item in Model.Messages)
         {
-        @Html.DisplayFor(i => item.Body);
+            <hr>
+            @Html.DisplayFor(i => item.Body);
+            <br>
         }
     }
+}
 
-
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
-
 <div class="form-horizontal">
     <h4>Add a Comment</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Comment.CritiqueId)
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.File.Artwork.CollectionMessageId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.File.Artwork.CollectionMessageId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.File.Content, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.File.Content, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.File.UserId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.File.UserId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.HiddenFor(model => model.Messages, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Messages, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })

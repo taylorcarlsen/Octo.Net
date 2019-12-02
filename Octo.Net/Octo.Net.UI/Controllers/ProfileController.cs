@@ -146,6 +146,7 @@ namespace Octo.Net.UI.Controllers
                 ucf.File = _file.LoadByArtworkId(id);
 
                 _message = new BL.Message();
+
                 ucf.Messages = _message.LoadByCollection(ucf.File.Artwork.CollectionMessageId);
 
                 return View(ucf);
@@ -162,17 +163,30 @@ namespace Octo.Net.UI.Controllers
         {
             try
             {
-
+                ucf.User = (Octo.Net.Models.User)Session["user"];
                 BL.Message blMessage = new BL.Message();
-                int result = blMessage.Insert(ucf.Comment);
+                ucf.Comment.CollectionId = ucf.File.Artwork.CollectionMessageId;
+                ucf.Comment.FromUserId = ucf.User.Id;
+                ucf.Comment.ToUserId = ucf.File.UserId;
+                ucf.Comment.FromUserId = ucf.User.Id;
+                /*
+                ucf.Comment.CritiqueId = 1;
+                ucf.Comment.X = 1;
+                ucf.Comment.Y = 2;
+                */
+                blMessage.Insert(ucf.Comment);
+                //return View(ucf);
+                return Redirect(Request.UrlReferrer.ToString());
 
-                return RedirectToAction("Index");
             }
             catch
             {
-                return View(ucf);
+                System.Diagnostics.Debug.WriteLine(ucf);
+                return View();
             }
         }
+
+        
 
         #endregion
 

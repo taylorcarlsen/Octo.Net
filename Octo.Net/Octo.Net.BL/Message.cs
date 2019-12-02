@@ -23,7 +23,7 @@ namespace Octo.Net.BL
         public List<Models.Message> LoadByCollection(int collectionId)
         {
             List<Models.Message> messages = new List<Models.Message>();
-            db.Messages.Where(x => x.Id == collectionId)
+            db.Messages.Where(x => x.CollectionId == collectionId)
                 .ToList()
                 .ForEach(x => messages
             .Add(new Models.Message
@@ -70,7 +70,7 @@ namespace Octo.Net.BL
             tblMessage newMessage = new tblMessage {
                 Body = message.Body,
                 CritiqueId = message.CritiqueId,
-                DateTime = message.DateTime,
+                DateTime = DateTime.Now,
                 Rating = message.Rating,
                 FromUserId = message.FromUserId,
                 ToUserId = message.ToUserId,
