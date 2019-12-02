@@ -67,14 +67,23 @@ namespace Octo.Net.BL
 
         public int Insert(Models.Message message)
         {
-            tblMessage newMessage = new tblMessage { Body = message.Body, CritiqueId = message.CritiqueId,
-                DateTime = message.DateTime, Rating = message.Rating,
-                FromUserId = message.FromUserId,ToUserId = message.ToUserId, CollectionId = message.CollectionId, X = message.X, Y = message.Y };
+            tblMessage newMessage = new tblMessage {
+                Body = message.Body,
+                CritiqueId = message.CritiqueId,
+                DateTime = message.DateTime,
+                Rating = message.Rating,
+                FromUserId = message.FromUserId,
+                ToUserId = message.ToUserId,
+                CollectionId = message.CollectionId,
+                X = message.X,
+                Y = message.Y
+            };
             db.Messages.Add(newMessage);
 
             db.SaveChanges();
             return newMessage.Id;
         }
+
         public void Update(Models.Message message)
         {
             var existing = db.Messages.SingleOrDefault(x => x.Id == message.Id);
