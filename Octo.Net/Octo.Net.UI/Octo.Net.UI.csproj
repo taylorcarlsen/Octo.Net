@@ -255,6 +255,9 @@
     <Content Include="Views\Profile\Artwork.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\ImageUpload.cshtml" />
+    <Content Include="Views\Profile\GalleryAdd.cshtml" />
+    <Content Include="Views\Profile\AddArtwork.cshtml" />
+    <Content Include="Views\Profile\AddToGallery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

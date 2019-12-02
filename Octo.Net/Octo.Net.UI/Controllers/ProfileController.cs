@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Octo.Net.UI.ViewModels;
+using Octo.Net.BL;
 
 namespace Octo.Net.UI.Controllers
 {
@@ -302,5 +303,129 @@ namespace Octo.Net.UI.Controllers
 
         #endregion
 
+        public ActionResult GalleryAdd(UserGalleryArtworkFile ugfa)
+        {
+            if (Authenticate.IsAuthenticated())
+            {
+                try
+                {
+                    ugfa.User = (Net.Models.User)Session["user"];
+                    Net.Models.User user = ugfa.User;
+                    return View(ugfa);
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = ex.Message;
+                    return View();
+                } 
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
+            }
+        }
+        [HttpPost]
+        public ActionResult GalleryAdd(UserGalleryArtworkFile ugfa, Net.Models.Gallery gallery)
+        {
+            try
+            {
+                ugfa.User = (Net.Models.User)Session["user"];
+                Net.Models.User user = ugfa.User;
+                BL.Gallery galleryHelper = new BL.Gallery();
+                Net.Models.Gallery newGallery = new Net.Models.Gallery();
+                newGallery.UserId = ugfa.User.Id;
+                newGallery.GalleryDescription = gallery.GalleryDescription;
+                newGallery.GalleryName = gallery.GalleryName;
+                newGallery.DateCreated = DateTime.UtcNow;
+                galleryHelper.Insert(newGallery);
+                return View(ugfa);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult AddArtwork(UserGalleryArtworkFile ugfa)
+        {
+            if (Authenticate.IsAuthenticated())
+            {
+                Gallery galleryHelper = new Gallery();
+
+
+                ugfa.User = (Net.Models.User)Session["user"];
+                Net.Models.User user = ugfa.User;
+                ugfa.Galleries = galleryHelper.LoadById(user.Id);
+
+                return View(ugfa);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
+            }
+        }
+
+        public ActionResult AddToGallery(UserGalleryArtworkFile ugfa, int id)
+        {
+            if (Authenticate.IsAuthenticated())
+            {
+                Gallery galleryHelper = new Gallery();
+                Artwork artworkHeloper = new Artwork();
+                ugfa.User = (Net.Models.User)Session["user"];
+                Net.Models.User user = ugfa.User;
+                Net.Models.Gallery gallery = new Net.Models.Gallery();
+                //Get the gallery.
+                gallery = galleryHelper.LoadById(user.Id).Where(g=>g.Id == id).FirstOrDefault();
+
+
+
+                return View(ugfa); 
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddToGallery(Net.Models.User user, Net.Models.Artwork artwork, Net.Models.File file, HttpPostedFileBase upload, Net.Models.Gallery gallery)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (upload != null && upload.ContentLength > 0)
+                    {
+                        file = new Net.Models.File
+                        {
+                            FileName = System.IO.Path.GetFileName(upload.FileName),
+                            FileType = Net.Models.FileType.Photo,
+                            ContentType = upload.ContentType
+                        };
+                        using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                        {
+                            file.Content = reader.ReadBytes(upload.ContentLength);
+                        }
+
+                        user.Files = new List<Net.Models.File> { file };
+                    }
+                    Net.Models.Artwork newArt = new Net.Models.Artwork();
+                    newArt.DateCreated = DateTime.UtcNow;
+                    newArt.Title = artwork.Title;
+                    newArt.GalleryId = gallery.Id;
+                    newArt.Price = artwork.Price;
+                    newArt.IsCommission = artwork.IsCommission;
+                    Artwork artworkHelper = new Artwork();
+                    artworkHelper.Insert(newArt, file);
+                    return RedirectToAction("Profile", "Profile", new { returnurl = HttpContext.Request.Url });
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("Profile", "Profile", new { returnurl = HttpContext.Request.Url });
+            }
+            return RedirectToAction("Profile", "Profile", new { returnurl = HttpContext.Request.Url });
+        }
     }
 }
