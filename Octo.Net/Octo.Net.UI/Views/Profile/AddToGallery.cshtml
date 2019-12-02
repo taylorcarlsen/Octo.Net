@@ -1,0 +1,39 @@
+﻿@model Octo.Net.UI.ViewModels.UserGalleryArtworkFile
+
+@{
+    ViewBag.Title = "AddToGallery";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h2></h2>
+        </div>
+    </div>
+    <div class="row">
+        @using (Html.BeginForm("AddToGallery","Profile",null,FormMethod.Post, new { enctype = "multipart/form-data"}))
+        {
+            Artwork art = new Artwork();
+            <form>
+                <div class="form-group">
+                    @Html.LabelFor(model => art.Title, htmlAttributes: new { @class="control-label col-md-4"})
+                    <div class="form-row col-md-10">
+                        @Html.EditorFor(model => art.Title, new { htmlAttributes = new { @class ="form-control col-md-4"} })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Choose Artwork", new { @class ="control-label col-md-4" })
+                    <div class="col-sm-10">
+                        <input type="file" id="Artwork" name="upload" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <input type="submit" value="Add Artwork" class="btn btn-primary btn-lg" />
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+
