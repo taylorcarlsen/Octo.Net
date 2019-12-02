@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Octo.Net.UI.ViewModels;
+using Octo.Net.Models;
 
 namespace Octo.Net.UI.Controllers
 {
@@ -146,25 +147,8 @@ namespace Octo.Net.UI.Controllers
 
         #region Profile Edit
 
-        /*public ActionResult Edit(User user)
-        {
-            if(Authenticate.IsAuthenticated())
-            {
-                UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
-                ugaf.User = (Net.Models.User)Session["user"];
 
-                using (_user = new BL.User())
-                {
-                    _user.Update()
-                }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url})
-            }
-        }*/
-
-        /*public ActionResult Edit()
+        public ActionResult Edit()
         {
             if (Authenticate.IsAuthenticated())
             {
@@ -177,13 +161,13 @@ namespace Octo.Net.UI.Controllers
 
                 ugaf.User = (Net.Models.User)Session["user"];
 
-                _gallery = new BL.Gallery();
-                ugaf.Galleries = _gallery.LoadById(ugaf.User.Id);
+                /*_gallery = new BL.Gallery();
+                ugaf.Galleries = _gallery.LoadById(ugaf.User.Id);*/
 
                 _artwork = new BL.Artwork();
                 _artworks = new List<Net.Models.Artwork>();
 
-                List<int> galleryIDs = new List<int>();
+                /*List<int> galleryIDs = new List<int>();
                 foreach (Net.Models.Gallery gallery in ugaf.Galleries)
                 {
                     galleryIDs.Add(gallery.Id);
@@ -192,6 +176,19 @@ namespace Octo.Net.UI.Controllers
                 foreach (int i in galleryIDs)
                 {
                     _artworks.AddRange(_artwork.LoadByGalleryId(i));
+                }*/
+
+                _file = new BL.File();
+                _files = new List<Net.Models.File>();
+
+                // Add avatar
+                _files.AddRange(_file.LoadByUserFileTypeId(ugaf.User.Id, Net.Models.FileType.Avatar));
+
+                ugaf.Files = _files;
+
+                foreach (Net.Models.File file in _files)
+                {
+                    _artworks.Add(file.Artwork);
                 }
 
                 ugaf.Artworks = _artworks;
@@ -206,7 +203,7 @@ namespace Octo.Net.UI.Controllers
             {
                 return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
             }
-        }*/
+        }
 
 
         [HttpPost]
@@ -214,6 +211,14 @@ namespace Octo.Net.UI.Controllers
         {
             try
             {
+                /*Editing
+                User user = _user.LoadByUsername(ugaf.User.UserName);
+                user.UserName = ugaf.User.UserName;
+                user.FirstName = ugaf.User.FirstName;
+                user.LastName = ugaf.User.LastName;
+                user.Password = ugaf.User.Password;
+                user.Files = ugaf.User.Files;*/
+
                 ugaf.User = (Net.Models.User)Session["user"];
                 ugaf.User.Id = id;
                 Net.Models.User user = ugaf.User;
