@@ -410,26 +410,40 @@ namespace Octo.Net.UI.Controllers
 
         public ActionResult AddToGallery(UserGalleryArtworkFile ugfa, int id)
         {
+            #region old stuff to min
             if (Authenticate.IsAuthenticated())
             {
                 BL.Gallery galleryHelper = new BL.Gallery();
                 BL.Artwork artworkHeloper = new BL.Artwork();
+                Net.Models.User user = new Net.Models.User();
+
                 ugfa.User = (Net.Models.User)Session["user"];
-                Net.Models.User user = ugfa.User;
+                user = ugfa.User;
+
                 Net.Models.Gallery gallery = new Net.Models.Gallery();
                 //Get the gallery.
-                gallery = galleryHelper.LoadById(user.Id).Where(g=>g.Id == id).FirstOrDefault();
+                gallery = galleryHelper.LoadById(user.Id).Where(g => g.Id == id).FirstOrDefault();
 
 
 
-                return View(ugfa); 
+                return View(ugfa);
             }
             else
             {
                 return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
             }
+            #endregion
         }
-
+        /// <summary>
+        /// Eric: Hitting my issue here. I am getting a forgien key constraint error, among other issues.
+        ///       The Title is coming back as null for some reason...
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="artwork"></param>
+        /// <param name="file"></param>
+        /// <param name="upload"></param>
+        /// <param name="gallery"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult AddToGallery(Net.Models.User user, Net.Models.Artwork artwork, Net.Models.File file, HttpPostedFileBase upload, Net.Models.Gallery gallery)
         {
@@ -442,17 +456,21 @@ namespace Octo.Net.UI.Controllers
                         file = new Net.Models.File
                         {
                             FileName = System.IO.Path.GetFileName(upload.FileName),
-                            FileType = Net.Models.FileType.Photo,
+                            FileType = FileType.Photo,
                             ContentType = upload.ContentType
                         };
                         using (var reader = new System.IO.BinaryReader(upload.InputStream))
                         {
                             file.Content = reader.ReadBytes(upload.ContentLength);
+                            file.User = user;
+                            file.UserId = user.Id;
                         }
 
                         user.Files = new List<Net.Models.File> { file };
                     }
                     Net.Models.Artwork newArt = new Net.Models.Artwork();
+                    
+                    //newArt.Files.Add(file);
                     newArt.DateCreated = DateTime.UtcNow;
                     newArt.Title = artwork.Title;
                     newArt.GalleryId = gallery.Id;
