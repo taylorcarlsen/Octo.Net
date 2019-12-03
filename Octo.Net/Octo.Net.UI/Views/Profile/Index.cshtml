@@ -91,31 +91,31 @@
                                         <div class="col-7">
                                             <h5 class="card-title font-weight-bold">@Html.ActionLink(item.GalleryName, "Galleries", new { id = item.Id })</h5>
                                         </div>
-
-                                        @foreach (var item1 in Model.Files)
-                                        {
-                                            if (item.Id == item1.Artwork.GalleryId)
-                                            {
-
-                                            <tr>
-                                                <td scope="row">
-                                                    @Html.DisplayFor(i => item1.Artwork.Title)
-                                                </td>
-
-                                                <td scope="row">
-                                                    @Html.ActionLink("View", "Artwork", new { id = item1.Artwork.Id })
-                                                </td>
-
-                                            </tr>
-                                            }
-                                        }
-
                                     </div>
                                     <p class="card-text">@Html.DisplayFor(i => item.GalleryDescription)</p>
                                     <a href="#" class="btn btn-primary">See More</a>
+                                    <p class="card-text">@Html.ActionLink("Add Artwork", "AddToGallery", new { id = item.Id })</p>
                                 </div>
                             </div>
                         </div>
+
+                        foreach (var item1 in Model.Files)
+                        {
+                            if (item.Id == item1.Artwork.GalleryId)
+                            {
+
+                                <tr>
+                                    <td scope="row">
+                                        @Html.DisplayFor(i => item1.Artwork.Title)
+                                    </td>
+
+                                    <td scope="row">
+                                        @Html.ActionLink("View", "Artwork", new { id = item1.Artwork.Id })
+                                    </td>
+
+                                </tr>
+                            }
+                        }
                     }
                 </div>
             </div>

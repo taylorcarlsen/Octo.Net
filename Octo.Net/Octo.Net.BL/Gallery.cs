@@ -38,10 +38,28 @@ namespace Octo.Net.BL
             return galleries;
         }
 
-        public List<Models.Gallery> LoadById(int id)
+        public Models.Gallery LoadById(int id)
+        {
+            var gallery = db.Galleries.FirstOrDefault(a => a.Id == id);
+            if (gallery != null)
+            {
+                Models.Gallery a = new Models.Gallery
+                {
+                    Id = gallery.Id,
+                    UserId = gallery.UserId.GetValueOrDefault(),
+                    GalleryName = gallery.GalleryName,
+                    GalleryDescription = gallery.GalleryDescription,
+                    DateCreated = gallery.DateCreated
+                };
+                return a;
+            }
+            else { throw new Exception("Row was not found."); }
+        }
+
+        public List<Models.Gallery> LoadByUserId(int userId)
         {
             List<Models.Gallery> galleries = new List<Models.Gallery>();
-            db.Galleries.Where(a => a.UserId == id)
+            db.Galleries.Where(a => a.UserId == userId)
                 .ToList()
                 .ForEach(a => galleries
             .Add(new Models.Gallery
