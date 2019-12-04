@@ -103,8 +103,8 @@ namespace Octo.Net.BL
         public void Update(Models.User user, Models.File file)
         {
             var existing = db.Users.SingleOrDefault(x => x.Id == user.Id);
-            
-            if(existing != null)
+
+            if (existing != null)
             {
                 existing.FirstName = user.FirstName;
                 existing.LastName = user.LastName;
@@ -117,44 +117,34 @@ namespace Octo.Net.BL
                 db.SaveChanges();
             }
 
+            File blFile = new File();
+            user.Files = blFile.LoadByUserId(user.Id);
+
             Models.File singleFile = new Models.File();
 
-            foreach(var f in user.Files)
+            foreach (var f in user.Files)
             {
-                if(f.FileType == Models.FileType.Avatar)
+                if (f.FileType == Models.FileType.Avatar)
                 {
-                    f.FileName = file.FileName;
-                    f.Content = file.Content;
-                    f.ContentType = file.ContentType;
-                    f.UserId = file.UserId;
-                    f.ArtworkId = file.ArtworkId;
-                    f.FileType = (Models.FileType)file.FileType;
 
-                    singleFile = f;
+                    var existingFile = db.Files.SingleOrDefault(x => x.Id == f.Id);
+                    if (existingFile != null)
+                    {
+                        existingFile.FileName = file.FileName;
+                        existingFile.Content = file.Content;
+                        existingFile.ContentType = file.ContentType;
+                        existingFile.UserId = file.UserId;
+                        existingFile.ArtworkId = file.ArtworkId;
+
+                        db.SaveChanges();
+                    }
                 }
             }
-
-            var existingFile = db.Files.SingleOrDefault(x => x.Id == singleFile.Id);
-            if(existingFile != null)
-            {
-                existingFile.FileName = singleFile.FileName;
-                existingFile.Content = singleFile.Content;
-                existingFile.ContentType = singleFile.ContentType;
-                existingFile.UserId = singleFile.UserId;
-                existingFile.ArtworkId = singleFile.ArtworkId;
-
-                var keepFile = existingFile;
-
-                db.Files.Remove(existingFile);
-                db.Files.Add(keepFile);
-                db.SaveChanges();
-            }
-
         }
         public bool Delete(int id)
         {
             var existing = db.Users.SingleOrDefault(x => x.Id == id);
-            if(existing != null)
+            if (existing != null)
             {
                 db.Users.Remove(existing);
                 db.SaveChanges();
@@ -175,7 +165,7 @@ namespace Octo.Net.BL
         public Models.User LoadByUsername(string userName)
         {
             var user = db.Users.FirstOrDefault(u => u.UserName == userName);
-            if(user != null)
+            if (user != null)
             {
                 BL.File file = new BL.File();
                 Models.User u = new Models.User
@@ -234,7 +224,7 @@ namespace Octo.Net.BL
                             userName = user.UserName;
                             return true;
                         }
-                        else {return false; }
+                        else { return false; }
                     }
                     else { return false; }
                 }
