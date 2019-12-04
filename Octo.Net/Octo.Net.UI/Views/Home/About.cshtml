@@ -1,14 +1,12 @@
 ﻿@{
     ViewBag.Title = "About Us";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
-<h2>@ViewBag.Title</h2>
-
 
 <div class="container">
     <div classclass="row">
         <div class="col">
-
-            <h3>Our company</h3>
+            <h3 class="pt-3">What is Octo.Net?</h3>
             <p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididun.</p>
             <p>
                 Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet conse ctetur adipisicing elit.
@@ -16,41 +14,80 @@
             <p>Top quality products</p>
             <p>Best customer service</p>
             <p>30-days money back guarantee</p>
-
         </div>
 
         <div class="col">
-
-            <h3>Testimonials</h3>
+            <h3 class="pt-2">Testimonials</h3>
             <p>“Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.”</p>
             <p>
                 Lorem ipsum dolor sit
             </p>
             <p>“Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet conse ctetur adipisicing elit. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod.”</p>
-            <p>Ipsum dolor sit</p>
-
         </div>
 
         <div class="col">
-
-            <h3>Our team</h3>
+            <h3 class="pt-2">Our team</h3>
             <p>Lorem set sint occaecat cupidatat non</p>
             <p>
                 Eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
             </p>
-
         </div>
-
     </div>
-
 </div>
 
-    <div class="row pt-4">
+<div class="container">
+    <div class="card-deck">
+        <div class="card text-center">            
+            <div class="card-body">
+                <img src="~/Content/img/taylor.jpg" class="card-img-top img-fluid" alt="Card image cap"><br /><br />    
+                <h5 class="card-title text-left font-weight-bold">Taylor Carlsen</h5>
+                <p class="text-left">Taylor is a software developer located in Appleton. You can view his amazing work that is focused on architecture as well as his love for airplanes. He loves the world of art and design and merging these together in his projects.</p>
+                <a href="#" class="btn btn-primary">See More</a>
+            </div>
+        </div>
+               
+              <div class="card text-center">
+                  <div class="card-body">
+                      <img src="~/Content/img/eric.jpg" class="card-img-top img-fluid" alt="Card image cap"> <br /> <br />
+                      <h5 class="card-title text-left font-weight-bold">Eric Brown</h5>
+                      <p class="text-left">Eric is a software developer located in Appleton. You can view his amazing work that is focused on architecture as well as his love for airplanes. He loves the world of art and design and merging these together in his projects.</p>
+                       <a href="#" class="btn btn-primary">See More</a>
+                  </div>
+              </div>
+
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="~/Content/img/mitch.jpg" class="card-img-top img-fluid" alt="Card image cap">  <br /> <br />
+                        <h5 class="card-title text-left font-weight-bold">Mitch Potrykus</h5>
+                        <p class="text-left">Mitch is a software developer located in Appleton. You can view his amazing work that is focused on architecture as well as his love for airplanes. He loves the world of art and design and merging these together in his projects.</p>
+                      <a href="#" class="btn btn-primary">See More</a>
+                    </div>
+                </div>
+
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="~/Content/img/safeer.jpg" class="card-img-top img-fluid" alt="Card image cap">  <br /> <br />
+                        <h5 class="card-title text-left font-weight-bold">Safeer Noman</h5>
+                        <p class="text-left">Safeer is a web developer located in Oshkosh. You can view his amazing work that is focused on architecture as well as his love for airplanes. He loves the world of art and design and merging these together in his projects.</p>
+                        <a href="#" class="btn btn-primary">See More</a>
+                    </div>
+                </div>
+
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="~/Content/img/many.jpg" class="card-img-top img-fluid" alt="Card image cap"><br /> <br />
+                        <h5 class="card-title text-left font-weight-bold">Many Lor</h5>
+                        <p class="text-left">Many is a web developer located in Oshkosh. You can view his amazing work that is focused on architecture as well as his love for airplanes. He loves the world of art and design and merging these together in his projects. </p>
+                         <a href="#" class="btn btn-primary">See More</a>
+                    </div>
+                </div>         
+    </div>
+</div>
+
+    @*<div class="row pt-4 pl-4">
         <div class="col-md-12">
             <div class="row swiper-container">
-
                 <div class="swiper-wrapper">
-
                     <div class="swiper-slide">
                         <div class="card card-cf">
                             <img src="~/Content/img/taylor.jpg" class="card-img-top card-image-resize" alt="...">
@@ -64,7 +101,6 @@
                                 <a href="#" class="btn btn-primary">See More</a>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="swiper-slide">
@@ -110,7 +146,6 @@
                                 <a href="#" class="btn btn-primary">See More</a>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="swiper-slide">
@@ -127,11 +162,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-                <div class="swiper-pagination"></div>
-
+               
             </div>
         </div>
-    </div>
+    </div>*@

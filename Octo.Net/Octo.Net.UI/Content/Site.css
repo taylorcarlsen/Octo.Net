@@ -58,6 +58,15 @@ nav {
     
 }
 
+/* Card settings */
+.card-img-top {
+    width: 100%;
+    height:175px;
+    object-fit:cover;
+}
+
+/* Footer settings */
+
 footer {
     position: absolute;
     left: 0;
