@@ -202,46 +202,43 @@ namespace Octo.Net.UI.Controllers
                     ViewBag.Message = "Profile";
                 }
 
+                BL.User userManager;
+                Net.Models.User user;
                 UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
 
                 ugaf.User = (Net.Models.User)Session["user"];
 
-                /*_gallery = new BL.Gallery();
-                ugaf.Galleries = _gallery.LoadById(ugaf.User.Id);*/
-
-                _artwork = new BL.Artwork();
-                _artworks = new List<Net.Models.Artwork>();
-
-                /*List<int> galleryIDs = new List<int>();
-                foreach (Net.Models.Gallery gallery in ugaf.Galleries)
+                using (userManager = new BL.User())
                 {
-                    galleryIDs.Add(gallery.Id);
+                    user = userManager.LoadByUsername(ugaf.User.UserName);
                 }
 
-                foreach (int i in galleryIDs)
-                {
-                    _artworks.AddRange(_artwork.LoadByGalleryId(i));
-                }*/
+                if (user == null)
+                    return HttpNotFound();
 
-                _file = new BL.File();
+                /*_file = new BL.File();
                 _files = new List<Net.Models.File>();
 
-                // Add avatar
-                _files.AddRange(_file.LoadByUserFileTypeId(ugaf.User.Id, Net.Models.FileType.Avatar));
+                ugaf.Files = _file.LoadByUserId(ugaf.User.Id);
+
+                foreach(var file in ugaf.Files)
+                {
+                    if(file.FileType == FileType.Avatar)
+                    {
+                        ugaf.Files.Add(file);
+                    }
+                }*/
+
+                // Update avatar
+                /*_files.AddRange(_file.LoadByUserFileTypeId(ugaf.User.Id, FileType.Avatar));
 
                 ugaf.Files = _files;
 
                 foreach (Net.Models.File file in _files)
                 {
                     _artworks.Add(file.Artwork);
-                }
+                }*/
 
-                ugaf.Artworks = _artworks;
-
-                if (ViewBag.Message == null)
-                {
-                    ViewBag.Message = "Galleries";
-                }
                 return View(ugaf);
             }
             else
@@ -252,29 +249,39 @@ namespace Octo.Net.UI.Controllers
 
 
         [HttpPost]
-        public ActionResult Edit(int id, UserGalleryArtworkFile ugaf)
+        public ActionResult Edit(UserGalleryArtworkFile ugaf, Net.Models.File file, HttpPostedFileBase upload)
         {
-            try
+            if (ModelState.IsValid)
             {
-                /*Editing
-                User user = _user.LoadByUsername(ugaf.User.UserName);
-                user.UserName = ugaf.User.UserName;
-                user.FirstName = ugaf.User.FirstName;
-                user.LastName = ugaf.User.LastName;
-                user.Password = ugaf.User.Password;
-                user.Files = ugaf.User.Files;*/
-
                 ugaf.User = (Net.Models.User)Session["user"];
-                ugaf.User.Id = id;
                 Net.Models.User user = ugaf.User;
-                Net.BL.User userHelper = new BL.User();
-                userHelper.Update(user);
-                return RedirectToAction("Index");
+                BL.User userHelper = new BL.User();
+
+                try
+                {
+                    if (upload != null && upload.ContentLength > 0)
+                    {
+                        file = new Net.Models.File
+                        {
+                            FileName = System.IO.Path.GetFileName(upload.FileName),
+                            FileType = FileType.Avatar,
+                            ContentType = upload.ContentType
+                        };
+                        using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                        {
+                            file.Content = reader.ReadBytes(upload.ContentLength);
+                        }
+                        user.Files = new List<Net.Models.File> { file };
+                    }
+                    userHelper.Update(user, file);
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View(ugaf);
+                }
             }
-            catch
-            {
-                return View(ugaf);
-            }
+                return View();
         }
         #endregion
 
@@ -325,7 +332,7 @@ namespace Octo.Net.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult ImageUpload(Net.Models.File file,Net.Models.User user, UserGalleryArtworkFile ugaf)
+        public ActionResult ImageUpload(Net.Models.File file, Net.Models.User user, UserGalleryArtworkFile ugaf)
         {
             try
             {
@@ -360,7 +367,7 @@ namespace Octo.Net.UI.Controllers
                 {
                     ViewBag.Message = ex.Message;
                     return View();
-                } 
+                }
             }
             else
             {
