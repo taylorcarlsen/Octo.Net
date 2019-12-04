@@ -75,8 +75,10 @@ namespace Octo.Net.BL
         {
             if(id != null)
             {
+
                 List<Models.File> files = new List<Models.File>();
                 BL.Artwork artwork = new BL.Artwork();
+                Models.FileType fileType = new Models.FileType();
                 db.Files.Where(f => f.UserId == id)
                     .ToList()
                     .ForEach(f => files
@@ -86,12 +88,34 @@ namespace Octo.Net.BL
                         ArtworkId = f.ArtworkId,
                         UserId = f.UserId,
                         FileName = f.FileName,
+                        FileType = (Models.FileType)f.FileType,
                         ContentType = f.ContentType,
                         Content = f.Content,
                         Artwork = artwork.LoadById(f.ArtworkId)
                     }));
                 return files;
                 
+            }
+            else { return null; }
+        }
+
+        public Models.File LoadAvatar(int id)
+        {
+            BL.Artwork artwork = new BL.Artwork();
+            var file = db.Files.FirstOrDefault(f => f.Id == id);
+            if (file != null)
+            {
+                Models.File f = new Models.File
+                {
+                    Id = file.Id,
+                    ArtworkId = file.ArtworkId,
+                    UserId = file.UserId,
+                    Content = file.Content,
+                    ContentType = file.ContentType,
+                    FileName = file.FileName,
+                    Artwork = artwork.LoadById(file.ArtworkId)
+                };
+                return f;
             }
             else { return null; }
         }
@@ -192,6 +216,5 @@ namespace Octo.Net.BL
             db.SaveChanges();
             return newFile.Id;
         }
-
     }
 }

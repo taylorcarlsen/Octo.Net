@@ -44,7 +44,7 @@ namespace Octo.Net.BL.Test2
             Assert.IsTrue(result > 0);
         }*/
 
-        [TestMethod]
+        /*[TestMethod]
         public void UpdateTest()
         {
             User user = new User();
@@ -60,7 +60,7 @@ namespace Octo.Net.BL.Test2
             Models.User updateRow = updated.Where(a => a.FirstName == "AnotherTest").FirstOrDefault();
 
             Assert.AreNotEqual(updateRow, row);
-        }
+        }*/
 
         [TestMethod]
         public void DeleteTest()
