@@ -11,6 +11,7 @@ namespace Octo.Net.Models
         public int Id { get; set; }
         public string Body { get; set; }
         public int FromUserId { get; set; }
+        public string FromUsername { get; set; }
         public int ToUserId { get; set; }
         public int CollectionId { get; set; }
         public DateTime DateTime { get; set; }

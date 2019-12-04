@@ -22,6 +22,7 @@ namespace Octo.Net.BL
 
         public List<Models.Message> LoadByCollection(int collectionId)
         {
+            BL.User user = new BL.User();
             List<Models.Message> messages = new List<Models.Message>();
             db.Messages.Where(x => x.CollectionId == collectionId)
                 .ToList()
@@ -37,12 +38,14 @@ namespace Octo.Net.BL
                 CritiqueId = x.CritiqueId,
                 Rating = x.Rating,
                 X = x.X,
-                Y = x.Y
+                Y = x.Y,
+                FromUsername = (user.LoadById(x.FromUserId).UserName == null || user.LoadById(x.FromUserId).UserName == String.Empty) ? "User Not Found" : user.LoadById(x.FromUserId).UserName
             }));
             return messages;
         }
         public List<Models.Message> Load()
         {
+            BL.User user = new BL.User();
             List<Models.Message> messages = new List<Models.Message>();
             db.Messages
                 .ToList()
@@ -59,7 +62,8 @@ namespace Octo.Net.BL
                     CritiqueId = m.CritiqueId,
                     Rating = m.Rating,
                     X = m.X,
-                    Y = m.Y
+                    Y = m.Y,
+                    FromUsername = (user.LoadById(m.FromUserId).UserName == null || user.LoadById(m.FromUserId).UserName == String.Empty) ? "User Not Found" : user.LoadById(m.FromUserId).UserName
                 }));
 
             return messages;

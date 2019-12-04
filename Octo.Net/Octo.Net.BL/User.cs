@@ -196,6 +196,30 @@ namespace Octo.Net.BL
             else { return null; }
         }
 
+        public Models.User LoadById(int id)
+        {
+            var user = db.Users.SingleOrDefault(u => u.Id == id);
+            if (user != null)
+            {
+                BL.File file = new BL.File();
+                Models.User u = new Models.User
+                {
+                    Id = user.Id,
+                    CommissionActive = user.CommissionActive ?? true,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    JoinDate = user.JoinDate ?? DateTime.Now,
+                    LastName = user.LastName,
+                    Password = user.Password,
+                    UserName = user.UserName,
+                    Files = file.LoadByUserId(user.Id)
+                };
+
+                return u;
+            }
+            else { return null; }
+        }
+
         public bool Login(string userName, string password)
         {
             if (!string.IsNullOrEmpty(userName))

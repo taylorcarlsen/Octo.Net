@@ -21,6 +21,7 @@ namespace Octo.Net.UI.Controllers
         private BL.Message _message;
         private BL.Message _comment;
         BL.User _user;
+        Net.Models.User _mUser;
 
         #region Index
         // GET: Profile
