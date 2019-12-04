@@ -9,10 +9,11 @@ using Octo.Net.Models;
 
 namespace Octo.Net.UI.ViewModels
 {
-    public class UserCommentsFile
+    public class UserMessageCommentFile
     {
         public Net.Models.User User { get; set; }
         public List<Net.Models.Message> Messages { get; set; }
+        public Net.Models.Message Comment { get; set; }
         public Net.Models.File File { get; set; }
     }
 }

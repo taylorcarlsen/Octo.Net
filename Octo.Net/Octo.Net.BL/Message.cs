@@ -23,7 +23,7 @@ namespace Octo.Net.BL
         public List<Models.Message> LoadByCollection(int collectionId)
         {
             List<Models.Message> messages = new List<Models.Message>();
-            db.Messages.Where(x => x.Id == collectionId)
+            db.Messages.Where(x => x.CollectionId == collectionId)
                 .ToList()
                 .ForEach(x => messages
             .Add(new Models.Message
@@ -67,14 +67,23 @@ namespace Octo.Net.BL
 
         public int Insert(Models.Message message)
         {
-            tblMessage newMessage = new tblMessage { Body = message.Body, CritiqueId = message.CritiqueId,
-                DateTime = message.DateTime, Rating = message.Rating,
-                FromUserId = message.FromUserId,ToUserId = message.ToUserId, CollectionId = message.CollectionId, X = message.X, Y = message.Y };
+            tblMessage newMessage = new tblMessage {
+                Body = message.Body,
+                CritiqueId = message.CritiqueId,
+                DateTime = DateTime.Now,
+                Rating = message.Rating,
+                FromUserId = message.FromUserId,
+                ToUserId = message.ToUserId,
+                CollectionId = message.CollectionId,
+                X = message.X,
+                Y = message.Y
+            };
             db.Messages.Add(newMessage);
 
             db.SaveChanges();
             return newMessage.Id;
         }
+
         public void Update(Models.Message message)
         {
             var existing = db.Messages.SingleOrDefault(x => x.Id == message.Id);

@@ -19,8 +19,10 @@ namespace Octo.Net.UI.Controllers
         private BL.Artwork _artwork;
         private BL.File _file;
         private BL.Message _message;
+        private BL.Message _comment;
         BL.User _user;
 
+        #region Index
         // GET: Profile
         public ActionResult Index()
         {
@@ -36,7 +38,7 @@ namespace Octo.Net.UI.Controllers
                 ugaf.User = (Octo.Net.Models.User)Session["user"];
 
                 _gallery = new BL.Gallery();
-                ugaf.Galleries = _gallery.LoadById(ugaf.User.Id);
+                ugaf.Galleries = _gallery.LoadByUserId(ugaf.User.Id);
 
                 _artwork = new BL.Artwork();
                 _artworks = new List<Net.Models.Artwork>();
@@ -78,7 +80,9 @@ namespace Octo.Net.UI.Controllers
                 return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
             }
         }
+        #endregion
 
+        #region Galleries
         // GET: Gallery
         public ActionResult Galleries(int id)
         {
@@ -87,7 +91,7 @@ namespace Octo.Net.UI.Controllers
                 UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
 
                 _gallery = new BL.Gallery();
-                ugaf.Galleries = _gallery.LoadById(id);
+                ugaf.Galleries = _gallery.LoadByUserId(id);
 
                 _artwork = new BL.Artwork();
                 _artworks = new List<Net.Models.Artwork>();
@@ -126,23 +130,26 @@ namespace Octo.Net.UI.Controllers
                 return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
             }
         }
+        #endregion
 
+        #region Artwork
         public ActionResult Artwork(int id)
         {
 
             if (Authenticate.IsAuthenticated())
             {
-                UserCommentsFile uacf = new UserCommentsFile();
+                UserMessageCommentFile ucf = new UserMessageCommentFile();
 
-                uacf.User = (Octo.Net.Models.User)Session["user"];
+                ucf.User = (Octo.Net.Models.User)Session["user"];
 
                 _file = new BL.File();
-                uacf.File = _file.LoadByArtworkId(id);
+                ucf.File = _file.LoadByArtworkId(id);
 
                 _message = new BL.Message();
-                uacf.Messages = _message.LoadByCollection(uacf.File.Artwork.CollectionMessageId);
 
-                return View(uacf);
+                ucf.Messages = _message.LoadByCollection(ucf.File.Artwork.CollectionMessageId);
+
+                return View(ucf);
             }
             else
             {
@@ -151,6 +158,37 @@ namespace Octo.Net.UI.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult Artwork(UserMessageCommentFile ucf)
+        {
+            try
+            {
+                ucf.User = (Octo.Net.Models.User)Session["user"];
+                BL.Message blMessage = new BL.Message();
+                ucf.Comment.CollectionId = ucf.File.Artwork.CollectionMessageId;
+                ucf.Comment.FromUserId = ucf.User.Id;
+                ucf.Comment.ToUserId = ucf.File.UserId;
+                ucf.Comment.FromUserId = ucf.User.Id;
+                /*
+                ucf.Comment.CritiqueId = 1;
+                ucf.Comment.X = 1;
+                ucf.Comment.Y = 2;
+                */
+                blMessage.Insert(ucf.Comment);
+                //return View(ucf);
+                return Redirect(Request.UrlReferrer.ToString());
+
+            }
+            catch
+            {
+                System.Diagnostics.Debug.WriteLine(ucf);
+                return View();
+            }
+        }
+
+        
+
+        #endregion
 
         #region Profile Edit
 
@@ -263,7 +301,7 @@ namespace Octo.Net.UI.Controllers
                 ugaf.User = (Net.Models.User)Session["user"];
 
                 _gallery = new BL.Gallery();
-                ugaf.Galleries = _gallery.LoadById(ugaf.User.Id);
+                ugaf.Galleries = _gallery.LoadByUserId(ugaf.User.Id);
 
                 _artwork = new BL.Artwork();
                 _artworks = new List<Net.Models.Artwork>();
@@ -367,7 +405,7 @@ namespace Octo.Net.UI.Controllers
 
                 ugfa.User = (Net.Models.User)Session["user"];
                 Net.Models.User user = ugfa.User;
-                ugfa.Galleries = galleryHelper.LoadById(user.Id);
+                ugfa.Galleries = galleryHelper.LoadByUserId(user.Id);
 
                 return View(ugfa);
             }
@@ -377,21 +415,18 @@ namespace Octo.Net.UI.Controllers
             }
         }
 
-        public ActionResult AddToGallery(UserGalleryArtworkFile ugfa, int id)
+        public ActionResult AddToGallery(int id)
         {
             if (Authenticate.IsAuthenticated())
             {
-                BL.Gallery galleryHelper = new BL.Gallery();
-                BL.Artwork artworkHeloper = new BL.Artwork();
-                ugfa.User = (Net.Models.User)Session["user"];
-                Net.Models.User user = ugfa.User;
-                Net.Models.Gallery gallery = new Net.Models.Gallery();
-                //Get the gallery.
-                gallery = galleryHelper.LoadById(user.Id).Where(g => g.Id == id).FirstOrDefault();
+                UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
 
+                ugaf.User = (Octo.Net.Models.User)Session["user"];
+                _gallery = new BL.Gallery();
+                System.Diagnostics.Debug.WriteLine(id);
+                //ugaf.Galleries.Add(_gallery.LoadById(id));
 
-
-                return View(ugfa);
+                return View(ugaf); 
             }
             else
             {
@@ -400,7 +435,7 @@ namespace Octo.Net.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddToGallery(Net.Models.User user, Net.Models.Artwork artwork, Net.Models.File file, HttpPostedFileBase upload, Net.Models.Gallery gallery)
+        public ActionResult AddToGallery(UserGalleryArtworkFile ugfa, Net.Models.File file, HttpPostedFileBase upload, int id)
         {
             try
             {
@@ -411,33 +446,36 @@ namespace Octo.Net.UI.Controllers
                         file = new Net.Models.File
                         {
                             FileName = System.IO.Path.GetFileName(upload.FileName),
-                            FileType = Net.Models.FileType.Photo,
+                            FileType = Net.Models.FileType.Avatar,
                             ContentType = upload.ContentType
                         };
                         using (var reader = new System.IO.BinaryReader(upload.InputStream))
                         {
                             file.Content = reader.ReadBytes(upload.ContentLength);
                         }
-
-                        user.Files = new List<Net.Models.File> { file };
+                        ugfa.User.Files = new List<Net.Models.File> { file };
                     }
-                    Net.Models.Artwork newArt = new Net.Models.Artwork();
-                    newArt.DateCreated = DateTime.UtcNow;
-                    newArt.Title = artwork.Title;
-                    newArt.GalleryId = gallery.Id;
-                    newArt.Price = artwork.Price;
-                    newArt.IsCommission = artwork.IsCommission;
+                    ugfa.Artworks[0].DateCreated = DateTime.UtcNow;
+                    ugfa.Artworks[0].GalleryId = id;
+
+                    System.Diagnostics.Debug.WriteLine(ugfa.Artworks[0].Title);
+                    System.Diagnostics.Debug.WriteLine(ugfa.Files[0].FileName);
+
                     BL.Artwork artworkHelper = new BL.Artwork();
-                    artworkHelper.Insert(newArt, file);
-                    return RedirectToAction("Profile", "Profile", new { returnurl = HttpContext.Request.Url });
+                    artworkHelper.Insert(ugfa.Artworks[0], ugfa.Files[0]);
+
+                    return RedirectToAction("Index");
                 }
+                else {
+                    return View(ugfa);
+                }
+                
             }
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
-                return RedirectToAction("Profile", "Profile", new { returnurl = HttpContext.Request.Url });
+                return View(ugfa);
             }
-            return RedirectToAction("Profile", "Profile", new { returnurl = HttpContext.Request.Url });
         }
     }
 }

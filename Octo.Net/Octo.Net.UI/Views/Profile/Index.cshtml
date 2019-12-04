@@ -45,22 +45,30 @@
                 <div class="row">
                     @* TODO: Get the users gallery and programatically create and fill cards *@
                     @foreach (var item in Model.Files)
-                        //@foreach (var artwork in item.Artwork.OrderByDescending(o=>o.DateCreated).Take(5))
+                    //@foreach (var artwork in item.Artwork.OrderByDescending(o=>o.DateCreated).Take(5))
                     {
-                        <div class="col-md-4 card-spacing">
-                            <div class="card" style="width: 18rem;">
-                                <img src="~/Content/img/art29.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <h5 class="card-title font-weight-bold">@Html.DisplayFor(i => item.Artwork.Title)</h5>
+                        if (item.FileType == Octo.Net.Models.FileType.Photo)
+                        {
+                            var base64 = Convert.ToBase64String(item.Content);
+                            var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+
+                            <div class="col-md-4 card-spacing">
+                                <div class="card" style="width: 18rem;">
+
+                                    <img src="@imgSrc" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <h5 class="card-title font-weight-bold">@Html.DisplayFor(i => item.Artwork.Title)</h5>
+                                            </div>
                                         </div>
+                                        <p class="card-text">Artist who enjoys creating mythical creatures and believes the secrets are kept hidden.</p>
+                                        <a href="#" class="btn btn-primary">See More</a>
                                     </div>
-                                    <p class="card-text">Artist who enjoys creating mythical creatures and believes the secrets are kept hidden.</p>
-                                    <a href="#" class="btn btn-primary">See More</a>
                                 </div>
                             </div>
-                        </div>
+                        }
+
                     }
                 </div>
             </div>
@@ -91,31 +99,31 @@
                                         <div class="col-7">
                                             <h5 class="card-title font-weight-bold">@Html.ActionLink(item.GalleryName, "Galleries", new { id = item.Id })</h5>
                                         </div>
-
-                                        @foreach (var item1 in Model.Files)
-                                        {
-                                            if (item.Id == item1.Artwork.GalleryId)
-                                            {
-
-                                            <tr>
-                                                <td scope="row">
-                                                    @Html.DisplayFor(i => item1.Artwork.Title)
-                                                </td>
-
-                                                <td scope="row">
-                                                    @Html.ActionLink("View", "Artwork", new { id = item1.Artwork.Id })
-                                                </td>
-
-                                            </tr>
-                                            }
-                                        }
-
                                     </div>
                                     <p class="card-text">@Html.DisplayFor(i => item.GalleryDescription)</p>
                                     <a href="#" class="btn btn-primary">See More</a>
+                                    <p class="card-text">@Html.ActionLink("Add Artwork", "AddToGallery", new { id = item.Id })</p>
                                 </div>
                             </div>
                         </div>
+
+                        foreach (var item1 in Model.Files)
+                        {
+                            if (item.Id == item1.Artwork.GalleryId)
+                            {
+
+                                <tr>
+                                    <td scope="row">
+                                        @Html.DisplayFor(i => item1.Artwork.Title)
+                                    </td>
+
+                                    <td scope="row">
+                                        @Html.ActionLink("View", "Artwork", new { id = item1.Artwork.Id })
+                                    </td>
+
+                                </tr>
+                            }
+                        }
                     }
                 </div>
             </div>
@@ -123,10 +131,10 @@
     </div>
     <div class="col-md-6">
         @* Users Social media Feed *@
-        <h2>@Html.DisplayFor(i=> Model.User.UserName)'s Social Media</h2>
+        @*<h2>@Html.DisplayFor(i=> Model.User.UserName)'s Social Media</h2>
         <ul>
             <li></li>
-        </ul>
+        </ul>*@
     </div>
 </div>
 
