@@ -4,25 +4,24 @@
 
 .carousel1 {
     background-image: url(img/jumbo1.jpg);
-    background-size: 100%;
+    background-size: cover;
     min-height: 45rem;
     background-repeat: no-repeat;
     width: 100%;
-    background-position: center;    
+    background-position: center;
 }
 
-
-    .carousel2 {
-        background-image: url(img/jumbo2.jpg);
-        background-size: 100%;
-        min-height: 45rem;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
+.carousel2 {
+    background-image: url(img/jumbo2.jpg);
+    background-size: cover;
+    min-height: 45rem;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
 .carousel3 {
     background-image: url(img/jumbo3.jpg);
-    background-size: 100%;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     min-height: 45rem;
@@ -36,21 +35,19 @@
     color: white;
 }
 
-    .carousel-content p {        
-        color: white;
-    }
+.carousel-content p {        
+    color: white;
+}
 
-    .carousel-content .card {
-        text-align: center;
-        padding: 5px 10px;
-        background-color: unset;
-    }
+.carousel-content .card {
+    text-align: center;
+    padding: 5px 10px;
+    background-color: unset;
+}
 
-        .carousel-content button {
-           align-items:center;
-        }
-
-
+.carousel-content button {
+    align-items:center;
+}
 
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
     width: 100%;
@@ -158,3 +155,4 @@
     justify-content: center;
     align-items: center;
 }
+
