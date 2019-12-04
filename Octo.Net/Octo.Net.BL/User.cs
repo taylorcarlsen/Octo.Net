@@ -123,14 +123,15 @@ namespace Octo.Net.BL
             {
                 if(f.FileType == Models.FileType.Avatar)
                 {
-                    f.Id = file.Id;
                     f.FileName = file.FileName;
                     f.Content = file.Content;
                     f.ContentType = file.ContentType;
                     f.UserId = file.UserId;
                     f.ArtworkId = file.ArtworkId;
+                    f.FileType = (Models.FileType)file.FileType;
+
+                    singleFile = f;
                 }
-                singleFile = f;
             }
 
             var existingFile = db.Files.SingleOrDefault(x => x.Id == singleFile.Id);
