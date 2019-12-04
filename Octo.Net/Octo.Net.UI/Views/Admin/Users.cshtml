@@ -1,54 +1,57 @@
 ﻿@model  IEnumerable<Octo.Net.Models.User>
 
-@{
-    ViewBag.Title = "Users";
-    Layout = "~/Views/Shared/_adminLayout.cshtml";
-}
-<div class="row">
-    <h2>Users</h2>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">
-                    </th>
-                    <th scope="col">
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td scope="row">
-                            @Html.DisplayFor(i => item.FirstName)
-                        </td>
-                   
-                    
-                        <td scope="row">
-                            @Html.DisplayFor(i => item.LastName)
-                        </td>
-                   
-                    
-                        <td scope="row">
-                            @Html.DisplayFor(i => item.UserName)
-                        </td>
-                   
-                    
-                        <td scope="row">
-                            @Html.DisplayFor(i => item.Email)
-                        </td>
-                   
-                        <td scope="row">
-                            @Html.DisplayFor(i => item.JoinDate)
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <!--Table to display users-->
-    </div>
-</div>
+    <div class="container">
+        <div class="col-md-9 pt-5 flex-row">
+            @{
+                ViewBag.Title = "Users";
+                Layout = "~/Views/Shared/_adminLayout.cshtml";
+            }
+            <div class="row">
+                <h2>Users</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                </th>
+                                <th scope="col">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td scope="row">
+                                        @Html.DisplayFor(i => item.FirstName)
+                                    </td>
 
+
+                                    <td scope="row">
+                                        @Html.DisplayFor(i => item.LastName)
+                                    </td>
+
+
+                                    <td scope="row">
+                                        @Html.DisplayFor(i => item.UserName)
+                                    </td>
+
+
+                                    <td scope="row">
+                                        @Html.DisplayFor(i => item.Email)
+                                    </td>
+
+                                    <td scope="row">
+                                        @Html.DisplayFor(i => item.JoinDate)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <!--Table to display users-->
+                </div>
+            </div>
+        </div>
+    </div>
