@@ -217,29 +217,6 @@ namespace Octo.Net.UI.Controllers
                 if (user == null)
                     return HttpNotFound();
 
-                /*_file = new BL.File();
-                _files = new List<Net.Models.File>();
-
-                ugaf.Files = _file.LoadByUserId(ugaf.User.Id);
-
-                foreach(var file in ugaf.Files)
-                {
-                    if(file.FileType == FileType.Avatar)
-                    {
-                        ugaf.Files.Add(file);
-                    }
-                }*/
-
-                // Update avatar
-                /*_files.AddRange(_file.LoadByUserFileTypeId(ugaf.User.Id, FileType.Avatar));
-
-                ugaf.Files = _files;
-
-                foreach (Net.Models.File file in _files)
-                {
-                    _artworks.Add(file.Artwork);
-                }*/
-
                 return View(ugaf);
             }
             else
@@ -257,6 +234,21 @@ namespace Octo.Net.UI.Controllers
                 ugaf.User = (Net.Models.User)Session["user"];
                 Net.Models.User user = ugaf.User;
                 BL.User userHelper = new BL.User();
+                BL.File fileHelper = new BL.File();
+
+                var oldFile = fileHelper.LoadByUserId(ugaf.User.Id);
+                Net.Models.File existingFile = new Net.Models.File();
+
+                foreach(var f in oldFile)
+                {
+                    existingFile.ArtworkId = f.ArtworkId;
+                    existingFile.Content = f.Content;
+                    existingFile.ContentType = f.ContentType;
+                    existingFile.FileName = f.FileName;
+                    existingFile.FileType = f.FileType;
+                    existingFile.Id = f.Id;
+                    existingFile.UserId = f.UserId;
+                }
 
                 try
                 {
@@ -264,9 +256,15 @@ namespace Octo.Net.UI.Controllers
                     {
                         file = new Net.Models.File
                         {
+                            Id = existingFile.Id,
                             FileName = System.IO.Path.GetFileName(upload.FileName),
                             FileType = FileType.Avatar,
-                            ContentType = upload.ContentType
+                            ContentType = upload.ContentType,
+                            Content = existingFile.Content,
+                            Artwork = existingFile.Artwork,
+                            User = existingFile.User,
+                            UserId = existingFile.UserId,
+                            ArtworkId = existingFile.ArtworkId
                         };
                         using (var reader = new System.IO.BinaryReader(upload.InputStream))
                         {
