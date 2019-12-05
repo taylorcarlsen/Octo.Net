@@ -86,6 +86,12 @@ namespace Octo.Net.BL
 
         public int Insert(Models.Artwork artwork, Models.File file)
         {
+            tblCollection newCollection = new tblCollection { 
+                MessageTypeId = 3
+            };
+
+            db.Collections.Add(newCollection);
+            db.SaveChanges();
 
             tblArtwork tblArtwork = new tblArtwork {
                 GalleryId = artwork.GalleryId,
@@ -93,7 +99,7 @@ namespace Octo.Net.BL
                 Price = artwork.Price,
                 IsCommission = artwork.IsCommission,
                 TagId = artwork.TagId,
-                CollectionMessageId = artwork.CollectionMessageId,
+                CollectionMessageId = newCollection.Id,
                 DateCreated = DateTime.Now
             };
 
