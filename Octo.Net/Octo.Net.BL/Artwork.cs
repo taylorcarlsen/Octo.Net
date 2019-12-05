@@ -94,23 +94,26 @@ namespace Octo.Net.BL
                 IsCommission = artwork.IsCommission,
                 TagId = artwork.TagId,
                 CollectionMessageId = artwork.CollectionMessageId,
-                DateCreated = artwork.DateCreated
+                DateCreated = DateTime.Now
             };
 
             db.Artworks.Add(tblArtwork);
+            db.SaveChanges();
 
             tblFiles tblFiles = new tblFiles
             {
                 FileName = file.FileName,
                 ContentType = file.ContentType,
                 Content = file.Content,
-                //FileType = file.FileType,
-                ArtworkId = tblArtwork.Id
+                FileType = tblFileType.Photo,
+                ArtworkId = artwork.Id,
+                UserId = file.UserId,
+                Artwork = tblArtwork
             };
 
             db.Files.Add(tblFiles);
-
             db.SaveChanges();
+
             return tblArtwork.Id;
 
         }

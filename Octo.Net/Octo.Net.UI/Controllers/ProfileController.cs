@@ -423,7 +423,6 @@ namespace Octo.Net.UI.Controllers
                 ugaf.User = (Octo.Net.Models.User)Session["user"];
                 _gallery = new BL.Gallery();
                 System.Diagnostics.Debug.WriteLine(id);
-                //ugaf.Galleries.Add(_gallery.LoadById(id));
 
                 return View(ugaf); 
             }
@@ -438,43 +437,39 @@ namespace Octo.Net.UI.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                ugfa.User = (Net.Models.User)Session["user"];
+
+                file = new Net.Models.File
                 {
-                    if (upload != null && upload.ContentLength > 0)
-                    {
-                        file = new Net.Models.File
-                        {
-                            FileName = System.IO.Path.GetFileName(upload.FileName),
-                            FileType = Net.Models.FileType.Avatar,
-                            ContentType = upload.ContentType
-                        };
-                        using (var reader = new System.IO.BinaryReader(upload.InputStream))
-                        {
-                            file.Content = reader.ReadBytes(upload.ContentLength);
-                        }
-                        ugfa.User.Files = new List<Net.Models.File> { file };
-                    }
-                    ugfa.Artworks[0].DateCreated = DateTime.UtcNow;
-                    ugfa.Artworks[0].GalleryId = id;
-
-                    System.Diagnostics.Debug.WriteLine(ugfa.Artworks[0].Title);
-                    System.Diagnostics.Debug.WriteLine(ugfa.Files[0].FileName);
-
-                    BL.Artwork artworkHelper = new BL.Artwork();
-                    artworkHelper.Insert(ugfa.Artworks[0], ugfa.Files[0]);
-
-                    return RedirectToAction("Index");
-                }
-                else {
-                    return View(ugfa);
+                    FileName = System.IO.Path.GetFileName(upload.FileName),
+                    FileType = FileType.Photo,
+                    ContentType = upload.ContentType,
+                    User = ugfa.User,
+                    UserId = ugfa.User.Id,
+                };
+                
+                using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                {
+                    file.Content = reader.ReadBytes(upload.ContentLength);
                 }
                 
+                ugfa.Files = new List<Net.Models.File> { file };
+
+                ugfa.Artworks[0].DateCreated = DateTime.UtcNow;
+                ugfa.Artworks[0].GalleryId = id;
+                    
+                BL.Artwork artworkHelper = new BL.Artwork();
+                artworkHelper.Insert(ugfa.Artworks[0], ugfa.Files[0]);
+
+                return RedirectToAction("Index");
+
             }
             catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
                 return View(ugfa);
             }
+                
         }
     }
 }
