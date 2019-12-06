@@ -148,7 +148,7 @@ namespace Octo.Net.UI.Controllers
 
                 _message = new BL.Message();
 
-                ucf.Messages = _message.LoadByCollection(ucf.File.Artwork.CollectionMessageId);
+                ucf.Messages = _message.LoadByCollection(ucf.File.Artwork.CollectionMessageId).OrderByDescending(x => x.DateTime).ToList();
 
                 return View(ucf);
             }
@@ -472,7 +472,7 @@ namespace Octo.Net.UI.Controllers
                 
         }
 
-        // GET: Artwork/Delete/5
+        #region Delete
         public ActionResult Delete(int id)
         {
             if (Authenticate.IsAuthenticated())
@@ -489,7 +489,6 @@ namespace Octo.Net.UI.Controllers
             }
         }
 
-        // POST: Artwork/Delete/5
         [HttpPost]
         public ActionResult Delete(UserGalleryArtworkFile ugfa)
         {
@@ -505,6 +504,7 @@ namespace Octo.Net.UI.Controllers
                 return View(ugfa);
             }
         }
+        #endregion
 
     }
 }
