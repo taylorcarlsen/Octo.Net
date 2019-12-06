@@ -260,6 +260,7 @@
     <Content Include="Views\Profile\GalleryAdd.cshtml" />
     <Content Include="Views\Profile\AddArtwork.cshtml" />
     <Content Include="Views\Profile\AddToGallery.cshtml" />
+    <Content Include="Views\Profile\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

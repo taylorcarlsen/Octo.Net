@@ -64,6 +64,7 @@
                                         </div>
                                         <p class="card-text">Artist who enjoys creating mythical creatures and believes the secrets are kept hidden.</p>
                                         <a href="#" class="btn btn-primary">See More</a>
+                                        <p class="btn btn-secondary">@Html.ActionLink("Delete", "Delete", new { id = item.ArtworkId })</p>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +103,7 @@
                                     </div>
                                     <p class="card-text">@Html.DisplayFor(i => item.GalleryDescription)</p>
                                     <a href="#" class="btn btn-primary">See More</a>
-                                    <p class="card-text">@Html.ActionLink("Add Artwork", "AddToGallery", new { id = item.Id })</p>
+                                    <p class="btn btn-secondary">@Html.ActionLink("Add Artwork", "AddToGallery", new { id = item.Id })</p>
                                 </div>
                             </div>
                         </div>

@@ -140,22 +140,23 @@ namespace Octo.Net.BL
                 db.SaveChanges();
             }
         }
-        /// <summary>
-        /// Delete artwork given the ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>true if successful - false if it cannot find the ID</returns>
+
         public bool Delete(int id)
         {
-            var existing = db.Artworks.SingleOrDefault(x => x.Id == id);
+            var existArt = db.Artworks.SingleOrDefault(x => x.Id == id);
+            var existFile = db.Files.SingleOrDefault(f => f.ArtworkId == id);
 
-            if(existing != null)
+            if (existArt != null || existFile != null)
             {
-                db.Artworks.Remove(existing);
+                db.Artworks.Remove(existArt);
+                db.Files.Remove(existFile);
                 db.SaveChanges();
+
                 return true;
             }
-            else { return false; }
+            else {
+                return false;
+            }
         }
     }
 }

@@ -471,5 +471,40 @@ namespace Octo.Net.UI.Controllers
             }
                 
         }
+
+        // GET: Artwork/Delete/5
+        public ActionResult Delete(int id)
+        {
+            if (Authenticate.IsAuthenticated())
+            {
+                UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
+
+                _file = new BL.File();
+                ugaf.File = _file.LoadByArtworkId(id);
+                return View(ugaf);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login", new { returnurl = HttpContext.Request.Url });
+            }
+        }
+
+        // POST: Artwork/Delete/5
+        [HttpPost]
+        public ActionResult Delete(UserGalleryArtworkFile ugfa)
+        {
+            try
+            {
+                _artwork = new BL.Artwork();
+                _artwork.Delete(ugfa.File.Artwork.Id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View(ugfa);
+            }
+        }
+
     }
 }
