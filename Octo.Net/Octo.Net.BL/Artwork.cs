@@ -143,15 +143,24 @@ namespace Octo.Net.BL
 
         public bool Delete(int id)
         {
+            BL.Artwork artwork = new BL.Artwork();
+            Net.Models.Artwork _artwork = new Net.Models.Artwork();
+            Net.Models.Message _message = new Net.Models.Message();
+
+            _artwork = artwork.LoadById(id);
+
             var existArt = db.Artworks.SingleOrDefault(x => x.Id == id);
             var existFile = db.Files.SingleOrDefault(f => f.ArtworkId == id);
+            var existCol = db.Collections.SingleOrDefault(f => f.Id == _artwork.CollectionMessageId);
+            var existMsg = db.Messages.Where(a => a.CollectionId == _artwork.CollectionMessageId).ToList();
 
-            if (existArt != null || existFile != null)
+            if (existArt != null || existFile != null || existCol != null)
             {
                 db.Artworks.Remove(existArt);
                 db.Files.Remove(existFile);
+                db.Collections.Remove(existCol);
+                existMsg.ForEach(x => db.Messages.Remove(x));
                 db.SaveChanges();
-
                 return true;
             }
             else {
