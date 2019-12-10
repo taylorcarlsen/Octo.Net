@@ -187,7 +187,7 @@ namespace Octo.Net.UI.Controllers
             }
         }
 
-        
+
 
         #endregion
 
@@ -204,10 +204,14 @@ namespace Octo.Net.UI.Controllers
                 }
 
                 BL.User userManager;
+                BL.File fileManager = new BL.File();
+
                 Net.Models.User user;
+                Net.Models.File file;
                 UserGalleryArtworkFile ugaf = new UserGalleryArtworkFile();
 
                 ugaf.User = (Net.Models.User)Session["user"];
+                ugaf.Files = fileManager.LoadByUserId(ugaf.User.Id);
 
                 using (userManager = new BL.User())
                 {
@@ -231,15 +235,27 @@ namespace Octo.Net.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                ugaf.User = (Net.Models.User)Session["user"];
-                Net.Models.User user = ugaf.User;
+                //ugaf.User = (Net.Models.User)Session["user"];
+                Net.Models.User user = (Net.Models.User)Session["user"];
                 BL.User userHelper = new BL.User();
                 BL.File fileHelper = new BL.File();
+                BL.Artwork artworkHelper = new BL.Artwork();
 
-                var oldFile = fileHelper.LoadByUserId(ugaf.User.Id);
+                var oldFile = fileHelper.LoadByUserId(user.Id);
                 Net.Models.File existingFile = new Net.Models.File();
 
-                foreach(var f in oldFile)
+
+                Net.Models.User newUser = userHelper.LoadById(user.Id);
+
+                using (userHelper = new BL.User())
+                {
+                    newUser.FirstName = ugaf.User.FirstName;
+                    newUser.LastName = ugaf.User.LastName;
+                    newUser.Password = ugaf.User.Password;
+                    newUser.CommissionActive = ugaf.User.CommissionActive;
+                }
+
+                foreach (var f in oldFile)
                 {
                     existingFile.ArtworkId = f.ArtworkId;
                     existingFile.Content = f.Content;
@@ -248,6 +264,8 @@ namespace Octo.Net.UI.Controllers
                     existingFile.FileType = f.FileType;
                     existingFile.Id = f.Id;
                     existingFile.UserId = f.UserId;
+                    existingFile.Artwork = artworkHelper.LoadById(f.ArtworkId);
+                    existingFile.User = newUser;
                 }
 
                 try
@@ -270,9 +288,15 @@ namespace Octo.Net.UI.Controllers
                         {
                             file.Content = reader.ReadBytes(upload.ContentLength);
                         }
-                        user.Files = new List<Net.Models.File> { file };
+                        ugaf.User.Files = new List<Net.Models.File> { file };
+                        userHelper.Update(newUser, file);
                     }
-                    userHelper.Update(user, file);
+                    else
+                    {
+                        ugaf.User = newUser;
+                        userHelper.Update(newUser, existingFile);
+                    }
+
                     return RedirectToAction("Index");
                 }
                 catch
@@ -280,7 +304,7 @@ namespace Octo.Net.UI.Controllers
                     return View(ugaf);
                 }
             }
-                return View();
+            return View();
         }
         #endregion
 
@@ -424,7 +448,7 @@ namespace Octo.Net.UI.Controllers
                 _gallery = new BL.Gallery();
                 System.Diagnostics.Debug.WriteLine(id);
 
-                return View(ugaf); 
+                return View(ugaf);
             }
             else
             {
@@ -447,17 +471,17 @@ namespace Octo.Net.UI.Controllers
                     User = ugfa.User,
                     UserId = ugfa.User.Id,
                 };
-                
+
                 using (var reader = new System.IO.BinaryReader(upload.InputStream))
                 {
                     file.Content = reader.ReadBytes(upload.ContentLength);
                 }
-                
+
                 ugfa.Files = new List<Net.Models.File> { file };
 
                 ugfa.Artworks[0].DateCreated = DateTime.UtcNow;
                 ugfa.Artworks[0].GalleryId = id;
-                    
+
                 BL.Artwork artworkHelper = new BL.Artwork();
                 artworkHelper.Insert(ugfa.Artworks[0], ugfa.Files[0]);
 
@@ -469,7 +493,7 @@ namespace Octo.Net.UI.Controllers
                 ViewBag.Message = ex.Message;
                 return View(ugfa);
             }
-                
+
         }
 
         #region Delete

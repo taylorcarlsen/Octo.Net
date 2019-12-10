@@ -102,11 +102,11 @@ namespace Octo.Net.BL
         }
         public void Update(Models.User user, Models.File file)
         {
+            tblUser existing = db.Users.SingleOrDefault(x => x.Id == user.Id);
             File blFile = new File();
             user.Files = blFile.LoadByUserId(user.Id);
 
             Models.File singleFile = new Models.File();
-            var existing = db.Users.SingleOrDefault(x => x.Id == user.Id);
 
 
             foreach (var f in user.Files)
@@ -120,7 +120,7 @@ namespace Octo.Net.BL
                     existing.JoinDate = user.JoinDate;
                     existing.UserName = user.UserName;
                     existing.CommissionActive = user.CommissionActive;
-                    existing.Password = user.Password;
+                    existing.Password = GetHash(user.Password);
 
                     db.SaveChanges();
                 }
