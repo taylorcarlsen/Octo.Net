@@ -6,17 +6,23 @@
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 pt-5">
-                <h2>Join</h2>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 pt-5">
+            <h1 class="text-lg-center"><b>Welcome to Our Community</b></h1>
+            <ul class="list-unstyled pl-3">
+                <li class="text-decoration-none text-center">
+                    <h5>
+                        We are so excited you decided to join our community.<br />
+                        We just need a little bit of information to get you started.
+                    </h5>
+                </li>
+            </ul>
+        </div>
 
-
-            <div class="col-md-6 pt-4 align-content-center">
-
-                @using (Html.BeginForm("Create", "Join", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
+        <div class="col-md-6 pt-4 align-content-center">
+            @using (Html.BeginForm("Create", "Join", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
                 <form>
                     <div class="form-group">
                         @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -47,7 +53,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-4" , @type = "password"})
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-4", @type = "password" })
                         <div class="col-md-10">
                             @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
@@ -55,10 +61,10 @@
                     </div>
                     <!--Commented Out until we have the logic for this writen-->
                     <!--
-    <div class="form-group">
-        <label for="InputPassword2">Confirm Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
-    </div>-->
+                    <div class="form-group">
+                        <label for="InputPassword2">Confirm Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                    </div>-->
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.CommissionActive, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -68,68 +74,52 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.Label("Profile Picture" , new { @class = "control-label col-md-4"})
+                        @Html.Label("Profile Picture", new { @class = "control-label col-md-4" })
                         <div class="col-md-10">
-                            <input type="file" id="Avatar" name="upload"/>
+                            <input type="file" id="Avatar" name="upload" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Join" class="btn btn-primary btn-lg"/>
+                            <input type="submit" value="Join" class="btn btn-primary btn-lg" />
                         </div>
                     </div>
-                    
                 </form>
-                }
+            }
 
-            </div>
-            <div class="col-md-6 pt-4">
-                <h3>Welcome to our community</h3>
-                <ul class="list-unstyled pl-3">
-                    <li class="text-decoration-none">
-                        <p>
-                            We are so excited you decided to join our community.
-                            We just need a little bit of information to get you started.
-                        </p>
-                    </li>
-                </ul>
-                <h4>What to expect</h4>
-                <ul class="list-unstyled pl-3">
-                    <li class="text-decoration-none">
-                        <p>
-                            Meet other artists & find inspiration.
-                        </p>
-                    </li>
-
-                    <li>
-                        <p>
-                            Promote and encourage creativity.
-                        </p>
-                    </li>
-
-                    <li>
-                        <p>
-                            Create and share your portfolio, network with other artists.
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            Collaborate with fellow artists hone your skills together.
-                        </p>
-                    </li>
-                </ul>
-            </div>
-         
-        </div> <!--End Row-->
-        <div class="row mt-5">
-            <h2>Testimonials</h2>
+        </div>
+        
+        <div class="col-md-6 pt-4"><br />
+            <h3 class="text-center">What to expect</h3>
+            <ul class="list-unstyled pl-3 text-center">
+                <li>Meet other artists & find inspiration.</li>
+                <li>Promote and encourage creativity. </li>
+                <li>Create and share your portfolio, network with other artists.</li>
+                <li> Collaborate with fellow artists hone your skills together.</li>
+            </ul>
+            <br />
+            <h3 class="text-center">Testimonials</h3>
             <div class="col-md-12">
+                <div class="card-deck">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <img src="~/Content/img/art31.jpg" class="card-img-top img-fluid" alt="Card image cap"><br /><br />
+                            <h5 class="card-title text-left font-weight-bold">David Marque</h5>
+                            <p class="text-left">I recieved multiple comments on how to better my art and I'm loving it.</p>
+                        </div>
+                    </div>
 
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <img src="~/Content/img/art35.jpg" class="card-img-top img-fluid" alt="Card image cap"> <br /> <br />
+                            <h5 class="card-title text-left font-weight-bold">Wei Wang</h5>
+                            <p class="text-left">Love being able to see other artists artwork and get feedbacks.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-
-
-
+</div>
+<br /><br /> 
