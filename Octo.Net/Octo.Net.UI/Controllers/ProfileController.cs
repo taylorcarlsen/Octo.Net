@@ -288,6 +288,9 @@ namespace Octo.Net.UI.Controllers
                         {
                             file.Content = reader.ReadBytes(upload.ContentLength);
                         }
+
+                        System.Diagnostics.Debug.WriteLine(newUser.Id);
+                        System.Diagnostics.Debug.WriteLine(file.FileName);
                         ugaf.User.Files = new List<Net.Models.File> { file };
                         userHelper.Update(newUser, file);
                     }
@@ -299,8 +302,9 @@ namespace Octo.Net.UI.Controllers
 
                     return RedirectToAction("Index");
                 }
-                catch
+                catch (Exception ex)
                 {
+                    ViewBag.Message = ex.Message;
                     return View(ugaf);
                 }
             }

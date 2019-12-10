@@ -10,7 +10,7 @@
     <form>
         <div class="row">
             <div class="col-md-12">
-
+                @Html.Raw(ViewBag.Message)<br /><br />
                 <div class="row profile-jumbo">
                     <div class="col-md-4 profile-image-area">
                         @foreach (var item in Model.User.Files)

@@ -102,46 +102,49 @@ namespace Octo.Net.BL
         }
         public void Update(Models.User user, Models.File file)
         {
+            OctoNetDbContext db = new OctoNetDbContext();
+
             tblUser existing = db.Users.SingleOrDefault(x => x.Id == user.Id);
             File blFile = new File();
             user.Files = blFile.LoadByUserId(user.Id);
 
             Models.File singleFile = new Models.File();
 
-
-            foreach (var f in user.Files)
+            if (existing != null)
             {
-               
-                if (existing != null)
-                {
-                    existing.FirstName = user.FirstName;
-                    existing.LastName = user.LastName;
-                    existing.Email = user.Email;
-                    existing.JoinDate = user.JoinDate;
-                    existing.UserName = user.UserName;
-                    existing.CommissionActive = user.CommissionActive;
-                    existing.Password = GetHash(user.Password);
+                existing.FirstName = user.FirstName;
+                existing.LastName = user.LastName;
+                existing.Email = user.Email;
+                existing.JoinDate = user.JoinDate;
+                existing.UserName = user.UserName;
+                existing.CommissionActive = user.CommissionActive;
+                existing.Password = GetHash(user.Password);
 
-                    db.SaveChanges();
-                }
-
-                if (f.FileType == Models.FileType.Avatar)
+                foreach (var f in user.Files)
                 {
 
-                    var overwriteFile = db.Files.SingleOrDefault(x => x.Id == f.Id);
-                    if (overwriteFile != null)
+                    if (f.FileType == Models.FileType.Avatar)
                     {
-                        overwriteFile.FileName = file.FileName;
-                        overwriteFile.Content = file.Content;
-                        overwriteFile.ContentType = file.ContentType;
-                        overwriteFile.UserId = file.UserId;
-                        overwriteFile.ArtworkId = file.ArtworkId;
 
-                        db.SaveChanges();
+                        var overwriteFile = db.Files.SingleOrDefault(x => x.Id == f.Id);
+                        if (overwriteFile != null)
+                        {
+                            overwriteFile.FileName = file.FileName;
+                            overwriteFile.Content = file.Content;
+                            overwriteFile.ContentType = file.ContentType;
+                            overwriteFile.UserId = file.UserId;
+                            overwriteFile.ArtworkId = file.ArtworkId;
+
+                        
+                        }
                     }
                 }
+
+                db.SaveChanges();
+
             }
         }
+
         public bool Delete(int id)
         {
             var existing = db.Users.SingleOrDefault(x => x.Id == id);
