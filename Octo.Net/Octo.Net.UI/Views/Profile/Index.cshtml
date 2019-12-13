@@ -12,14 +12,21 @@
             @* User Profie image area *@
             @* TODO: The Files property on the User is still coming back null *@
             @*@@if (Model.User.Files.Any(f => f.FileType == Octo.Net.Models.FileType.Avatar))*@
-            @foreach (var item in Model.Files)
+            @foreach (var item in Model.Files.OrderByDescending(o=>o.FileName).Take(1))
             {
                 if (item.FileType == Octo.Net.Models.FileType.Avatar)
                 {
                     var base64 = Convert.ToBase64String(item.Content);
                     var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
-                    
-                    <img src="@imgSrc" class="rounded-circle profile-image" alt="@Html.DisplayFor(i => Model.User.UserName)'s profile picture" />
+
+                    if (imgSrc != null)
+                    {
+                        <img src="@imgSrc" class="rounded-circle profile-image" alt="@Html.DisplayFor(i => Model.User.UserName)'s profile picture" />
+                    }
+                    else
+                    {
+                        <img src="~/Content/img/usersDefault.png" class="rounded-circle profile-image" alt="@Html.DisplayFor(i => Model.User.UserName)'s profile picture" />
+                    }
                 }
                 else
                 {
@@ -54,8 +61,7 @@
 
                             <div class="col-md-4 card-spacing">
                                 <div class="card" style="width: 18rem;">
-
-                                    <img src="@imgSrc" class="card-img-top" alt="...">
+                                        <img src="@imgSrc" class="card-img-top" alt="...">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-7">
@@ -63,13 +69,12 @@
                                             </div>
                                         </div>
                                         <p class="card-text">Artist who enjoys creating mythical creatures and believes the secrets are kept hidden.</p>
-                                        <a href="#" class="btn btn-primary">See More</a>
-                                        <p class="btn btn-secondary">@Html.ActionLink("Delete", "Delete", new { id = item.ArtworkId })</p>
+                                        @Html.ActionLink("See More", "Artwork", new { id = item.Artwork.Id }, new { @class = "btn btn-primary" })
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.ArtworkId }, new { @class = "btn btn-primary" })
                                     </div>
                                 </div>
                             </div>
                         }
-
                     }
                 </div>
             </div>
@@ -103,12 +108,12 @@
                                     </div>
                                     <p class="card-text">@Html.DisplayFor(i => item.GalleryDescription)</p>
                                     <a href="#" class="btn btn-primary">See More</a>
-                                    <p class="btn btn-secondary">@Html.ActionLink("Add Artwork", "AddToGallery", new { id = item.Id })</p>
+                                    @Html.ActionLink("Add Artwork", "AddToGallery", new { id = item.Id }, new { @class = "btn btn-primary" })
                                 </div>
                             </div>
                         </div>
 
-                        foreach (var item1 in Model.Files)
+                        @*foreach (var item1 in Model.Files)
                         {
                             if (item.Id == item1.Artwork.GalleryId)
                             {
@@ -124,7 +129,7 @@
 
                                 </tr>
                             }
-                        }
+                        }*@
                     }
                 </div>
             </div>

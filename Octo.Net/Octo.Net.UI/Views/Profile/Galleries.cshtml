@@ -5,8 +5,40 @@
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
 <div class="row">
-    <h2>Galleries</h2>
+    <div class="col-md-12 col-offset-1">
+        <h2>Galleries</h2>
+
+        @foreach (var item in Model.Files)
+        {
+            @Html.DisplayFor(i=> item.Artwork.Title);
+        }
+    </div>
 </div>
+<div class="row pt-4">
+    <div class="col-md-12">
+
+        <div class="col-md-4 card-spacing">
+            <div class="card" style="width: 15rem;">
+                <img src="~/Content/img/art13c.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-7">
+                            <h5 class="card-title font-weight-bold">Artwork Title</h5>
+                        </div>
+                    </div>
+                    <p class="card-text">A description of the art.</p>
+                    <p class="btn btn-primary">See More</p>
+                    <p class="btn btn-primary">Delete</p>
+                    @*@Html.ActionLink("See More", "Artwork", new { id = item.Artwork.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ArtworkId }, new { @class = "btn btn-primary" })*@
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 <div class="row">
     <div class="col-md-6">
         <table class="table table-striped">
@@ -54,4 +86,3 @@
         <!--Table to display gallerys-->
     </div>
 </div>
-

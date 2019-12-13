@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -20,28 +21,12 @@
                 </li>
 
                 <li class="nav-item">
-                    @Html.ActionLink(" About ", "About", "Home")
-                </li>
-
-                <li class="nav-item">
-                    @Html.ActionLink(" Contact ", "Contact", "Home")
-                </li>
-
-                <li class="nav-item">
                     @Html.ActionLink(" Join ", "Index", "Join")
                 </li>
 
-                <li class="nav-item">
-                    @Html.ActionLink(" Admin ", "Index", "Admin")
-                </li>
-
-                <li class="nav-item">
-                    @Html.ActionLink(" Users ", "Users", "Admin")
-                </li>
-
                 @*<li class="nav-item">
-            @Html.ActionLink(" Profile ", "Index", "Profile")
-        </li>*@
+                @Html.ActionLink(" Profile ", "Index", "Profile")
+            </li>*@
 
 
                 @{
@@ -59,15 +44,20 @@
                                 Profile
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarProfileDropDownLink">
-                                @Html.ActionLink(" Edit Profile ", "Edit", "Profile",null, new { @class ="myactionlink dropdown-item"})
-                                @Html.ActionLink(" Add Gallery ", "GalleryAdd", "Profile",null, new { @class="myactionlink dropdown-item"})
-                                @Html.ActionLink(" Upload Artwork ", "AddArtwork", "Profile",null,new { @class="myactionlink dropdown-item"})
-                                <a class="dropdown-item" href="#">Upload Image</a>
+                                @Html.ActionLink(" View Profile ", "Index","Profile", null,  new { @class = "myactionlink dropdown-item" })
+                                @Html.ActionLink(" Edit Profile ", "Edit", "Profile", null, new { @class = "myactionlink dropdown-item" })
+                                @Html.ActionLink(" Add Gallery ", "GalleryAdd", "Profile", null, new { @class = "myactionlink dropdown-item" })
+                                @Html.ActionLink(" Upload Artwork ", "AddArtwork", "Profile", null, new { @class = "myactionlink dropdown-item" })
+
                             </div>
                         </li>
                     }
                 }
 
+
+
+            </ul>
+            <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
 
                 <li>
                     @{
@@ -81,6 +71,7 @@
                         }
                     }
                 </li>
+
             </ul>
         </div>
     </nav>
@@ -96,6 +87,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
+
+
                         <li class="nav-item">
                             @Html.ActionLink(" Home ", "Index", "Home")
                         </li>
@@ -105,7 +98,11 @@
                         </li>
 
                         <li class="nav-item">
-                            @Html.ActionLink(" Contact Us", "Contact", "Home")
+                            @Html.ActionLink(" About ", "About", "Home")
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink(" Contact ", "Contact", "Home")
                         </li>
 
 
