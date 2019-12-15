@@ -4,33 +4,135 @@
     ViewBag.Title = "Galleries";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
-<div class="row">
-    <div class="col-md-12 col-offset-1">
-        <h2>Galleries</h2>
+<div class="row ">
+    <div class="col-md-12 offset-1 mt-3">
+        <h2>Gallery Title</h2>
 
         @foreach (var item in Model.Files)
         {
-            @Html.DisplayFor(i=> item.Artwork.Title);
+            <ul>
+                <li>
+                    @Html.DisplayFor(i => item.Artwork.Title);
+                </li>
+            </ul>
         }
     </div>
 </div>
-<div class="row pt-4">
-    <div class="col-md-12">
-
-        <div class="col-md-4 card-spacing">
-            <div class="card" style="width: 15rem;">
-                <img src="~/Content/img/art13c.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-7">
-                            <h5 class="card-title font-weight-bold">Artwork Title</h5>
+<div class="row">
+    <div class="col-md-12 offset-1 mb-3">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="card" style="width: 15rem;">
+                    <img src="~/Content/img/art15c.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-7">
+                                <h5 class="card-title font-weight-bold">Artwork Title</h5>
+                            </div>
                         </div>
-                    </div>
-                    <p class="card-text">A description of the art.</p>
-                    <p class="btn btn-primary">See More</p>
-                    <p class="btn btn-primary">Delete</p>
-                    @*@Html.ActionLink("See More", "Artwork", new { id = item.Artwork.Id }, new { @class = "btn btn-primary" })
+                        <p class="card-text">A description of the art.</p>
+                        <p class="btn btn-primary">See More</p>
+                        <p class="btn btn-primary">Delete</p>
+                        @*@Html.ActionLink("See More", "Artwork", new { id = item.Artwork.Id }, new { @class = "btn btn-primary" })
                     @Html.ActionLink("Delete", "Delete", new { id = item.ArtworkId }, new { @class = "btn btn-primary" })*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="card" style="width: 15rem;">
+                    <img src="~/Content/img/art18c.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-7">
+                                <h5 class="card-title font-weight-bold">Artwork Title</h5>
+                            </div>
+                        </div>
+                        <p class="card-text">A description of the art.</p>
+                        <p class="btn btn-primary">See More</p>
+                        <p class="btn btn-primary">Delete</p>
+                        @*@Html.ActionLink("See More", "Artwork", new { id = item.Artwork.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ArtworkId }, new { @class = "btn btn-primary" })*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="card" style="width: 15rem;">
+                    <img src="~/Content/img/art31.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-7">
+                                <h5 class="card-title font-weight-bold">Artwork Title</h5>
+                            </div>
+                        </div>
+                        <p class="card-text">A description of the art.</p>
+                        <p class="btn btn-primary">See More</p>
+                        <p class="btn btn-primary">Delete</p>
+                        @*@Html.ActionLink("See More", "Artwork", new { id = item.Artwork.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ArtworkId }, new { @class = "btn btn-primary" })*@
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 offset-1 mb-3">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="card" style="width: 15rem;">
+                    <img src="~/Content/img/art29.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-7">
+                                <h5 class="card-title font-weight-bold">Artwork Title</h5>
+                            </div>
+                        </div>
+                        <p class="card-text">A description of the art.</p>
+                        <p class="btn btn-primary">See More</p>
+                        <p class="btn btn-primary">Delete</p>
+                        @*@Html.ActionLink("See More", "Artwork", new { id = item.Artwork.Id }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ArtworkId }, new { @class = "btn btn-primary" })*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="card" style="width: 15rem;">
+                    <img src="~/Content/img/art34c.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-7">
+                                <h5 class="card-title font-weight-bold">Artwork Title</h5>
+                            </div>
+                        </div>
+                        <p class="card-text">A description of the art.</p>
+                        <p class="btn btn-primary">See More</p>
+                        <p class="btn btn-primary">Delete</p>
+                        @*@Html.ActionLink("See More", "Artwork", new { id = item.Artwork.Id }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ArtworkId }, new { @class = "btn btn-primary" })*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="card" style="width: 15rem;">
+                    <img src="~/Content/img/art37c.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-7">
+                                <h5 class="card-title font-weight-bold">Artwork Title</h5>
+                            </div>
+                        </div>
+                        <p class="card-text">A description of the art.</p>
+                        <p class="btn btn-primary">See More</p>
+                        <p class="btn btn-primary">Delete</p>
+                        @*@Html.ActionLink("See More", "Artwork", new { id = item.Artwork.Id }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ArtworkId }, new { @class = "btn btn-primary" })*@
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,50 +141,3 @@
 </div>
 
 
-<div class="row">
-    <div class="col-md-6">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">
-                    </th>
-                    <th scope="col">
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Galleries)
-                {
-                    <tr>
-                        <td scope="row">
-                            @Html.DisplayFor(i => item.GalleryName)
-                        </td>
-
-                        <td scope="row">
-                            @Html.DisplayFor(i => item.GalleryDescription)
-                        </td>
-
-                    </tr>
-                    foreach (var item1 in Model.Files)
-                    {
-                        if (item.Id == item1.Artwork.GalleryId)
-                        {
-
-                        <tr>
-                            <td scope="row">
-                                @Html.DisplayFor(i => item1.Artwork.Title)
-                            </td>
-
-                            <td scope="row">
-                                @Html.ActionLink("View", "Artwork", item1.Id)
-                            </td>
-
-                        </tr>
-                        }
-                    }
-                }
-                </tbody>
-        </table>
-        <!--Table to display gallerys-->
-    </div>
-</div>

@@ -42,14 +42,14 @@
 
 <div class="row">
     <div class="col-md-12 profile-recent-works">
-        <div class="row">
+        <div class="row offset-1">
             <div class="col-md-12">
                 <h2>Recent Works</h2>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="row">
+                <div class="row offset-1">
                     @* TODO: Get the users gallery and programatically create and fill cards *@
                     @foreach (var item in Model.Files)
                     //@foreach (var artwork in item.Artwork.OrderByDescending(o=>o.DateCreated).Take(5))
@@ -59,7 +59,7 @@
                             var base64 = Convert.ToBase64String(item.Content);
                             var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
 
-                            <div class="col-md-4 card-spacing">
+                            <div class="col-md-2 card-spacing">
                                 <div class="card" style="width: 18rem;">
                                         <img src="@imgSrc" class="card-img-top" alt="...">
                                     <div class="card-body">
@@ -82,7 +82,7 @@
     </div>
 </div>
 
-<div class="row profile-lower">
+<div class="row profile-lower offset-1">
     <div class="col-md-6">
         <div class="row">
             <div class="col-md-12">
